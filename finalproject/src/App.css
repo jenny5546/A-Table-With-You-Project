@@ -1,38 +1,52 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+.logo{
+  margin-top: 10px;
+  width: 20%;
+  margin-left: 1%;
+  height: auto;
+  
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Search-container{
+  margin-top: 10px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Main-pic{
+  width:100%;
+  height:auto;
+  filter: brightness(80%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Search-bar {
+  position: absolute;
+  font-size: 15px;
+  height: 40px;
+  left:15%;
+  top:40%;
+  width: 70%;
+  max-height: 10%;
+  border-radius: 50px;
+  border: 2px;
+  margin: top_px auto bottom_px auto;
+  text-align-last:center;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.30);
+  font-family: 'Nanum Gothic', sans-serif;
 }
-
-.App-link {
-  color: #61dafb;
+.Search-image{
+  position: absolute;
+  width:2%;
+  left:16%;
+  top: 41%;
+  margin: top_px auto bottom_px auto;
+  max-height: 8%;
+  max-width: 8%;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.recommendation{
+  position: absolute;
+  font-size: 12px;
+  left:15%;
+  top:35%;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 36px;
+  color: #FFFFFF;
+  font-family: 'Nanum Gothic', sans-serif;
 }
