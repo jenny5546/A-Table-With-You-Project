@@ -9,6 +9,10 @@ import search from './static/search.png';
 import logo from './static/logo.png';
 import { Slide } from 'react-slideshow-image';
 import './App.css';
+import firebase from 'firebase';
+import { firebaseConfig } from './firebase';
+
+firebase.initializeApp(firebaseConfig);
 
 const slideImages= [mainpic1,mainpic2,mainpic3,mainpic4,mainpic5,mainpic6];
 const properties = {
