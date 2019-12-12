@@ -55,11 +55,10 @@ function App() {
           </Slide>
         </div>
           <div className="recommendation">#돈까스#제육볶음#서울대입구</div>
-          <form>
-            <input type="text" className="Search-bar" placeholder="         먹고 싶은 음식이나 지역을 입력해주세요"/>
+          <form className="Search-form">
+            <img src={search} className="Search-image"></img>
+            <input type="text" className="Search-bar" placeholder="   먹고 싶은 음식이나 지역을 입력해주세요"/>
           </form>
-          <img src={search} className="Search-image"></img>
-          
         </div>
         
         
