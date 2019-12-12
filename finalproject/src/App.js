@@ -1,20 +1,23 @@
 import firebase from "firebase";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.css";
+// import "./App.css";
 import Home from "./components/home/home";
 import { firebaseConfig } from "./firebase";
-import logo from "./static/logo.png";
+
 
 
 firebase.initializeApp(firebaseConfig);
 
 function App() {
+  
+
+
   return (
     <Router>
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="logo" />
+          
         </header>
 
         <Switch>
