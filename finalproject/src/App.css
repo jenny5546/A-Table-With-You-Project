@@ -6,9 +6,43 @@
   height: auto;
   
 }
+.App-header{
+  position: relative;
+}
+.Login-Signup{
+  position: absolute;
+  right: 0;
+}
+.Login{
+  display:inline-block;
+}
+.Signup{
+  display:inline-block;
+}
+.Login-button{
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: bold;
+  color: #7e91be;
+}
+.Signup-button{
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: bold;
+  color: #7e91be;
+}
+.Line{
+  /* height: 1px; */
+  border-top: 2px solid #ccc;
+  margin-top: 20px;
+
+}
 .Search-container{
   margin-top: 10px;
 }
+
 .Main-pic{
   width:100%;
   height:auto;
@@ -19,7 +53,7 @@
 .Search-form {
   position: absolute;
   left:15%;
-  top:40%;
+  top:45%;
   width: 70%;
   border-radius: 50px;
   background: white;
@@ -31,19 +65,15 @@
   padding: 3px 10px;
 }
 .Search-bar {
-  
   font-size: 15px;
   height: 40px;
   width: 80%;
   max-height: 10%;
   border: none;
-
   margin: top_px auto bottom_px auto;
-  
   font-family: 'Nanum Gothic', sans-serif;
 }
 .Search-image{
-  
   height: 100%;
   width: 32px;
   margin: top_px auto bottom_px auto;
@@ -54,10 +84,84 @@
   position: absolute;
   font-size: 12px;
   left:15%;
-  top:35%;
+  top:40%;
   font-weight: normal;
   font-size: 16px;
   line-height: 36px;
   color: #FFFFFF;
   font-family: 'Nanum Gothic', sans-serif;
 }
+.id-input, .pw-input{
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 350px;
+  border: 3px solid #7e91be;
+}
+.button {
+  padding: 5px 10px;
+  font-size: 25px;
+  background-color: #7e91be;
+  color: white;
+  border: none;
+  float: right;
+  height: 110px;
+  width: 140px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+p1 {
+  position: relative;                     /* 큰 div 안에 속하는 영역들의 위치를 지정할 땐 position relative 하고 top, left 로 위치 조절하기. margin은 아님 */
+  font-size: 24px;
+  font-weight: 700;
+  color: #5e6f96;
+  top: 50px;
+  left: 60px;
+  display: block;
+
+}
+
+p2 {
+  position: relative;
+  font-size: 23px;
+  font-weight: 400;
+  color: #7e91be;
+  top: 55px;
+  left: 60px;
+  display: block;
+
+}
+.signup_area {                                   /* 회원가입 전체 영역 */
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 150px;
+  width: 618px;
+  height: 670px;
+  border-radius: 23px;
+  background-color: white;
+  font-family: 'Nanum Gothic', sans-serif;
+
+}
+.essential_box {
+  position: relative;
+  width: 305px;
+  height: 189px;
+  top: 93px;                          /*위에서부터의 top 값은 p1 타이틀에서부터의 거리 구하기 */
+  left: 60px;
+  display: block;
+}
+/* .email_box label,
+.password_box1 label,
+.password_box2 label,
+.nickname_box label {
+    position: absolute;
+    font-size: 11px;
+    font-weight: 500;
+    top: 25px;
+    left: 20px;
+    color: #717171;
+    cursor: text;
+
+} */
