@@ -5,6 +5,10 @@ import Home from "./components/home/home";
 import { signUp, SigninError, signIn, SignupError } from "./utils/auth";
 
 function App() {
+  /*
+    아래는 회원가입과 로그인 코드 샘플입니다.
+  */
+  /*
   const [exampleImage, setExampleImage] = useState(null);
 
   const exampleProfileImageHandleChange = e => {
@@ -64,18 +68,20 @@ function App() {
         }
       });
   };
+  */
 
   return (
     <Router>
       <div className="App">
         <header className="App-header"></header>
-        <input
+        {/* 아래는 프로필 사진을 포함한 회원가입, 로그인을 테스트하기 위한 코드입니다. */}
+        {/* <input
           type="file"
           name="profile"
           onChange={exampleProfileImageHandleChange}
         />
         <button onClick={exampleSignUp}>회원가입</button>
-        <button onClick={exampleSignIn}>로그인</button>
+        <button onClick={exampleSignIn}>로그인</button> */}
         <Switch>
           {/* <Route path="뒤에 들어갈 주소를 적어주세요. ex) signup">
             주소에 접속시 나타나는 컴포넌트를 넣어주시면 됩니다.
