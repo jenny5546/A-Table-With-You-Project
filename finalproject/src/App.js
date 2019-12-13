@@ -6,12 +6,10 @@ import Home from "./components/home/home";
 import { firebaseConfig } from "./firebase";
 
 
-
 firebase.initializeApp(firebaseConfig);
 
 function App() {
   
-
 
   return (
     <Router>
