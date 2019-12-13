@@ -4,7 +4,7 @@
 
 ### Development
 
-.env file 안에 firebase 관련 키를 입력해주세요.
+finalproject 폴더 안에 `.env` 파일을 만들고 해당 파일에 firebase 관련 키를 입력해주세요.
 ```
 /.env
 
