@@ -1,12 +1,13 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import "firebase/database";
+import "firebase/firestore";
 
 export const FirebaseSignupError = {
   ALREADY_EMAIL_USE: 1,
   INVALID_EMAIL: 2,
   OPERATION_NOT_ALLOWED: 3,
-  WEAK_PASSWORD: 4 // Minimum password length is 6
+  WEAK_PASSWORD: 4, // Minimum password length is 6
+  SYSTEM_ERROR: 5
 };
 
 export const FirebaseSigninError = {
@@ -15,6 +16,11 @@ export const FirebaseSigninError = {
   USER_NOT_FOUND: 3,
   WRONG_PASSWORD: 4,
   NOT_EXIST_DATA: 5
+};
+
+export const FirestoreError = {
+  NOT_EXIST_DOC: 1,
+  SYSTEM_ERROR: 2
 };
 
 export const initFirebase = () => {
@@ -71,17 +77,14 @@ export const signUp = ({
     })
     .then(({ user }) => {
       const uid = user.uid;
-      return firebase
-        .database()
-        .ref(`users/${uid}`)
-        .set({
-          email,
-          name,
-          age,
-          nickname,
-          phone,
-          gender
-        });
+      return setFirestoreDocument("users", uid, {
+        email,
+        name,
+        age,
+        nickname,
+        phone,
+        gender
+      });
     });
 };
 
@@ -116,27 +119,41 @@ export const signIn = ({ email, password }) => {
     })
     .then(({ user }) => {
       const uid = user.uid;
-      return firebase
-        .database()
-        .ref(`users/${uid}`)
-        .once("value")
-        .then(snapshot => {
-          if (snapshot.val()) {
-            const {
-              email,
-              name,
-              nickname,
-              age,
-              gender,
-              phone
-            } = snapshot.val();
-            return { email, name, nickname, age, gender, phone };
-          } else {
-            return Promise.reject({ code: FirebaseSigninError.NOT_EXIST_DATA });
-          }
+      return getFirebaseDocument("users", uid)
+        .then(data => {
+          const { email, name, nickname, age, gender, phone } = data;
+          return { email, name, nickname, age, gender, phone };
         })
         .catch(err => {
-          return Promise.reject(err);
+          return Promise.reject({ code: FirebaseSigninError.NOT_EXIST_DATA });
         });
+    });
+};
+
+export const setFirestoreDocument = (collection, document, value) => {
+  return firebase
+    .firestore()
+    .collection(collection)
+    .doc(document)
+    .set(value)
+    .catch(err => {
+      return Promise.reject(err);
+    });
+};
+
+export const getFirebaseDocument = (collection, document) => {
+  return firebase
+    .firestore()
+    .collection(collection)
+    .doc(document)
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        return doc.data();
+      }
+      return Promise.reject({ code: FirestoreError.NOT_EXIST_DOC });
+    })
+    .catch(err => {
+      return Promise.reject(err);
     });
 };
