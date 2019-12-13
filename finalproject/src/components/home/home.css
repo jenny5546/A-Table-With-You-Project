@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Gelasio&display=swap');
 .logo{
-  margin-top: 10px;
+  margin-top: 30px;
   width: 20%;
   margin-left: 1%;
   height: auto;
@@ -36,7 +37,12 @@
 .Line{
   /* height: 1px; */
   border-top: 2px solid #ccc;
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  left: 0px;
+  top: 25px;
 
 }
 .Search-container{
@@ -91,77 +97,124 @@
   color: #FFFFFF;
   font-family: 'Nanum Gothic', sans-serif;
 }
-.id-input, .pw-input{
-  padding: 10px;
-  margin-top: 20px;
+
+
+/* login-signup mod */
+.id-label {
+  margin-top: 100px;
+  /* padding: 10px; */
+  padding-left: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.pw-label{
+  padding-left: 5px;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.input-login{
+  padding: 3px;
   font-size: 16px;
-  border-radius: 8px;
-  width: 350px;
-  border: 3px solid #7e91be;
-}
-.button {
-  padding: 5px 10px;
-  font-size: 25px;
-  background-color: #7e91be;
-  color: white;
-  border: none;
-  float: right;
-  height: 110px;
-  width: 140px;
-  border-radius: 8px;
-  margin-top: 20px;
-}
-p1 {
-  position: relative;                     /* 큰 div 안에 속하는 영역들의 위치를 지정할 땐 position relative 하고 top, left 로 위치 조절하기. margin은 아님 */
-  font-size: 24px;
-  font-weight: 700;
-  color: #5e6f96;
-  top: 50px;
-  left: 60px;
-  display: block;
-
+  margin-left: 10px;
 }
 
-p2 {
+.big-container-login, .big-container-signup{
+  background-color: #7e91be25;
+  height: 100%;
+}
+.small-container-login{
+  margin-top: 50px;
   position: relative;
-  font-size: 23px;
-  font-weight: 400;
-  color: #7e91be;
-  top: 55px;
-  left: 60px;
-  display: block;
-
-}
-.signup_area {                                   /* 회원가입 전체 영역 */
-  position: relative;
+  background-color: white;
+  height: 70%;
+  width: 40%;
   margin-left: auto;
   margin-right: auto;
-  top: 150px;
-  width: 618px;
-  height: 670px;
-  border-radius: 23px;
-  background-color: white;
-  font-family: 'Nanum Gothic', sans-serif;
-
+  
 }
-.essential_box {
+.login-image{
+  width:296px;;
+  height:auto;
+  position: absolute;
+  right:0;
+  top: 0;
+  filter: brightness(70%);
+  
+}
+.login-button{
+  position: absolute;
+  bottom: 5%;
+  align-self: left;
+  font-size: 30px;
+}
+.login-title, .signup-title{
+  font-family: 'Gelasio', serif;
+  font-size: 30px;
+}
+.login-form{
+  margin-left: 5px;
+}
+.small-container-signup{
+  background-color: #7e91be25;
+  margin-top: 50px;
   position: relative;
-  width: 305px;
-  height: 189px;
-  top: 93px;                          /*위에서부터의 top 값은 p1 타이틀에서부터의 거리 구하기 */
-  left: 60px;
-  display: block;
+  background-color: white;
+  height: 80%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
-/* .email_box label,
-.password_box1 label,
-.password_box2 label,
-.nickname_box label {
-    position: absolute;
-    font-size: 11px;
-    font-weight: 500;
-    top: 25px;
-    left: 20px;
-    color: #717171;
-    cursor: text;
+.signup-image{
+  width:660px;;
+  height:auto;
+  position: absolute;
+  right:0;
+  top: 0;
+  filter: brightness(70%);
+}
+.name-label{
+  font-size: 12px;
+  font-weight: bold;
+  padding-left: 5px;
+  margin-top: 30px;
+}
+.gender-label,.phonenumber-label, .username-label, .password-label, .nickname-label, .age-label{
+  font-size: 12px;
+  font-weight: bold;
+  padding-left: 5px;
+}
+.photo-label{
+  font-size: 12px;
+  font-weight: bold;
+  padding-left: 5px;
+  margin-top: 40px;
+}
+.gender-select{
+  display:inline-block;
+  padding: 10px;
+}
+.input{
+  padding: 3px;
+  /* margin-left: 3px; */
+  margin-left: 10px;
+}
+.photo-upload-container{
+  position: absolute;
+  width: 140px;
+  height: 135px;
+  left: 280px;
+  top: 160px;
+  border-style: solid;
+  border-color: #7e91be25;
+  padding: 10px;
+  border-radius: 60%;
 
-} */
+}
+.file-input{
+  padding: 3px;
+  margin-top: 10px;
+}
+.age-select{
+  margin-left:10px;
+}
