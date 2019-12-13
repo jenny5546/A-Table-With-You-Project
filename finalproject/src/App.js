@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import "./App.css";
 import Home from "./components/home/home";
 import { signUp, SigninError, signIn, SignupError } from "./utils/auth";
 
 function App() {
+  const [exampleImage, setExampleImage] = useState(null);
+
+  const exampleProfileImageHandleChange = e => {
+    if (e.target.files[0]) {
+      setExampleImage(e.target.files[0]);
+    }
+  };
+
   const exampleSignUp = () => {
     return signUp({
+      profileImage: exampleImage,
       email: "ysm1180@gmail.com",
       password: "qweqwe",
       nickname: "gasi",
@@ -60,6 +69,13 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header"></header>
+        <input
+          type="file"
+          name="profile"
+          onChange={exampleProfileImageHandleChange}
+        />
+        <button onClick={exampleSignUp}>회원가입</button>
+        <button onClick={exampleSignIn}>로그인</button>
         <Switch>
           {/* <Route path="뒤에 들어갈 주소를 적어주세요. ex) signup">
             주소에 접속시 나타나는 컴포넌트를 넣어주시면 됩니다.

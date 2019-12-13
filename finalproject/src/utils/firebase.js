@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 export const FirestoreError = {
   NOT_EXIST_DOC: 1,
@@ -56,4 +57,18 @@ export const getFirebaseDocument = (collection, document) => {
     .catch(err => {
       return Promise.reject(err);
     });
+};
+
+export const uploadImageToStorage = (fileName, image) => {
+  return firebase
+    .storage()
+    .ref(fileName)
+    .put(image);
+};
+
+export const getImageDownloadPath = fileName => {
+  return firebase
+    .storage()
+    .ref(fileName)
+    .getDownloadURL();
 };

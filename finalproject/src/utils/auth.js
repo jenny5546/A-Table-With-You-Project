@@ -2,7 +2,9 @@ import {
   setFirestoreDocument,
   createEmailWithPassword,
   signInWithEmailAndPassword,
-  getFirebaseDocument
+  getFirebaseDocument,
+  uploadImageToStorage,
+  getImageDownloadPath
 } from "./firebase";
 
 export const SignupError = {
@@ -22,6 +24,7 @@ export const SigninError = {
 };
 
 export const signUp = ({
+  profileImage,
   email,
   password,
   name,
@@ -65,6 +68,12 @@ export const signUp = ({
         nickname,
         phone,
         gender
+      }).then(() => {
+        if (profileImage) {
+          return uploadImageToStorage(`profiles/${uid}.jpg`, profileImage);
+        } else {
+          return;
+        }
       });
     });
 };
@@ -99,9 +108,20 @@ export const signIn = ({ email, password }) => {
     .then(({ user }) => {
       const uid = user.uid;
       return getFirebaseDocument("users", uid)
-        .then(data => {
+        .then(async data => {
           const { email, name, nickname, age, gender, phone } = data;
-          return { email, name, nickname, age, gender, phone };
+          const profileImagePath = await getImageDownloadPath(
+            `profiles/${uid}.jpg`
+          );
+          return {
+            profileImagePath,
+            email,
+            name,
+            nickname,
+            age,
+            gender,
+            phone
+          };
         })
         .catch(err => {
           return Promise.reject({ code: SigninError.NOT_EXIST_DATA });
