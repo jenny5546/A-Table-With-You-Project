@@ -2,12 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import "./App.css";
 import Home from "./components/home/home";
-import {
-  signUp,
-  FirebaseSignupError,
-  FirebaseSigninError,
-  signIn
-} from "./firebase";
+import { signUp, SigninError, signIn, SignupError } from "./utils/auth";
 
 function App() {
   const exampleSignUp = () => {
@@ -24,13 +19,13 @@ function App() {
         // 회원가입 성공했음
       })
       .catch(err => {
-        if (err.code === FirebaseSignupError.ALREADY_EMAIL_USE) {
+        if (err.code === SignupError.ALREADY_EMAIL_USE) {
           console.log("이미 사용중인 이메일 주소입니다.");
-        } else if (err.code === FirebaseSignupError.INVALID_EMAIL) {
+        } else if (err.code === SignupError.INVALID_EMAIL) {
           console.log("올바르지 않은 이메일 주소 형식입니다.");
-        } else if (err.code === FirebaseSignupError.OPERATION_NOT_ALLOWED) {
+        } else if (err.code === SignupError.OPERATION_NOT_ALLOWED) {
           console.log("현재 회원가입이 불가능합니다.");
-        } else if (err.code === FirebaseSignupError.WEAK_PASSWORD) {
+        } else if (err.code === SignupError.WEAK_PASSWORD) {
           console.log("비밀번호는 최소 6자 이상으로 구성해주세요.");
         } else {
           console.error(err);
@@ -40,24 +35,24 @@ function App() {
 
   const exampleSignIn = () => {
     signIn({ email: "ysm1180@gmail.com", password: "qweqwe" })
+      .then(userData => {
+        // 로그인 성공
+        console.log(userData);
+      })
       .catch(err => {
-        if (err.code === FirebaseSigninError.INVALID_EMAIL) {
+        if (err.code === SigninError.INVALID_EMAIL) {
           console.log("올바르지 않은 이메일 주소 형식입니다.");
-        } else if (err.code === FirebaseSigninError.USER_DISABLED) {
+        } else if (err.code === SigninError.USER_DISABLED) {
           console.log("해당 유저는 비활성화 되었습니다.");
-        } else if (err.code === FirebaseSigninError.USER_NOT_FOUND) {
+        } else if (err.code === SigninError.USER_NOT_FOUND) {
           console.log("존재하지 않는 이메일 주소입니다.");
-        } else if (err.code === FirebaseSigninError.WRONG_PASSWORD) {
+        } else if (err.code === SigninError.WRONG_PASSWORD) {
           console.log("비밀번호가 틀렸습니다.");
-        } else if (err.code === FirebaseSigninError.NOT_EXIST_DATA) {
+        } else if (err.code === SigninError.NOT_EXIST_DATA) {
           console.log("유저 데이터를 가져올 수 없습니다.");
         } else {
           console.error(err);
         }
-      })
-      .then(userData => {
-        // 로그인 성공
-        console.log(userData);
       });
   };
 
