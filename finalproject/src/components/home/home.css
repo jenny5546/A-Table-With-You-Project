@@ -133,9 +133,13 @@
   margin-right: auto;
   
 }
+.image-box-login{
+  height: 40%;
+}
 .login-image{
-  width:296px;;
-  height:auto;
+  max-width: 100%;
+  max-height: 100%;
+  display:block;
   position: absolute;
   right:0;
   top: 0;
@@ -165,9 +169,13 @@
   margin-left: auto;
   margin-right: auto;
 }
+.image-box-signup{
+  height: 80%;
+}
 .signup-image{
-  width:660px;;
-  height:auto;
+  max-width: 60%;
+  height: 100%;
+  display: block;
   position: absolute;
   right:0;
   top: 0;

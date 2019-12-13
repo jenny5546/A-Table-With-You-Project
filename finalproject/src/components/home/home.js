@@ -61,7 +61,7 @@ function Home() {
                     <DialogContent>
                       <form className="login-form"> {/*onClick ={login}*/}
                         <div className="login-title">Welcome Back!</div>
-                        <div>
+                        <div className="image-box-login">
                           <img src={login} className="login-image" />
                         </div>
                         <div className= "login-form">
@@ -97,7 +97,7 @@ function Home() {
                   <DialogContent>
                     <form className="signup-form">
                       <div className="signup-title">Sign-up</div>
-                        <div>
+                        <div className="image-box-signup">
                           <img src={signup} className="signup-image" />
                         </div>
                         <div className="signup-form">
