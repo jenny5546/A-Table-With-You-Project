@@ -149,16 +149,14 @@ function Home() {
                                     <option >41  -  45 </option>
                                 </select>
                             </div>
-                          </div>  
+                          </div> 
+                          <input type="submit" className="signup-button" value="→"/>
                         </div>
-                            
 
                     </form>
                   </DialogContent>
                 </div>
-                
-
-                
+            
                 <DialogActions>
                   <Button onClick={handleClose_signup} color="primary">닫기</Button>
                 </DialogActions>
