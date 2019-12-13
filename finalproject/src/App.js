@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import "./App.css";
-import Home from "./components/home/home";
-import { signUp, SigninError, signIn, SignupError } from "./utils/auth";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import './App.css';
+import Home from './components/home/home';
 
 function App() {
   /*
@@ -72,25 +71,14 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        <header className="App-header"></header>
-        {/* 아래는 프로필 사진을 포함한 회원가입, 로그인을 테스트하기 위한 코드입니다. */}
-        {/* <input
-          type="file"
-          name="profile"
-          onChange={exampleProfileImageHandleChange}
-        />
-        <button onClick={exampleSignUp}>회원가입</button>
-        <button onClick={exampleSignIn}>로그인</button> */}
-        <Switch>
-          {/* <Route path="뒤에 들어갈 주소를 적어주세요. ex) signup">
+      <Switch>
+        {/* <Route path="뒤에 들어갈 주소를 적어주세요. ex) signup">
             주소에 접속시 나타나는 컴포넌트를 넣어주시면 됩니다.
           </Route> */}
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
     </Router>
   );
 }
