@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import Search from './components/search/search';
 import Home from './components/home/home';
 import SignUp from './components/signup/signup';
+
 function App() {
   /*
     아래는 회원가입과 로그인 코드 샘플입니다.
@@ -78,8 +80,11 @@ function App() {
         <Route path="/signup">
           <SignUp />
         </Route>
-        <Route path="/">
+        <Route exact path="/">
           <Home />
+        </Route>
+        <Route path="/search">
+          <Search />
         </Route>
       </Switch>
     </Router>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, render } from 'react';
 import Button from '@material-ui/core/Button';
 import mainpic2 from './mainpic3.jpg';
 import mainpic3 from './mainpic4.jpg';
@@ -15,9 +15,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { TextField } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import { signIn, SigninError } from '../../utils/auth';
 import { Box, Text, Image, Flex } from 'rebass';
+import { Link, Redirect } from 'react-router-dom';
 
 const slideImages = [mainpic2, mainpic3, mainpic4, mainpic5, mainpic6];
 const properties = {
@@ -33,6 +33,7 @@ function Home() {
   const [signInInfo, setSignInInfo] = useState({});
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+  const [redirect, setRedirect] = useState(false);
   const handleClickOpen_login = () => {
     setOpen_login(true);
   };
@@ -74,6 +75,18 @@ function Home() {
       });
   };
 
+  const searchResults = (e) => {
+    // console.log("hi");
+    // render (
+    //   <div>
+    //     <Redirect to="/search/"/>
+    //   </div>
+
+    // )
+    e.preventDefault();
+    setRedirect(true);
+  };
+
   /////*******if 로그인이 안돼 있으면 ********////////
   return (
     <div className="App">
@@ -102,6 +115,7 @@ function Home() {
           </div>
         ) : (
           <div className="align-right">
+            {/* <li><Link to="/search/">Home</Link></li> */}
             <input
               type="button"
               onClick={handleClickOpen_login}
@@ -122,14 +136,16 @@ function Home() {
         <div className="container">
           <div className="Search-container">
             <div className="recommendation">#돈까스#제육볶음#서울대입구</div>
-            <form className="Search-form">
+            <form className="Search-form" onSubmit={searchResults}>
               <img src={search} className="Search-image"></img>
               <input
                 type="text"
                 className="Search-bar"
                 placeholder="먹고 싶은 음식이나 지역을 입력해주세요"
               />
+              {/* <input type="submit"></input> */}
             </form>
+            {redirect && <Redirect to="/search/" />}
           </div>
           <div className="slide-container">
             <Slide {...properties}>
