@@ -18,6 +18,7 @@ import { TextField } from '@material-ui/core';
 import { signIn, SigninError } from '../../utils/auth';
 import { Box, Text, Image, Flex } from 'rebass';
 import { Link, Redirect } from 'react-router-dom';
+//learning github
 
 const slideImages = [mainpic2, mainpic3, mainpic4, mainpic5, mainpic6];
 const properties = {
