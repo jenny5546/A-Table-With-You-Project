@@ -106,7 +106,7 @@ function Home() {
                   <Text as="span" fontWeight="bold">
                     {userInfo.nickname}
                   </Text>{' '}
-                  님, 안녕하세요
+                  님, 안녕하세요.
                 </Text>
                 <Link to="/mypage" className="button">
                   마이 페이지
