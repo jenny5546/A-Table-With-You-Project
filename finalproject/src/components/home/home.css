@@ -1,66 +1,86 @@
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Gelasio&display=swap');
-.logo{
-  margin-top: 30px;
-  width: 20%;
-  margin-left: 1%;
-  height: auto;
-  
+
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
-.App-header{
+
+.App-header {
   position: relative;
 }
-.Login-Signup{
-  position: absolute;
-  right: 0;
+
+.align-right {
+  text-align: right;
 }
-.Login{
-  display:inline-block;
-}
-.Signup{
-  display:inline-block;
-}
-.Login-button{
+
+.button {
   border: none;
   background: transparent;
   font-size: 13px;
   font-weight: bold;
   color: #7e91be;
+  text-decoration: none;
+  padding: 0 10px;
+  cursor: pointer;
 }
-.Signup-button{
-  border: none;
-  background: transparent;
-  font-size: 13px;
-  font-weight: bold;
-  color: #7e91be;
-}
-.Line{
+
+.Line {
   /* height: 1px; */
   border-top: 2px solid #ccc;
   /* margin-top: 20px; */
-  position: absolute;
   width: 100%;
   height: 1px;
-  left: 0px;
-  top: 25px;
-
-}
-.Search-container{
-  margin-top: 10px;
 }
 
-.Main-pic{
-  width:100%;
-  height:auto;
+.App-body {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  position: relative;
+  height: 100%;
+  min-height: 750px;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+
+.each-slide {
+  display: flex;
+  height: 750px;
+}
+
+.Main-pic {
+  width: 100%;
+  max-height: 100%;
   filter: brightness(80%);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.Search-form {
-  position: absolute;
-  left:15%;
-  top:45%;
+.Search-container {
+  display: flex;
+  flex-direction: column;
   width: 70%;
+  z-index: 2;
+  margin-bottom: 100px;
+}
+
+.Search-form {
+  width: 100%;
   border-radius: 50px;
   background: white;
   border: 2px;
@@ -70,27 +90,31 @@
   align-items: center;
   padding: 3px 10px;
 }
+
 .Search-bar {
   font-size: 15px;
   height: 40px;
-  width: 80%;
+  width: 100%;
   max-height: 10%;
   border: none;
   margin: top_px auto bottom_px auto;
   font-family: 'Nanum Gothic', sans-serif;
+  outline: 0;
+  padding-left: 15px;
 }
-.Search-image{
+
+.Search-image {
   height: 100%;
   width: 32px;
   margin: top_px auto bottom_px auto;
   max-height: 8%;
   max-width: 8%;
 }
-.recommendation{
-  position: absolute;
+
+.recommendation {
   font-size: 12px;
-  left:15%;
-  top:40%;
+  left: 15%;
+  top: 40%;
   font-weight: normal;
   font-size: 16px;
   line-height: 36px;
@@ -107,23 +131,26 @@
   font-size: 12px;
   font-weight: bold;
 }
-.pw-label{
+
+.pw-label {
   padding-left: 5px;
   margin-top: 10px;
   font-size: 12px;
   font-weight: bold;
 }
-.input-login{
+
+.input-login {
   padding: 3px;
   font-size: 16px;
   margin-left: 10px;
 }
 
-.big-container-login, .big-container-signup{
+.big-container-login {
   background-color: #7e91be25;
   height: 100%;
 }
-.small-container-login{
+
+.small-container-login {
   margin-top: 50px;
   position: relative;
   background-color: white;
@@ -131,98 +158,42 @@
   width: 40%;
   margin-left: auto;
   margin-right: auto;
-  
+
 }
-.image-box-login{
+
+.image-box-login {
   height: 40%;
 }
-.login-image{
+
+.login-image {
   max-width: 100%;
   max-height: 100%;
-  display:block;
+  display: block;
   position: absolute;
-  right:0;
+  right: 0;
   top: 0;
   filter: brightness(70%);
-  
+
 }
-.login-button{
+
+.login-button {
   position: absolute;
   bottom: 5%;
   align-self: left;
   font-size: 30px;
 }
-.login-title, .signup-title{
+
+.login-title {
   font-family: 'Gelasio', serif;
   font-size: 30px;
 }
-.login-form{
+
+.login-form {
   margin-left: 5px;
 }
-.small-container-signup{
-  background-color: #7e91be25;
-  margin-top: 50px;
-  position: relative;
-  background-color: white;
-  height: 80%;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-.image-box-signup{
-  height: 80%;
-}
-.signup-image{
-  max-width: 60%;
-  height: 100%;
-  display: block;
-  position: absolute;
-  right:0;
-  top: 0;
-  filter: brightness(70%);
-}
-.name-label{
-  font-size: 12px;
-  font-weight: bold;
-  padding-left: 5px;
-  margin-top: 30px;
-}
-.gender-label,.phonenumber-label, .username-label, .password-label, .nickname-label, .age-label{
-  font-size: 12px;
-  font-weight: bold;
-  padding-left: 5px;
-}
-.photo-label{
-  font-size: 12px;
-  font-weight: bold;
-  padding-left: 5px;
-  margin-top: 40px;
-}
-.gender-select{
-  display:inline-block;
-  padding: 10px;
-}
-.input{
-  padding: 3px;
-  /* margin-left: 3px; */
-  margin-left: 10px;
-}
-.photo-upload-container{
-  position: absolute;
-  width: 140px;
-  height: 135px;
-  left: 280px;
-  top: 160px;
-  border-style: solid;
-  border-color: #7e91be25;
-  padding: 10px;
-  border-radius: 60%;
 
-}
-.file-input{
+.input {
   padding: 3px;
-  margin-top: 10px;
-}
-.age-select{
-  margin-left:10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
