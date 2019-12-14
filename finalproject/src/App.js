@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Search from './components/search/search';
 import Home from './components/home/home';
-
+import SignUp from './components/signup/signup';
 
 function App() {
   /*
@@ -77,6 +77,9 @@ function App() {
         {/* <Route path="뒤에 들어갈 주소를 적어주세요. ex) signup">
             주소에 접속시 나타나는 컴포넌트를 넣어주시면 됩니다.
           </Route> */}
+        <Route path="/signup">
+          <SignUp />
+        </Route>
         <Route exact path="/">
           <Home />
         </Route>
