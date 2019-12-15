@@ -14,10 +14,19 @@
 
 .align-right {
   text-align: right;
+  margin-top: 10px;
 }
 
 .button {
-  text-align: right;
+  border: none;
+  margin-top: 2px;
+  background: transparent;
+  font-size: 15px;
+  font-weight: bold;
+  color: #7e91be;
+  text-decoration: none;
+  padding: 0 10px;
+  cursor: pointer;
 }
 
 .logo-image{
