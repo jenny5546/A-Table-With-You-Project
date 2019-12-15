@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import loading from './loading.gif';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import logo from '../../static/images/logo.png';
+import loading from './loading.gif';
 import './search.css';
 
 class restaurants {
@@ -28,9 +29,10 @@ class restaurants {
     }
   }
 
-function Search() {
+const Search = () => {
+    const { place } = useParams();
     const [restaurantList, setRestaurantList]=useState([]);
-    const API_ENDPOINT=`https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${localStorage.getItem('placeToSearch')}&start=1&sort=random`;
+    const API_ENDPOINT=`https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${place}&start=1&sort=random`;
     console.log("hi")
     const onSearch=()=>{
         fetch(`${API_ENDPOINT}`,{
