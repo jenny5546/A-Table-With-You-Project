@@ -37,7 +37,6 @@ const Search = () => {
     const { place } = useParams();
     const [restaurantList, setRestaurantList]=useState([]);
     const API_ENDPOINT=`https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${place}&start=1&sort=random`;
-    console.log("hi")
     const onSearch=()=>{
         fetch(`${API_ENDPOINT}`,{
           method: 'GET',
@@ -61,7 +60,7 @@ const Search = () => {
       return(
         <div className="App">
           <div className="App-header">
-            <div className="button">
+            <div className="home-button">
               <Link to="/">
                   <IconButton aria-label="go to home" >
                     <HomeIcon style={{ color: indigo[200] }}/>
@@ -74,13 +73,31 @@ const Search = () => {
           </div>
           <div className="App-body">
             <img src={logo} className="logo-image" alt="logo" />
-            <div>
-            <h1>"{localStorage.getItem("placeToSearch")}"</h1>
-            <h2>검색결과:</h2>
-            <div style={{padding:'20px'}}>{restaurantList.map((restaurant)=>restaurant.print())}</div>
+            <div class="list">
+              <p1>"{place}"의</p1>
+              <p2>검색결과</p2>
+              <div className="list-header">
+                <p>카테고리</p> <p>상호 명</p> <p>전화번호</p> <p>주소</p> <p>찜</p>
+              </div>
+              <div className="list-contents">
+                {restaurantList.map((restaurant)=>{
+                  return([<div className="category">{restaurant.category}</div>,
+                  <div className="title">{restaurant.title}</div>,
+                  <div className="phone">{restaurant.telephone}</div>,
+                  <div className="address">{restaurant.address}</div>,
+                  <div className="liked">하트</div>])
+                })}
+                
+              </div>
             </div>
+            
+              
+            {/* <h1>"{localStorage.getItem("placeToSearch")}"</h1>
+            <h2>검색결과:</h2>
+            <div style={{padding:'20px'}}>{restaurantList.map((restaurant)=>restaurant.print())}</div> */}
           </div>
         </div>
+        
         
     );
     }
