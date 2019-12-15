@@ -1,10 +1,12 @@
-import React, { useState, render } from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import mainpic2 from './mainpic3.jpg';
 import mainpic3 from './mainpic4.jpg';
 import mainpic4 from './mainpic5.jpg';
 import mainpic5 from './mainpic6.jpg';
 import mainpic6 from './mainpic7.jpg';
+import mainpic7 from './mainpic8.jpg';
+import mainpic8 from './mainpic9.jpg';
 import search from './search.png';
 import logo from '../../static/images/logo.png';
 import login from './loginimg.png';
@@ -20,7 +22,7 @@ import { Box, Text, Image, Flex } from 'rebass';
 import { Link, Redirect } from 'react-router-dom';
 //learning github
 
-const slideImages = [mainpic2, mainpic3, mainpic4, mainpic5, mainpic6];
+const slideImages = [mainpic2, mainpic3, mainpic4, mainpic5, mainpic6, mainpic7, mainpic8];
 const properties = {
   duration: 5000,
   transitionDuration: 500,
@@ -78,13 +80,7 @@ function Home() {
   };
 
   const searchResults = (e) => {
-    // console.log("hi");
-    // render (
-    //   <div>
-    //     <Redirect to="/search/"/>
-    //   </div>
-
-    // )
+    
     e.preventDefault();
     localStorage.setItem('placeToSearch',placeToSearch);
     setRedirect(true);

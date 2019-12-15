@@ -18,21 +18,25 @@
 
 .button {
   border: none;
+  margin-top: 15px;
   background: transparent;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: bold;
   color: #7e91be;
   text-decoration: none;
   padding: 0 10px;
   cursor: pointer;
 }
-
+.logo-image{
+  width: 25%;
+  height: auto;
+}
 .Line {
   /* height: 1px; */
   border-top: 2px solid #ccc;
-  /* margin-top: 20px; */
+  margin-top: 15px;
   width: 100%;
-  height: 1px;
+  height: 2px;
 }
 
 .App-body {
