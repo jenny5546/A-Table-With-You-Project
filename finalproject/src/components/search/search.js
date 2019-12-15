@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
+import loading from './loading.gif';
+import './search.css';
 
-class restaurants{
+class restaurants {
     constructor(title, link, category, description, telephone, address, roadAddress, mapx, mapy){
       this.title=title;
       this.link=link;
@@ -48,14 +50,23 @@ function Search() {
 
       useEffect(()=>{onSearch()},[]);
       
-    
-    return(
+    if(restaurantList.length>1){
+      return(
+      
         <div>
         <h1>"{localStorage.getItem("placeToSearch")}"</h1>
         <h2>검색결과:</h2>
         <div style={{padding:'20px'}}>{restaurantList.map((restaurant)=>restaurant.print())}</div>
         </div>
     );
+    }
+    else return(
+      <div className="loading-background">
+        <img src={loading} className="loading-gif" alt="loading-gif"/>
+      </div>
+      
+    )
+    
 }
 
 export default Search;
