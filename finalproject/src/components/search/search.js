@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import loading from './loading.gif';
+import logo from '../../static/images/logo.png';
 import './search.css';
 
 class restaurants {
@@ -52,12 +53,20 @@ function Search() {
       
     if(restaurantList.length>1){
       return(
-      
-        <div>
-        <h1>"{localStorage.getItem("placeToSearch")}"</h1>
-        <h2>검색결과:</h2>
-        <div style={{padding:'20px'}}>{restaurantList.map((restaurant)=>restaurant.print())}</div>
+        <div className="App">
+          <div className="App-header">
+            <div className="Line" />
+          </div>
+          <div className="App-body">
+            <img src={logo} className="logo-image" alt="logo" />
+            <div>
+            <h1>"{localStorage.getItem("placeToSearch")}"</h1>
+            <h2>검색결과:</h2>
+            <div style={{padding:'20px'}}>{restaurantList.map((restaurant)=>restaurant.print())}</div>
+            </div>
+          </div>
         </div>
+        
     );
     }
     else return(
