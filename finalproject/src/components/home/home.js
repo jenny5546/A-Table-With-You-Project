@@ -89,7 +89,8 @@ const Home = () => {
 
   const searchResults = (e) => {
     e.preventDefault();
-    history.push(`/search/${placeToSearch}`);
+    if(!placeToSearch){alert('아무것도 입력하지 않으셨습니다.')}
+    else{history.push(`/search/${placeToSearch}`);}
   };
 
   /////*******if 로그인이 안돼 있으면 ********////////
