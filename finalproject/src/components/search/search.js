@@ -1,6 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import logo from '../../static/images/logo.png';
 import loading from './loading.gif';
 import './search.css';
+import { Link } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
+import { indigo } from '@material-ui/core/colors';
 
 class restaurants {
     constructor(title, link, category, description, telephone, address, roadAddress, mapx, mapy){
@@ -27,9 +33,10 @@ class restaurants {
     }
   }
 
-function Search() {
+const Search = () => {
+    const { place } = useParams();
     const [restaurantList, setRestaurantList]=useState([]);
-    const API_ENDPOINT=`https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${localStorage.getItem('placeToSearch')}&start=1&sort=random`;
+    const API_ENDPOINT=`https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${place}&start=1&sort=random`;
     console.log("hi")
     const onSearch=()=>{
         fetch(`${API_ENDPOINT}`,{
@@ -52,12 +59,29 @@ function Search() {
       
     if(restaurantList.length>1){
       return(
-      
-        <div>
-        <h1>"{localStorage.getItem("placeToSearch")}"</h1>
-        <h2>검색결과:</h2>
-        <div style={{padding:'20px'}}>{restaurantList.map((restaurant)=>restaurant.print())}</div>
+        <div className="App">
+          <div className="App-header">
+            <div className="button">
+              <Link to="/">
+                  <IconButton aria-label="go to home" >
+                    <HomeIcon style={{ color: indigo[200] }}/>
+                  </IconButton>
+              </Link>
+            </div>
+            <div className="Line" />
+            
+            
+          </div>
+          <div className="App-body">
+            <img src={logo} className="logo-image" alt="logo" />
+            <div>
+            <h1>"{localStorage.getItem("placeToSearch")}"</h1>
+            <h2>검색결과:</h2>
+            <div style={{padding:'20px'}}>{restaurantList.map((restaurant)=>restaurant.print())}</div>
+            </div>
+          </div>
         </div>
+        
     );
     }
     else return(
