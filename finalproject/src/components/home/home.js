@@ -1,5 +1,17 @@
-import React, { useState } from 'react';
+import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { Slide } from 'react-slideshow-image';
+import { Box, Flex, Image, Text } from 'rebass';
+import logo from '../../static/images/logo.png';
+import { signIn, SigninError } from '../../utils/auth';
+import './home.css';
+import login from './loginimg.png';
 import mainpic2 from './mainpic3.jpg';
 import mainpic3 from './mainpic4.jpg';
 import mainpic4 from './mainpic5.jpg';
@@ -8,31 +20,28 @@ import mainpic6 from './mainpic7.jpg';
 import mainpic7 from './mainpic8.jpg';
 import mainpic8 from './mainpic9.jpg';
 import search from './search.png';
-import logo from '../../static/images/logo.png';
-import login from './loginimg.png';
-import { Slide } from 'react-slideshow-image';
-import './home.css';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { TextField } from '@material-ui/core';
-import { signIn, SigninError } from '../../utils/auth';
-import { Box, Text, Image, Flex } from 'rebass';
-import { Link, Redirect } from 'react-router-dom';
 //learning github
 
-const slideImages = [mainpic2, mainpic3, mainpic4, mainpic5, mainpic6, mainpic7, mainpic8];
+const slideImages = [
+  mainpic2,
+  mainpic3,
+  mainpic4,
+  mainpic5,
+  mainpic6,
+  mainpic7,
+  mainpic8
+];
 const properties = {
   duration: 5000,
   transitionDuration: 500,
   infinite: true,
   indicators: true,
-  arrows: true,
+  arrows: true
 };
 
-function Home() {
-  const [placeToSearch, setPlaceToSearch]=useState("");
+const Home = () => {
+  const history = useHistory();
+  const [placeToSearch, setPlaceToSearch] = useState('');
   const [open_login, setOpen_login] = useState(false);
   const [signInInfo, setSignInInfo] = useState({});
   const [isLogin, setIsLogin] = useState(false);
@@ -80,10 +89,8 @@ function Home() {
   };
 
   const searchResults = (e) => {
-    
     e.preventDefault();
-    localStorage.setItem('placeToSearch',placeToSearch);
-    setRedirect(true);
+    history.push(`/search/${placeToSearch}`);
   };
 
   /////*******if 로그인이 안돼 있으면 ********////////
@@ -141,20 +148,23 @@ function Home() {
                 type="text"
                 className="Search-bar"
                 placeholder="먹고 싶은 음식이나 지역을 입력해주세요"
-                onChange={(e)=>{setPlaceToSearch(e.target.value)}}
+                onChange={(e) => {
+                  setPlaceToSearch(e.target.value);
+                }}
               />
               {/* <input type="submit"></input> */}
             </form>
-            {redirect && <Redirect to={{pathname:"/search/",
-                                        state:{placeToSearch: {placeToSearch} }
-          }}/>}
           </div>
           <div className="slide-container">
             <Slide {...properties}>
               {slideImages.map((slideImage) => {
                 return (
-                  <div className="each-slide">
-                    <img src={slideImage} className="Main-pic" alt="main-slide" />
+                  <div className="each-slide" key={slideImage}>
+                    <img
+                      src={slideImage}
+                      className="Main-pic"
+                      alt="main-slide"
+                    />
                   </div>
                 );
               })}
@@ -197,7 +207,12 @@ function Home() {
                       onChange={onValueHandle}
                     />
                   </div>
-                  <input type="submit" className="login-button" value="→" onClick={onLogin} />
+                  <input
+                    type="submit"
+                    className="login-button"
+                    value="→"
+                    onClick={onLogin}
+                  />
                 </div>
               </form>
             </DialogContent>
@@ -211,6 +226,6 @@ function Home() {
       </Dialog>
     </div>
   );
-}
+};
 
 export default Home;

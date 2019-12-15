@@ -83,7 +83,7 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/search">
+        <Route path="/search/:place">
           <Search />
         </Route>
       </Switch>
