@@ -18,6 +18,7 @@ import { TextField } from '@material-ui/core';
 import { signIn, SigninError } from '../../utils/auth';
 import { Box, Text, Image, Flex } from 'rebass';
 import { Link, Redirect } from 'react-router-dom';
+//learning github
 
 const slideImages = [mainpic2, mainpic3, mainpic4, mainpic5, mainpic6];
 const properties = {
@@ -29,6 +30,7 @@ const properties = {
 };
 
 function Home() {
+  const [placeToSearch, setPlaceToSearch]=useState("");
   const [open_login, setOpen_login] = useState(false);
   const [signInInfo, setSignInInfo] = useState({});
   const [isLogin, setIsLogin] = useState(false);
@@ -84,6 +86,7 @@ function Home() {
 
     // )
     e.preventDefault();
+    localStorage.setItem('placeToSearch',placeToSearch);
     setRedirect(true);
   };
 
@@ -105,7 +108,7 @@ function Home() {
                   <Text as="span" fontWeight="bold">
                     {userInfo.nickname}
                   </Text>{' '}
-                  님, 안녕하세요
+                  님, 안녕하세요.
                 </Text>
                 <Link to="/mypage" className="button">
                   마이 페이지
@@ -142,10 +145,13 @@ function Home() {
                 type="text"
                 className="Search-bar"
                 placeholder="먹고 싶은 음식이나 지역을 입력해주세요"
+                onChange={(e)=>{setPlaceToSearch(e.target.value)}}
               />
               {/* <input type="submit"></input> */}
             </form>
-            {redirect && <Redirect to="/search/" />}
+            {redirect && <Redirect to={{pathname:"/search/",
+                                        state:{placeToSearch: {placeToSearch} }
+          }}/>}
           </div>
           <div className="slide-container">
             <Slide {...properties}>
