@@ -46,7 +46,6 @@ const Home = () => {
   const [signInInfo, setSignInInfo] = useState({});
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
-  const [redirect, setRedirect] = useState(false);
   const handleClickOpen_login = () => {
     setOpen_login(true);
   };

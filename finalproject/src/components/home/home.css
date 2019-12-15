@@ -17,16 +17,9 @@
 }
 
 .button {
-  border: none;
-  margin-top: 15px;
-  background: transparent;
-  font-size: 15px;
-  font-weight: bold;
-  color: #7e91be;
-  text-decoration: none;
-  padding: 0 10px;
-  cursor: pointer;
+  text-align: right;
 }
+
 .logo-image{
   width: 25%;
   height: auto;
