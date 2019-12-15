@@ -106,8 +106,8 @@ const Home = () => {
                   width="50px"
                   height="50px"
                 />
-                <Text as="span" mx="15px" fontSize={18} color="#2857b4">
-                  <Text as="span" fontWeight="bold">
+                <Text as="span" mx="15px" fontSize={18} color="#7e91be;">
+                  <Text as="span" fontWeight="bold" >
                     {userInfo.nickname}
                   </Text>{' '}
                   님, 안녕하세요.
