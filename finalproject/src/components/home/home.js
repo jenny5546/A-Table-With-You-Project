@@ -4,6 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { indigo } from '@material-ui/core/colors';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
@@ -68,6 +69,12 @@ const Home = () => {
         setOpen_login(false);
         setUserInfo(userData);
         setIsLogin(true);
+        if(userData){
+          localStorage.setItem('nickname', signInInfo.email);
+          console.log(userInfo.nickname);
+          
+        }
+        
       })
       .catch((err) => {
         // 에러 표시 방식은 추후 변경
@@ -115,6 +122,8 @@ const Home = () => {
                 <Link to="/mypage" className="button">
                   마이 페이지
                 </Link>
+                {/* 로그아웃 기능 추가하기 */}
+                <Button className="button" style={{ color: indigo[400] }} >로그아웃</Button>
               </Flex>
             </Box>
           </div>
