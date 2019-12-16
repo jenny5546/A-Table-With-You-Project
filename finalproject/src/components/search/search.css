@@ -109,7 +109,8 @@ p2{
 }
 .search-title{
   margin-bottom: 20px;
-  margin-left: 20px;
+  margin-right: 5%;
   margin-top: 10px;
+  float: right;
   
 }
