@@ -76,7 +76,7 @@ const Search = () => {
             <img src={logo} className="logo-image" alt="logo" />
             <div>
             <h1>"{localStorage.getItem("placeToSearch")}"</h1>
-            <h2>검색결과:</h2>
+            <h2>검색결과입니다:</h2>
             <div style={{padding:'20px'}}>{restaurantList.map((restaurant)=>restaurant.print())}</div>
             </div>
           </div>
