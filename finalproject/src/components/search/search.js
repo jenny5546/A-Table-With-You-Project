@@ -6,7 +6,8 @@ import './search.css';
 import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
-import { indigo } from '@material-ui/core/colors';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import { indigo, pink } from '@material-ui/core/colors';
 
 class restaurants {
     constructor(title, link, category, description, telephone, address, roadAddress, mapx, mapy){
@@ -21,23 +22,22 @@ class restaurants {
       this.mapy=mapy;
     }
   
-    print(){
-      return(
-        <div style={{border: '1px solid black'}}>
-          <span style={{marginRight: '5px', fontWeight:'bold'}}>{this.category}</span>
-          <span>{this.title}</span>
-          <span>{this.telephone}</span>
-          <span style={{float:'right'}}>{this.address}</span>
-        </div>
-      );
-    }
+    // print(){
+    //   return(
+    //     <div style={{border: '1px solid black'}}>
+    //       <span style={{marginRight: '5px', fontWeight:'bold'}}>{this.category}</span>
+    //       <span>{this.title}</span>
+    //       <span>{this.telephone}</span>
+    //       <span style={{float:'right'}}>{this.address}</span>
+    //     </div>
+    //   );
+    // }
   }
 
 const Search = () => {
     const { place } = useParams();
     const [restaurantList, setRestaurantList]=useState([]);
     const API_ENDPOINT=`https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${place}&start=1&sort=random`;
-    console.log("hi")
     const onSearch=()=>{
         fetch(`${API_ENDPOINT}`,{
           method: 'GET',
@@ -61,7 +61,7 @@ const Search = () => {
       return(
         <div className="App">
           <div className="App-header">
-            <div className="button">
+            <div className="home-button">
               <Link to="/">
                   <IconButton aria-label="go to home" >
                     <HomeIcon style={{ color: indigo[200] }}/>
@@ -74,13 +74,49 @@ const Search = () => {
           </div>
           <div className="App-body">
             <img src={logo} className="logo-image" alt="logo" />
-            <div>
-            <h1>"{localStorage.getItem("placeToSearch")}"</h1>
-            <h2>검색결과입니다.:</h2>
-            <div style={{padding:'20px'}}>{restaurantList.map((restaurant)=>restaurant.print())}</div>
-            </div>
+            <div className="list" >
+              <div className="search-title">
+                <p1>"{place}"</p1>
+                <p2>의 검색결과:</p2>
+              </div>
+              
+              <table>
+                
+                  <tr className="list-header">
+                    <th className="header-category">카테고리</th> 
+                    <th className="header-title">상호 명</th> 
+                    <th className="header-phone">전화번호</th>
+                    <th className="header-address">주소</th> 
+                    <th className="header-liked">찜</th>
+                  </tr>
+                
+                
+                  {restaurantList.map((restaurant)=>{
+                    return(
+                      <tr>
+                        <td className="category">{restaurant.category}</td>
+                        <td className="title">{restaurant.title}</td>
+                        <td className="phone">{restaurant.telephone}</td>
+                        <td className="address">{restaurant.address}</td>
+                        <td className="liked">
+                        <IconButton aria-label="like" >
+                          <FavoriteIcon style={{ color: pink[400] }}/>
+                        </IconButton>
+                        </td>
+                      </tr>
+                    )
+                  })}
+
+              </table>
+            
+              
+            {/* <h1>"{localStorage.getItem("placeToSearch")}"</h1>
+            <h2>검색결과:</h2>
+            <div style={{padding:'20px'}}>{restaurantList.map((restaurant)=>restaurant.print())}</div> */}
           </div>
         </div>
+        </div>
+        
         
     );
     }
