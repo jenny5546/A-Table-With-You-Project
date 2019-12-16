@@ -49,7 +49,7 @@ const Search = () => {
         }).then((response)=>response.json())
           .then(({items})=>{
             setRestaurantList(
-              items.map((item)=>new restaurants(item.title.replace("<b>","").replace("</b>",""), item.link, item.category, item.description, item.telephone, item.address, item.roadAddress, item.mapx, item.mapy)),
+              items.map((item)=>new restaurants(item.title.replace(/<b>/gi,"").replace(/<\/b>/gi,""), item.link, item.category, item.description, item.telephone, item.address, item.roadAddress, item.mapx, item.mapy)),
               console.log(items)
               );
           });
