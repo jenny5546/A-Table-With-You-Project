@@ -6,7 +6,8 @@ import './search.css';
 import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
-import { indigo } from '@material-ui/core/colors';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import { indigo, pink } from '@material-ui/core/colors';
 
 class restaurants {
     constructor(title, link, category, description, telephone, address, roadAddress, mapx, mapy){
@@ -21,16 +22,16 @@ class restaurants {
       this.mapy=mapy;
     }
   
-    print(){
-      return(
-        <div style={{border: '1px solid black'}}>
-          <span style={{marginRight: '5px', fontWeight:'bold'}}>{this.category}</span>
-          <span>{this.title}</span>
-          <span>{this.telephone}</span>
-          <span style={{float:'right'}}>{this.address}</span>
-        </div>
-      );
-    }
+    // print(){
+    //   return(
+    //     <div style={{border: '1px solid black'}}>
+    //       <span style={{marginRight: '5px', fontWeight:'bold'}}>{this.category}</span>
+    //       <span>{this.title}</span>
+    //       <span>{this.telephone}</span>
+    //       <span style={{float:'right'}}>{this.address}</span>
+    //     </div>
+    //   );
+    // }
   }
 
 const Search = () => {
@@ -73,29 +74,47 @@ const Search = () => {
           </div>
           <div className="App-body">
             <img src={logo} className="logo-image" alt="logo" />
-            <div class="list">
-              <p1>"{place}"의</p1>
-              <p2>검색결과</p2>
-              <div className="list-header">
-                <p>카테고리</p> <p>상호 명</p> <p>전화번호</p> <p>주소</p> <p>찜</p>
+            <div className="list" >
+              <div className="search-title">
+                <p1>"{place}"</p1>
+                <p2>의 검색결과:</p2>
               </div>
-              <div className="list-contents">
-                {restaurantList.map((restaurant)=>{
-                  return([<div className="category">{restaurant.category}</div>,
-                  <div className="title">{restaurant.title}</div>,
-                  <div className="phone">{restaurant.telephone}</div>,
-                  <div className="address">{restaurant.address}</div>,
-                  <div className="liked">하트</div>])
-                })}
+              
+              <table>
                 
-              </div>
-            </div>
+                  <tr className="list-header">
+                    <th className="header-category">카테고리</th> 
+                    <th className="header-title">상호 명</th> 
+                    <th className="header-phone">전화번호</th>
+                    <th className="header-address">주소</th> 
+                    <th className="header-liked">찜</th>
+                  </tr>
+                
+                
+                  {restaurantList.map((restaurant)=>{
+                    return(
+                      <tr>
+                        <td className="category">{restaurant.category}</td>
+                        <td className="title">{restaurant.title}</td>
+                        <td className="phone">{restaurant.telephone}</td>
+                        <td className="address">{restaurant.address}</td>
+                        <td className="liked">
+                        <IconButton aria-label="like" >
+                          <FavoriteIcon style={{ color: pink[400] }}/>
+                        </IconButton>
+                        </td>
+                      </tr>
+                    )
+                  })}
+
+              </table>
             
               
             {/* <h1>"{localStorage.getItem("placeToSearch")}"</h1>
             <h2>검색결과:</h2>
             <div style={{padding:'20px'}}>{restaurantList.map((restaurant)=>restaurant.print())}</div> */}
           </div>
+        </div>
         </div>
         
         
