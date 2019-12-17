@@ -10,7 +10,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 import { Box, Flex, Image, Text } from 'rebass';
 import logo from '../../static/images/logo.png';
-import { signIn, SigninError } from '../../utils/auth';
+import { signIn } from '../../utils/auth';
 import './home.css';
 import login from './loginimg.png';
 import mainpic2 from './mainpic3.jpg';
@@ -78,19 +78,7 @@ const Home = () => {
       })
       .catch((err) => {
         // 에러 표시 방식은 추후 변경
-        if (err.code === SigninError.INVALID_EMAIL) {
-          console.log('올바르지 않은 이메일 주소 형식입니다.');
-        } else if (err.code === SigninError.USER_DISABLED) {
-          console.log('해당 유저는 비활성화 되었습니다.');
-        } else if (err.code === SigninError.USER_NOT_FOUND) {
-          console.log('존재하지 않는 이메일 주소입니다.');
-        } else if (err.code === SigninError.WRONG_PASSWORD) {
-          console.log('비밀번호가 틀렸습니다.');
-        } else if (err.code === SigninError.NOT_EXIST_DATA) {
-          console.log('유저 데이터를 가져올 수 없습니다.');
-        } else {
-          console.error(err);
-        }
+        console.error(err.message);
       });
   };
 

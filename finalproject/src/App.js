@@ -4,6 +4,7 @@ import './App.css';
 import Search from './components/search/search';
 import Home from './components/home/home';
 import SignUp from './components/signup/signup';
+import MyPage from './components/mypage/mypage';
 
 function App() {
   /*
@@ -85,6 +86,9 @@ function App() {
         </Route>
         <Route path="/search/:place">
           <Search />
+        </Route>
+        <Route path="/mypage">
+          <MyPage />
         </Route>
       </Switch>
     </Router>
