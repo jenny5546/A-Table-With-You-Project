@@ -5,7 +5,7 @@ import './signup.css';
 import { Box, Flex, Text } from 'rebass';
 import styled from 'styled-components';
 import Button from '../button/button';
-import { signUp, SignupError } from '../../utils/auth';
+import { signUp } from '../../utils/auth';
 import { Redirect } from 'react-router-dom';
 
 const InputLabel = styled.div`
@@ -67,17 +67,7 @@ const SignUp = () => {
       })
       .catch((err) => {
         setError(true);
-        if (err.code === SignupError.ALREADY_EMAIL_USE) {
-          setErrorMessage('이미 사용중인 이메일 주소입니다.');
-        } else if (err.code === SignupError.INVALID_EMAIL) {
-          setErrorMessage('올바르지 않은 이메일 주소 형식입니다.');
-        } else if (err.code === SignupError.OPERATION_NOT_ALLOWED) {
-          setErrorMessage('현재 회원가입이 불가능합니다.');
-        } else if (err.code === SignupError.WEAK_PASSWORD) {
-          setErrorMessage('비밀번호는 최소 6자 이상으로 구성해주세요.');
-        } else {
-          setErrorMessage('오류가 발생했습니다.');
-        }
+        setErrorMessage(err.message);
       });
   };
 
