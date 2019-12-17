@@ -10,7 +10,7 @@ export const FirestoreError = {
 
 export const initFirebase = () => {
   const firebaseConfig = {
-    apiKey: process.env["REACT_APP_FIREBASE_API_KEY"],
+    apiKey: 
     
     authDomain: "eat-foods-with-you.firebaseapp.com",
     databaseURL: "https://eat-foods-with-you.firebaseio.com",
@@ -18,7 +18,7 @@ export const initFirebase = () => {
     storageBucket: "eat-foods-with-you.appspot.com",
     messagingSenderId: "935328497051",
     appId: "1:935328497051:web:f8456877534e3f0ff1f53e",
-    measurementId: process.env["REACT_APP_FIREBASE_MEASUREMENT_ID"]
+    measurementId: 
     
     
   };

@@ -70,10 +70,10 @@ const Home = () => {
         setUserInfo(userData);
         setIsLogin(true);
         if(userData){
-          localStorage.setItem('nickname', signInInfo.email);
-          console.log(userInfo.nickname);
-          
+          // localStorage.setItem('userInfo', userInfo.nickname);
+          // console.log(userInfo.nickname); 
         }
+        
         
       })
       .catch((err) => {
@@ -81,7 +81,19 @@ const Home = () => {
         console.error(err.message);
       });
   };
+  const saveLogin=()=>{
+    if (userInfo.profileImagePath){
+      localStorage.setItem('userProfile', userInfo.profileImagePath);
+      localStorage.setItem('userName', userInfo.nickname);
+    }
+  }
+  const onLogout=()=>{
+      localStorage.removeItem('userProfile');
+      localStorage.removeItem('userName');
+      window.location.reload(true);
+  }
 
+  saveLogin();
   const searchResults = (e) => {
     e.preventDefault();
     if(!placeToSearch){alert('아무것도 입력하지 않으셨습니다.')}
@@ -92,19 +104,19 @@ const Home = () => {
   return (
     <div className="App">
       <header className="App-header">
-        {isLogin ? (
+        {(localStorage.getItem("userProfile")) ? (
           <div className="align-right">
             <Box display="inline-block">
               <Flex alignItems="center">
                 <Image
-                  src={userInfo.profileImagePath}
+                  src={localStorage.getItem("userProfile")}
                   sx={{ borderRadius: '50%' }}
                   width="50px"
                   height="50px"
                 />
                 <Text as="span" mx="15px" fontSize={18} color="#7e91be;">
                   <Text as="span" fontWeight="bold" >
-                    {userInfo.nickname}
+                    {localStorage.getItem("userName")}
                   </Text>{' '}
                   님, 안녕하세요.
                 </Text>
@@ -112,7 +124,7 @@ const Home = () => {
                   마이 페이지
                 </Link>
                 {/* 로그아웃 기능 추가하기 */}
-                <Button className="button" style={{ color: indigo[400] }} >로그아웃</Button>
+                <Button className="button" style={{ color: indigo[400] }} onClick={onLogout} >로그아웃</Button>
               </Flex>
             </Box>
           </div>
