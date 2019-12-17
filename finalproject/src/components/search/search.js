@@ -36,8 +36,10 @@ class restaurants {
 
 const Search = () => {
     const { place } = useParams();
-    const [restaurantList, setRestaurantList]=useState([]);
+    const [restaurantList, setRestaurantList]=useState([]); 
     const API_ENDPOINT=`https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${place}&display=30&start=1&sort=random`;
+    
+    
     const onSearch=()=>{
         fetch(`${API_ENDPOINT}`,{
           method: 'GET',
