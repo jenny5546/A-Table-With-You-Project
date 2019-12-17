@@ -4,10 +4,13 @@
 ![logo](./src/static/images/logo.png)
 ### Development
 
-finalproject 폴더 안에 `.env` 파일을 만들고 해당 파일에 firebase 관련 키를 입력해주세요.
-```
-/.env
+finalproject 폴더 안에 `.env` 파일을 만들고 해당 파일에 firebase 키와 naver open api key를 입력해주세요.
 
-REACT_APP_FIREBASE_API_KEY={YOUR FIREBASE API KEY}
-REACT_APP_FIREBASE_MEASUREMENT_ID={YOUR FIREBASE MEASUREMENT ID}
+`finalproject/.env`
 ```
+REACT_APP_FIREBASE_API_KEY=YOUR FIREBASE API KEY
+REACT_APP_FIREBASE_MEASUREMENT_ID=YOUR FIREBASE MEASUREMENT ID
+REACT_APP_NAVER_CLIENT_ID=YOUR NAVER API CLIENT ID
+REACT_APP_NAVER_CLIENT_SECRET=YOUR NAVER API CLIENT SECRET
+```
+

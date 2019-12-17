@@ -37,14 +37,14 @@ class restaurants {
 const Search = () => {
     const { place } = useParams();
     const [restaurantList, setRestaurantList]=useState([]);
-    const API_ENDPOINT=`https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${place}&start=1&sort=random`;
+    const API_ENDPOINT=`https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${place}&display=30&start=1&sort=random`;
     const onSearch=()=>{
         fetch(`${API_ENDPOINT}`,{
           method: 'GET',
           headers:{
             'Content-Type': 'application/x-www-form-urlencoded',
-            'X-Naver-Client-Id':`v2ovBB6VAQB_os_SAzYR`,
-            'X-Naver-Client-Secret':`TrDGGlwyV7`,
+            'X-Naver-Client-Id': process.env.REACT_APP_NAVER_CLIENT_ID,
+            'X-Naver-Client-Secret':process.env.REACT_APP_NAVER_CLIENT_SECRET,
           }
         }).then((response)=>response.json())
           .then(({items})=>{
@@ -87,20 +87,20 @@ const Search = () => {
                     <th className="header-title">상호 명</th> 
                     <th className="header-phone">전화번호</th>
                     <th className="header-address">주소</th> 
-                    <th className="header-liked">찜</th>
+                    <th className="header-liked" style={{textAlign:"center"}}>찜</th>
                   </tr>
                 
                 
                   {restaurantList.map((restaurant)=>{
                     return(
                       <tr>
-                        <td className="category">{restaurant.category}</td>
-                        <td className="title">{restaurant.title}</td>
-                        <td className="phone">{restaurant.telephone}</td>
-                        <td className="address">{restaurant.address}</td>
+                        <td className="category"> {restaurant.category} </td>
+                        <td className="title"> {restaurant.title} </td>
+                        <td className="phone"> {restaurant.telephone} </td>
+                        <td className="address"> {restaurant.address} </td>
                         <td className="liked">
-                        <IconButton aria-label="like" >
-                          <FavoriteIcon style={{ color: pink[400] }}/>
+                        <IconButton className="like-button" aria-label="like" >
+                          <FavoriteIcon style={{ color: pink[200] }}/>
                         </IconButton>
                         </td>
                       </tr>
