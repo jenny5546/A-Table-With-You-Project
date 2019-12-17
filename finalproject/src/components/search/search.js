@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { indigo, pink } from '@material-ui/core/colors';
-import { textAlign } from '@material-ui/system';
+
 
 class restaurants {
     constructor(title, link, category, description, telephone, address, roadAddress, mapx, mapy){
@@ -37,15 +37,17 @@ class restaurants {
 
 const Search = () => {
     const { place } = useParams();
-    const [restaurantList, setRestaurantList]=useState([]);
+    const [restaurantList, setRestaurantList]=useState([]); 
     const API_ENDPOINT=`https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${place}&display=30&start=1&sort=random`;
+    
+    
     const onSearch=()=>{
         fetch(`${API_ENDPOINT}`,{
           method: 'GET',
           headers:{
             'Content-Type': 'application/x-www-form-urlencoded',
             'X-Naver-Client-Id':`v2ovBB6VAQB_os_SAzYR`,
-            'X-Naver-Client-Secret':`TrDGGlwyV7`,
+            'X-Naver-Client-Secret':`znQRLoBats`,
           }
         }).then((response)=>response.json())
           .then(({items})=>{
