@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { indigo, pink } from '@material-ui/core/colors';
-import { textAlign } from '@material-ui/system';
 
 class restaurants {
     constructor(title, link, category, description, telephone, address, roadAddress, mapx, mapy){
@@ -44,8 +43,8 @@ const Search = () => {
           method: 'GET',
           headers:{
             'Content-Type': 'application/x-www-form-urlencoded',
-            'X-Naver-Client-Id':`v2ovBB6VAQB_os_SAzYR`,
-            'X-Naver-Client-Secret':`TrDGGlwyV7`,
+            'X-Naver-Client-Id': process.env.REACT_APP_NAVER_CLIENT_ID,
+            'X-Naver-Client-Secret':process.env.REACT_APP_NAVER_CLIENT_SECRET,
           }
         }).then((response)=>response.json())
           .then(({items})=>{
