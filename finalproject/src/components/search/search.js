@@ -96,7 +96,7 @@ const Search = () => {
             
           </div>
           <div className="App-body">
-            <img src={logo} className="logo-image" alt="logo" />
+            <img src={logo} className="logo-image-search" alt="logo" />
             <div className="list" >
               <div className="search-title">
                 <p1>"{place}"</p1>
