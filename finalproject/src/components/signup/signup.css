@@ -5,11 +5,6 @@
 }
 
 
-.Signup-header {
-    padding-top: 10px;
-    padding-left: 10px;
-}
-
 .Signup-body {
     position: relative;
     display: flex;
@@ -36,8 +31,9 @@
 
 .Signup-form {
     padding: 10px;
-    background-color: #F1F0EF;
-    display: flex;
+    background-color: rgba(241, 240, 239, 0.719);
+    width: 60%;
+    /* display: flex; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
