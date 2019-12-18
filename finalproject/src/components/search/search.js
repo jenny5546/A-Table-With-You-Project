@@ -37,7 +37,7 @@ const Search = () => {
       const data = await getSelectedPlace(restaurantList[i].mapx);
       if (data.length === 0) {
         await setSelectedPlace(JSON.parse(localStorage.getItem("login-user")).email, restaurantList[i].mapx);
-        history.push(`/match`);
+        alert("아직 이 식당을 찜한 다른 유저가 없습니다 ㅠㅠ 조금만 기다려주세요");
         return;
       }
       localStorage.setItem('matched_restaurant_address', restaurantList[i].address);

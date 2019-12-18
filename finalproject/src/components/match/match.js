@@ -10,10 +10,14 @@ import { Link } from 'react-router-dom';
 import { indigo } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
+import {getImageDownloadPath} from "../../utils/firebase";
 
 const Match = () => {
   const [userInfo, setUserInfo] = useState(null);
-  useEffect(() => {
+  const [path, setPath] = useState('');
+  useEffect(async() => {
+    const profileImagePath = await getImageDownloadPath(`profiles/${localStorage.getItem("matched_user_uid")}.jpg`);
+    setPath(profileImagePath);
     const userData = localStorage.getItem('login-user');
     if (userData) {
       const loginUserData = JSON.parse(userData);
@@ -48,7 +52,7 @@ const Match = () => {
       <div className="match-body">
         <img src={backgroundPic} className="Background-image" alt="backgroundPic" />
         <img src={heartIcon} className="heartIcon" alt="heartIcon" />
-        <img src={yangPic} className="yangPic" alt="yangPic" />
+        <img src={path} className="yangPic" alt="yangPic" />
         <img src={mapPic} className="mapPic" alt="mapPic" />
         <div className="title-box">Meet your Destiny Through a Meal</div>
         <div className="title-box2"></div>
