@@ -177,7 +177,7 @@ const Search = () => {
             </table>
             {loading && (
               <Flex justifyContent="center">
-                <img src={loadingImage} className="loading-gif" alt="loading-gif" />
+                <img src={loadingImage} style={{filter: 'brightness(220%)'}} className="loading-gif" alt="loading-gif" />
               </Flex>
             )}
           </div>
