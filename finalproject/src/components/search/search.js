@@ -66,7 +66,7 @@ const Search = () => {
           ...items.map(
             (item) =>
               new Restaurants(
-                item.title.replace(/<b>/gi, '').replace(/<\/b>/gi, ''),
+                item.title.replace(/<b>/gi, '').replace(/<\/b>/gi, '').replace(/&amp;/,''),
                 item.link,
                 item.category,
                 item.description,
