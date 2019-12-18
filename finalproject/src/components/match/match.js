@@ -55,11 +55,10 @@ const Match = () => {
         <div className="text-box1">나와 같은 곳을</div>
         <div className="text-box2">선택한 너...</div>
         <div className="text-box3">Your Restaurant</div>
-        <div className="text-box4">"오산갈비찜"</div>
-        <div className="text-box5">양진환</div>
-        <div className="text-box6">010-xxxx-xxxx</div>
-        <div className="text-box7">서울특별시 관악구</div>
-        <div className="text-box8">남부순환로 xx길 xx</div>
+        <div className="text-box4">{localStorage.getItem("matched_user_restaurant")}</div>
+        <div className="text-box5">{localStorage.getItem("matched_user_name")}</div>
+        <div className="text-box6">{localStorage.getItem("matched_user_phone")}</div>
+        <div className="text-box7">{localStorage.getItem("matched_restaurant_address")}</div>
       </div>
     </div>
   );
