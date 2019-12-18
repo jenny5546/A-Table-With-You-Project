@@ -65,7 +65,7 @@ const Home = () => {
           localStorage.setItem('userName', userData.nickname);
           localStorage.setItem('userData',JSON.stringify(userData));
           console.log(localStorage.getItem('userData'));
-          window.location.reload(true);
+          // window.location.reload(true);
           // JSON.parse(localStorage.getItem('userData'));
         }
       })
@@ -83,7 +83,7 @@ const Home = () => {
   const onLogout = () => {
     localStorage.removeItem('userProfile');
     localStorage.removeItem('userName');
-    window.location.reload(true);
+    // window.location.reload(true);
   };
 
   // saveLogin();
