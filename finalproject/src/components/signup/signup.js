@@ -37,9 +37,7 @@ const SignUp = () => {
     setSignUpInfo((s) => ({ ...s, [name]: value }));
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
+  const onSubmit = () => {
     if (
       !profileImage ||
       !signUpInfo.email ||
@@ -80,14 +78,20 @@ const SignUp = () => {
   return (
     <div className="Signup">
       <div className="Signup-body">
-        <form className="Signup-form" onSubmit={onSubmit}>
+        <form
+          className="Signup-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSubmit();
+          }}
+        >
           <Flex justifyContent="center">
             <Text fontSize={16} fontWeight="bold">
               회원가입
             </Text>
           </Flex>
           <br />
-          <Flex justifyContent="center">
+          <Flex justifyContent="space-evenly">
             <Flex flexDirection="column">
               <InputLabel>프로필 사진</InputLabel>
               <Flex mt={3} mb={3} alignItems="center">
