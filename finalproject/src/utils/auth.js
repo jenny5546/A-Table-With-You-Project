@@ -57,6 +57,7 @@ export const signUp = ({ profileImage, email, password, name, age, nickname, pho
     .then(({ user }) => {
       const { uid } = user;
       return setFirestoreDocument('users', uid, {
+        uid,
         email,
         name,
         age,
