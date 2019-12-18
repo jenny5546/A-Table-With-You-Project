@@ -7,7 +7,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import { Box, Flex, Image, Text } from 'rebass';
 import loadingImage from '../../static/images/loading.gif';
 import logo from '../../static/images/logo.png';
-import { getSelectedPlace, getSelectedUser } from '../../utils/auth';
+import {getSelectedPlace, getSelectedUser, setSelectedPlace} from '../../utils/auth';
 import './search.css';
 
 class Restaurants {
@@ -32,21 +32,28 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [startNumber, setStartNumber] = useState(1);
 
-  const onMatch = (i) => {
-    getSelectedPlace(restaurantList[i].mapx).then((data) => {
+  const onMatch = async (i) => {
+    try {
+      const data = await getSelectedPlace(restaurantList[i].mapx);
       if (data.length === 0) {
+        await setSelectedPlace(JSON.parse(localStorage.getItem("login-user")).email, restaurantList[i].mapx);
         history.push(`/match`);
         return;
       }
-      localStorage.setItem('matched_restaurant_address',restaurantList[i].address);
+      localStorage.setItem('matched_restaurant_address', restaurantList[i].address);
       localStorage.setItem('matched_restaurant_roadAddress', restaurantList[i].roadAddress);
-      getSelectedUser(data[0].email).then((userList) => {
-        localStorage.setItem('matched_user_name', userList[0].name);
-        localStorage.setItem('matched_user_phone', userList[0].phone);
-        localStorage.setItem('matched_user_uid', userList[0].uid);
-        history.push(`/match`);
-      });
-    });
+      const userList = await getSelectedUser(data[0].email)
+      localStorage.setItem('matched_user_name', userList[0].name);
+      localStorage.setItem('matched_user_phone', userList[0].phone);
+      localStorage.setItem('matched_user_uid', userList[0].uid);
+
+      console.log('1');
+      await setSelectedPlace(JSON.parse(localStorage.getItem("login-user")).email, restaurantList[i].mapx);
+      console.log('2');
+      history.push(`/match`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const addSearchPlaces = (query, start = 1, display = 30) => {
