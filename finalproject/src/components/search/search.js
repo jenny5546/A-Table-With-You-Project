@@ -38,6 +38,8 @@ const Search = () => {
         history.push(`/match`);
         return;
       }
+      localStorage.setItem('matched_restaurant_address',restaurantList[i].address);
+      localStorage.setItem('matched_restaurant_roadAddress', restaurantList[i].roadAddress);
       getSelectedUser(data[0].email).then((userList) => {
         localStorage.setItem('matched_user_name', userList[0].name);
         localStorage.setItem('matched_user_phone', userList[0].phone);
