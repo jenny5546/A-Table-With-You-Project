@@ -12,7 +12,28 @@
 .home-button {
   text-align: right;
 }
-
+.align-right-search {
+  text-align: right;
+  margin-top: 10px;
+  position: absolute;
+  top: 5%;
+  right:0;
+  margin-right: 2%;
+  
+}
+.Line-search {
+    /* height: 1px; */
+    border-top: 2px solid #ccc;
+    margin-top: 5.5%;
+    width: 100%;
+    height: 2px;
+}
+.logo-image-search{
+    width: 25%;
+    height: auto;
+    margin-left: 4%;
+    margin-top: 3%;
+  }
 .loading-gif{
     display: block;
     margin-left: auto;

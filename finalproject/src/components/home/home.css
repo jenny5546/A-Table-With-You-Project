@@ -15,19 +15,39 @@
   text-align: right;
   margin-top: 10px;
 }
-
-.button {
+.button{
   border: none;
-  margin-top: 2px;
+  margin-top: 0px;
   background: transparent;
-  font-size: 19px;
+  font-size: 15px;
   font-weight: bold;
   color: #7e91be;
   text-decoration: none;
   padding: 0 10px;
   cursor: pointer;
 }
+.mypage-button {
+  border: none;
+  margin-top: 0px;
+  background: transparent;
+  font-size: 15px;
+  font-weight: bold;
+  color: #7e91be;
+  text-decoration: none;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.logout-button{
+  margin-top: 0px;
 
+}
+.logo-image{
+  width: 20%;
+  margin-right: auto;
+  margin-left: auto;
+  height: auto;
+  margin-bottom: 5px;
+}
 .Line {
   border-top: 2px solid #ccc;
   width: 100%;

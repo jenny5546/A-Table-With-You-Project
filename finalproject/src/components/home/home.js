@@ -63,7 +63,8 @@ const Home = () => {
           console.log(userData);
           localStorage.setItem('userProfile', userData.profileImagePath);
           localStorage.setItem('userName', userData.nickname);
-          // localStorage.setItem('userData',JSON.stringify(userData));
+          localStorage.setItem('userData',JSON.stringify(userData));
+          console.log(localStorage.getItem('userData'));
           // JSON.parse(localStorage.getItem('userData'));
         }
       })
@@ -115,35 +116,48 @@ const Home = () => {
                   </Text>
                   님, 안녕하세요.
                 </Text>
-                <Link to="/mypage" className="button">
+                <Link to="/mypage" className="mypage-button">
                   마이 페이지
                 </Link>
                 {/* 로그아웃 기능 추가하기 */}
-                <Button className="button" style={{ color: indigo[400] }} onClick={onLogout}>
+                <Button className="logout-button" style={{ color: indigo[400]}} onClick={onLogout}>
                   로그아웃
                 </Button>
               </Flex>
             </Box>
           </div>
         ) : (
-          <Flex justifyContent="space-between">
-            <img src={logo} className="logo-image" alt="logo" />
+          // <Flex justifyContent="space-between">
+          //   <img src={logo} className="logo-image" alt="logo" />
 
-            {/* <li><Link to="/search/">Home</Link></li> */}
-            <Flex alignItems="center" mr={3}>
-              <input type="button" onClick={handleClickOpenLogin} className="button" value="이미 회원이신가요?" />
-              혹은
-              <Link to="/signup" className="button">
-                같이 식사할 분을 찾고 싶으신가요?
-              </Link>
-            </Flex>
-          </Flex>
+          //   {/* <li><Link to="/search/">Home</Link></li> */}
+          //   <Flex alignItems="right" mr={3}>
+          //     <input type="button" onClick={handleClickOpenLogin} className="button" value="로그인" />
+          //     혹은
+          //     <Link to="/signup" className="button">
+          //       회원가입
+          //     </Link>
+          //   </Flex>
+          // </Flex>
+          <div className="align-right">
+            <input
+              type="button"
+              onClick={handleClickOpenLogin}
+              className="button"
+              value="로그인"
+            />
+              
+            <Link to="/signup" className="button">
+              회원가입
+            </Link>
+          </div>
         )}
 
         <div className="Line" />
       </header>
 
       <div className="App-body">
+        <img src={logo} className="logo-image" alt="logo" />
         <div className="container">
           <div className="Search-container">
             <div className="recommendation">#돈까스#제육볶음#서울대입구</div>
