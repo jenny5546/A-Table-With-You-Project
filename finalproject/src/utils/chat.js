@@ -1,5 +1,7 @@
 import firebase from 'firebase/app';
 import { getFirebaseDocument } from './firebase';
+import 'firebase/firestore';
+import 'firebase/database';
 
 export default class Chat {
   constructor(senderUserUid, targetUserUid) {
@@ -49,7 +51,7 @@ export default class Chat {
     if (this.chatRoomId) {
       this.messageRef = firebase.database().ref(`Messages/${this.chatRoomId}`);
       const displayMessages = (data) => {
-        callback(data);
+        callback(data.val());
       };
       this.messageRef.limitToLast(100).on('child_added', displayMessages);
     }
