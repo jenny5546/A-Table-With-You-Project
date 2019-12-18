@@ -45,6 +45,7 @@ const Search = () => {
     const onMatch=(i)=>{
       getSelectedPlace(restaurantList[i].mapx)
           .then((data)=>{
+              if(data.length===0){return;}
           getSelectedUser(data[0].email)
               .then((userList)=>{
                   localStorage.setItem("matched_user_name", userList[0].name);
