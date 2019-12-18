@@ -5,6 +5,7 @@ import Search from './components/search/search';
 import Home from './components/home/home';
 import SignUp from './components/signup/signup';
 import MyPage from './components/mypage/mypage';
+import Match from './components/match/match';
 
 function App() {
   /*
