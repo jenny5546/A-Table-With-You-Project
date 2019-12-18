@@ -8,7 +8,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import { Box, Flex, Image, Text } from 'rebass';
 import loadingImage from '../../static/images/loading.gif';
 import logo from '../../static/images/logo.png';
-import {getSelectedPlace, getSelectedUser, setSelectedPlace} from '../../utils/auth';
+import { getSelectedPlace, getSelectedUser, setSelectedPlace, isSelectPlace } from '../../utils/auth';
 import './search.css';
 
 class Restaurants {
@@ -29,6 +29,7 @@ const Search = () => {
   const history = useHistory();
   const { place } = useParams();
   const [restaurantList, setRestaurantList] = useState([]);
+  const [seledtedRestaurantList, setSelectedRestaurantList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [startNumber, setStartNumber] = useState(1);
@@ -37,29 +38,33 @@ const Search = () => {
     try {
       const data = await getSelectedPlace(restaurantList[i].mapx);
       if (data.length === 0) {
-        await setSelectedPlace(JSON.parse(localStorage.getItem("login-user")).email, restaurantList[i].mapx);
-        alert("아직 이 식당을 찜한 다른 유저가 없습니다 ㅠㅠ 조금만 기다려주세요");
+        await setSelectedPlace(JSON.parse(localStorage.getItem('login-user')).email, restaurantList[i].mapx);
+        setSelectedRestaurantList((list) => {
+          list[i] = true;
+          return [...list];
+        });
+        alert('아직 이 식당을 찜한 다른 유저가 없습니다 ㅠㅠ 조금만 기다려주세요');
         return;
       }
       localStorage.setItem('matched_restaurant_address', restaurantList[i].address);
       localStorage.setItem('matched_restaurant_roadAddress', restaurantList[i].roadAddress);
-      const userList = await getSelectedUser(data[0].email)
+      const userList = await getSelectedUser(data[0].email);
       localStorage.setItem('matched_user_name', userList[0].name);
       localStorage.setItem('matched_user_phone', userList[0].phone);
       localStorage.setItem('matched_user_uid', userList[0].uid);
 
-      console.log('1');
-      await setSelectedPlace(JSON.parse(localStorage.getItem("login-user")).email, restaurantList[i].mapx);
-      console.log('2');
+      await setSelectedPlace(JSON.parse(localStorage.getItem('login-user')).email, restaurantList[i].mapx);
       history.push(`/match`);
     } catch (err) {
       console.log(err);
     }
   };
-  const onAlreadyMatched=()=>{
+
+  const onAlreadyMatched = () => {
     // e.preventDefault();
     alert('이미 찜하였습니다');
-  }
+  };
+
   const addSearchPlaces = (query, start = 1, display = 30) => {
     return fetch(
       `https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${query}&display=${display}&start=${start}&sort=random`,
@@ -79,7 +84,10 @@ const Search = () => {
           ...items.map(
             (item) =>
               new Restaurants(
-                item.title.replace(/<b>/gi, '').replace(/<\/b>/gi, '').replace(/&amp;/,''),
+                item.title
+                  .replace(/<b>/gi, '')
+                  .replace(/<\/b>/gi, '')
+                  .replace(/&amp;/, ''),
                 item.link,
                 item.category,
                 item.description,
@@ -91,6 +99,7 @@ const Search = () => {
               )
           ),
         ]);
+        setSelectedRestaurantList((list) => [...list, ...items.map((item) => false)]);
       });
   };
 
@@ -124,9 +133,23 @@ const Search = () => {
       const loginUserData = JSON.parse(userData);
       setUserInfo(loginUserData);
     }
+  }, []);
 
+  useEffect(() => {
     addSearchPlaces(place);
   }, [place]);
+
+  useEffect(() => {
+    if (userInfo) {
+      restaurantList.forEach(async (item, i) => {
+        const result = await isSelectPlace(userInfo.email, item.mapx);
+        setSelectedRestaurantList((list) => {
+          list[i] = result;
+          return [...list];
+        });
+      });
+    }
+  }, [userInfo, restaurantList]);
 
   if (restaurantList.length > 0) {
     return (
@@ -182,16 +205,15 @@ const Search = () => {
                     <td className="phone"> {restaurant.telephone} </td>
                     <td className="address"> {restaurant.address} </td>
                     <td className="liked">
-                      {/* 만약 이미 찜 한 애면 */}
-
-                      <IconButton className="like-button" aria-label="like" onClick={(e) => onAlreadyMatched()}>
-                        <FavoriteIcon style={{ color: pink[200] }} />
-                      </IconButton>
-                      {/* 아직 찜 안 한 애면  */}
-                      <IconButton className="like-button" aria-label="like" id={i} onClick={(e) => onMatch(i)}>
-                        <FavoriteBorderOutlinedIcon style={{ color: pink[200] }} />
-                      </IconButton>
-
+                      {seledtedRestaurantList[i] ? (
+                        <IconButton className="like-button" aria-label="like" onClick={(e) => onAlreadyMatched()}>
+                          <FavoriteIcon style={{ color: pink[200] }} />
+                        </IconButton>
+                      ) : (
+                        <IconButton className="like-button" aria-label="like" id={i} onClick={(e) => onMatch(i)}>
+                          <FavoriteBorderOutlinedIcon style={{ color: pink[200] }} />
+                        </IconButton>
+                      )}
                     </td>
                   </tr>
                 );
@@ -199,7 +221,12 @@ const Search = () => {
             </table>
             {loading && (
               <Flex justifyContent="center">
-                <img src={loadingImage} style={{filter: 'brightness(220%)'}} className="loading-gif" alt="loading-gif" />
+                <img
+                  src={loadingImage}
+                  style={{ filter: 'brightness(220%)' }}
+                  className="loading-gif"
+                  alt="loading-gif"
+                />
               </Flex>
             )}
           </div>
