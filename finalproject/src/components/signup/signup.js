@@ -6,7 +6,7 @@ import { Box, Flex, Text } from 'rebass';
 import styled from 'styled-components';
 import Button from '../button/button';
 import { signUp } from '../../utils/auth';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const InputLabel = styled.div`
   font-size: 12px;
@@ -15,12 +15,12 @@ const InputLabel = styled.div`
 `;
 
 const SignUp = () => {
+  const history = useHistory();
   const [profileImage, setProfileImage] = useState(null);
   const [profileImageUrl, setProfileImageUrl] = useState('');
   const [signUpInfo, setSignUpInfo] = useState({});
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [redirect, setRedirect] = useState(false);
 
   const profileImageChanged = (e) => {
     if (e.target.files[0]) {
@@ -63,17 +63,13 @@ const SignUp = () => {
       phone: signUpInfo.phone,
     })
       .then(() => {
-        setRedirect(true);
+        history.replace('/');
       })
       .catch((err) => {
         setError(true);
         setErrorMessage(err.message);
       });
   };
-
-  if (redirect) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <div className="Signup">
@@ -86,13 +82,7 @@ const SignUp = () => {
               <InputLabel>프로필 사진</InputLabel>
               <Flex mt={3} mb={3} alignItems="center">
                 {profileImage ? (
-                  <img
-                    src={profileImageUrl}
-                    className="profile-image"
-                    alt="프로필 사진"
-                    width="80"
-                    height="80"
-                  />
+                  <img src={profileImageUrl} className="profile-image" alt="프로필 사진" width="80" height="80" />
                 ) : (
                   <Box display="inline-block" className="profile-image" backgroundColor="#ccc" width={60} height={60} />
                 )}
