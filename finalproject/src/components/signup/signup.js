@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
-import logo from '../../static/images/logo.png';
+import profile_dummy from '../../static/images/profile_dummy.png';
 import './signup.css';
 import { Box, Flex, Text } from 'rebass';
 import styled from 'styled-components';
@@ -97,7 +97,7 @@ const SignUp = () => {
                 {profileImage ? (
                   <img src={profileImageUrl} className="profile-image" alt="프로필 사진" width="80" height="80" />
                 ) : (
-                  <Box display="inline-block" className="profile-image" backgroundColor="rgba(51, 51, 51, 0.205)" width={60} height={60} />
+                  <img src={profile_dummy} className="profile-image" style={{filter: 'brightness(90%)'}} width={60} height={60} />
                 )}
 
                 <Box ml={3} display="inline-block">

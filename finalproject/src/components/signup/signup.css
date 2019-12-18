@@ -34,7 +34,8 @@
 
 .Signup-form {
     padding: 15px;
-    background-color: rgba(241, 240, 239, 0.719);
+    background-color: rgba(241, 240, 239, 0.801);
+    border: 3px solid rgba(139, 169, 189, 0.288);
     width: 30%;
     /* display: flex; */
     flex-direction: column;
@@ -51,12 +52,14 @@
     font-size: 40px;
     color: rgba(51, 51, 51, 0.829);
     font-weight: bold;
+    margin-left: 12px;
+    margin-top: 5px;
     
 }
 
 .profile-image {
     border-radius: 50%;
-    border: 2px solid rgb(139, 169, 189);
+    border: 2px solid rgb(199, 163, 45);
 }
 
 .profile-input {
@@ -69,11 +72,13 @@
 }
 
 .profile-input+label {
-    font-size: 12px;
+    font-size: 10px;
     padding: 11px;
     font-weight: 700;
-    color: #333;
-    background-color: #ffffff;
+    border-radius: 30px;
+    color: rgba(51, 51, 51, 0.911);
+    background-color: #f5f3f3;
+    border: 0.5px solid rgba(51, 51, 51, 0.479);
     display: inline-block;
     cursor: pointer;
     font-family: 'Nanum Gothic', sans-serif;
