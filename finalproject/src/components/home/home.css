@@ -84,17 +84,17 @@
   height: 400px;
 }
 
-@media (min-height: 780px) {
+@media (min-height: 80px) {
   .react-slideshow-wrapper .images-wrap {
     height: 500px;
   }
 }
 
-@media (min-height: 920px) {
+/* @media (min-height: 920px) {
   .react-slideshow-wrapper .images-wrap {
     height: 600px;
   }
-}
+} */
 
 .each-slide {
   height: 100%;
@@ -163,7 +163,7 @@
 
 .input-login {
   padding: 3px;
-  font-size: 16px;
+  font-size: 18px;
   margin-left: 10px;
 }
 
@@ -201,8 +201,8 @@
   margin-left: 5px;
 }
 
-.input {
+/* .input {
   padding: 3px;
   margin-left: 10px;
   margin-bottom: 10px;
-}
+} */
