@@ -3,6 +3,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 
+
 export const FirestoreError = {
   NOT_EXIST_DOC: 1,
   SYSTEM_ERROR: 2
@@ -10,17 +11,14 @@ export const FirestoreError = {
 
 export const initFirebase = () => {
   const firebaseConfig = {
-    apiKey: 
-    
+    apiKey: "AIzaSyBSaHFq3eMNuqfceqfAuOgr5cV9VNJ9vlU",
     authDomain: "eat-foods-with-you.firebaseapp.com",
     databaseURL: "https://eat-foods-with-you.firebaseio.com",
     projectId: "eat-foods-with-you",
     storageBucket: "eat-foods-with-you.appspot.com",
     messagingSenderId: "935328497051",
     appId: "1:935328497051:web:f8456877534e3f0ff1f53e",
-    measurementId: 
-    
-    
+    measurementId:"G-EQFRV5TFJM",
   };
 
   firebase.initializeApp(firebaseConfig);
@@ -52,6 +50,7 @@ export const getFirebaseDocument = (collection, document) => {
     .doc(document)
     .get()
     .then(doc => {
+        console.log(doc);
       if (doc.exists) {
         return doc.data();
       }
@@ -74,4 +73,25 @@ export const getImageDownloadPath = fileName => {
     .storage()
     .ref(fileName)
     .getDownloadURL();
+};
+
+export const getSelectedFirebaseDocument=(collection, fieldName, valueName)=>{
+  return firebase
+      .firestore()
+      .collection(collection)
+      .where(fieldName,"==",valueName)
+      .get()
+      .then((querySnapshot)=>{
+          const placeList=[];
+          console.log(querySnapshot);
+        querySnapshot.forEach(function(doc){
+            console.log(doc.data());
+            placeList.push(doc.data());
+        });
+        console.log(placeList);
+        return placeList;
+      })
+      .catch((error)=> {
+          console.log("Error getting documents: ", error);
+      });
 };

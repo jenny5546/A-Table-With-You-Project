@@ -28,13 +28,15 @@
 .user-info{
   position: relative;
   width: 70%;
-  top: 150px;
+  
+  top: 100px;
   margin-left: auto;
   margin-right: auto;
   background: white;
   border-radius: 5px;
   border : white 1px solid;
   box-shadow: 1px 3px 11px 0px rgba(146,146,146,1);
+  padding-bottom: 20px;
 }
 .profile-image-mypage{
     width: 200px; 
@@ -56,6 +58,7 @@ p3{
     font-size: 30px;
     color: #616161a4;
     font-weight: bold;
+    
 }
 p4{
     font-family: 'Noto Sans KR', sans-serif;
@@ -71,9 +74,13 @@ p5{
 }
 .gender-image{
     position: relative;
-    width: 5%;
+    width: 4%;
     height: auto;
     left: 1%;
     
     
+}
+.table-list-title{
+    margin-left: 6%;
+    margin-top: 50px;
 }
