@@ -15,7 +15,8 @@
   text-align: right;
   margin-top: 10px;
 }
-.button{
+
+.button {
   border: none;
   margin-top: 0px;
   background: transparent;
@@ -26,6 +27,7 @@
   padding: 0 10px;
   cursor: pointer;
 }
+
 .mypage-button {
   border: none;
   margin-top: 0px;
@@ -37,17 +39,19 @@
   padding: 0 10px;
   cursor: pointer;
 }
-.logout-button{
-  margin-top: 0px;
 
+.logout-button {
+  margin-top: 0px;
 }
-.logo-image{
-  width: 20%;
+
+.logo-image {
+  width: 15%;
   margin-right: auto;
   margin-left: auto;
   height: auto;
   margin-bottom: 5px;
 }
+
 .Line {
   border-top: 2px solid #ccc;
   width: 100%;
@@ -77,20 +81,20 @@
 }
 
 .react-slideshow-wrapper .images-wrap {
-  height: 500px;
+  height: 400px;
 }
 
-@media (min-height: 780px) {
+@media (min-height: 80px) {
+  .react-slideshow-wrapper .images-wrap {
+    height: 500px;
+  }
+}
+
+/* @media (min-height: 920px) {
   .react-slideshow-wrapper .images-wrap {
     height: 600px;
   }
-}
-
-@media (min-height: 920px) {
-  .react-slideshow-wrapper .images-wrap {
-    height: 720px;
-  }
-}
+} */
 
 .each-slide {
   height: 100%;
@@ -110,18 +114,6 @@
   width: 70%;
   z-index: 2;
   transform: translateY(-50%);
-}
-
-.Search-form {
-  width: 100%;
-  border-radius: 50px;
-  background: white;
-  border: 2px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-
-  display: flex;
-  align-items: center;
-  padding: 3px 10px;
 }
 
 .Search-bar {
@@ -173,7 +165,7 @@
 
 .input-login {
   padding: 3px;
-  font-size: 16px;
+  font-size: 18px;
   margin-left: 10px;
 }
 
@@ -223,8 +215,8 @@
   margin-left: 5px;
 }
 
-.input {
+/* .input {
   padding: 3px;
   margin-left: 10px;
   margin-bottom: 10px;
-}
+} */
