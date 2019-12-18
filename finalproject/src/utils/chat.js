@@ -1,7 +1,9 @@
-import firebase from 'firebase/app';
-import { getFirebaseDocument } from './firebase';
-import 'firebase/firestore';
-import 'firebase/database';
+import {
+  getFirebaseDocument,
+  updateFirebaseDocument,
+  getFirebaseDatabaseRef,
+  getFirebaseServerTimestamp,
+} from './firebase';
 
 export default class Chat {
   constructor(senderUserUid, targetUserUid) {
@@ -15,7 +17,6 @@ export default class Chat {
       if (data.chatRooms[this.target]) {
         return data.chatRooms[this.target];
       }
-
       return null;
     });
   }
@@ -25,20 +26,12 @@ export default class Chat {
       if (!roomId) {
         this.chatRoomId = `@room-${this.sender}-${this.target}`;
         return Promise.all([
-          firebase
-            .firestore()
-            .collection('users')
-            .doc(this.sender)
-            .update({
-              [`chatRooms.${this.target}`]: this.chatRoomId,
-            }),
-          firebase
-            .firestore()
-            .collection('users')
-            .doc(this.target)
-            .update({
-              [`chatRooms.${this.sender}`]: this.chatRoomId,
-            }),
+          updateFirebaseDocument('users', this.sender, {
+            [`chatRooms.${this.target}`]: this.chatRoomId,
+          }),
+          updateFirebaseDocument('users', this.target, {
+            [`chatRooms.${this.sender}`]: this.chatRoomId,
+          }),
         ]).then(() => Promise.resolve(this.chatRoomId));
       }
 
@@ -49,7 +42,7 @@ export default class Chat {
 
   startLoadMessages(callback) {
     if (this.chatRoomId) {
-      this.messageRef = firebase.database().ref(`Messages/${this.chatRoomId}`);
+      this.messageRef = getFirebaseDatabaseRef(`Messages/${this.chatRoomId}`);
       const displayMessages = (data) => {
         callback(data.val());
       };
@@ -65,7 +58,7 @@ export default class Chat {
       .set({
         sender: this.sender,
         message,
-        timestamp: firebase.database.ServerValue.TIMESTAMP,
+        timestamp: getFirebaseServerTimestamp(),
       });
   }
 }

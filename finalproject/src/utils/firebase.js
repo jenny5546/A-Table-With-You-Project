@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
+import 'firebase/database';
 
 export const FirestoreError = {
   NOT_EXIST_DOC: 'firestore/not-exist-data',
@@ -59,6 +60,14 @@ export const getFirebaseDocument = (collection, document) => {
     });
 };
 
+export const updateFirebaseDocument = (collection, document, value) => {
+  return firebase
+    .firestore()
+    .collection(collection)
+    .doc(document)
+    .update(value);
+};
+
 export const uploadImageToStorage = (fileName, image) => {
   return firebase
     .storage()
@@ -87,6 +96,14 @@ export const getSelectedFirebaseDocuments = (collection, fieldName, valueName) =
       return dataList;
     })
     .catch((error) => {
-      console.log('Error getting documents: ', error);
+      return Promise.reject(error);
     });
+};
+
+export const getFirebaseDatabaseRef = (path) => {
+  return firebase.database().ref(path);
+};
+
+export const getFirebaseServerTimestamp = () => {
+  return firebase.database.ServerValue.TIMESTAMP;
 };
