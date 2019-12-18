@@ -4,7 +4,6 @@ import { indigo } from '@material-ui/core/colors';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import React, { useEffect, useState } from 'react';
@@ -53,6 +52,8 @@ const Home = () => {
   const [signInInfo, setSignInInfo] = useState({});
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const handleClickOpenLogin = () => {
     setOpenLogin(true);
   };
@@ -74,8 +75,8 @@ const Home = () => {
         localStorage.setItem('login-user', JSON.stringify(userData));
       })
       .catch((err) => {
-        // 에러 표시 방식은 추후 변경
-        console.error(err.message);
+        setError(true);
+        setErrorMessage(err.message);
       });
   };
 
@@ -172,9 +173,8 @@ const Home = () => {
         </div>
       </div>
 
-      <Dialog fullScreen open={openLogin} onClose={handleCloseLogin} aria-labelledby="form-dialog-title">
+      <Dialog open={openLogin} onClose={handleCloseLogin} aria-labelledby="form-dialog-title">
         <div className="big-container-login">
-          <DialogTitle className="form-dialog-title" />
           <div className="small-container-login">
             <DialogContent>
               <form
@@ -184,10 +184,8 @@ const Home = () => {
                   onLogin();
                 }}
               >
+                <img src={login} className="login-image" alt="background" />
                 <div className="login-title">Welcome Back!</div>
-                <div className="image-box-login">
-                  <img src={login} className="login-image" alt="background" />
-                </div>
                 <div className="login-form">
                   <div className="id-label">이메일</div>
                   <div className="input-login">
@@ -198,14 +196,21 @@ const Home = () => {
                     <TextField type="password" placeholder="password" name="password" onChange={onValueHandle} />
                   </div>
                   <input type="submit" style={{ display: 'none' }} />
-                  <IconButton aria-label="login" onClick={onLogin} className="login-button button">
-                    <ExitToAppRoundedIcon style={{ color: indigo[200] }} />
-                  </IconButton>
                 </div>
+                {error && (
+                  <Box my={2}>
+                    <Text fontSize={12} fontWeight="bold" color="red">
+                      {errorMessage}
+                    </Text>
+                  </Box>
+                )}
               </form>
             </DialogContent>
           </div>
           <DialogActions>
+            <IconButton aria-label="login" onClick={onLogin} className="login-button button">
+              <ExitToAppRoundedIcon style={{ color: indigo[200] }} />
+            </IconButton>
             <Button onClick={handleCloseLogin} color="primary">
               닫기
             </Button>

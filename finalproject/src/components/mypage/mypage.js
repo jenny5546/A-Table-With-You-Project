@@ -27,11 +27,12 @@ const MyPage = () => {
         flexFlow: 'column',
       }}
     >
-      <div className="MyPage-Header">
-        <img src={logo} className="logo-image-mypage" alt="logo" />
+      <Flex flexDirection="column" p={3}>
         {userInfo && (
-          <div className="align-right-mypage">
-            <Box display="inline-block">
+          <Flex justifyContent="space-between">
+            <img src={logo} className="logo-image-mypage" alt="logo" />
+
+            <Flex alignItems="center">
               <Flex alignItems="center">
                 <Image src={userInfo.profileImagePath} sx={{ borderRadius: '50%' }} width="50px" height="50px" />
                 <Text as="span" mx="15px" fontSize={18} color="#7e91be;">
@@ -46,12 +47,12 @@ const MyPage = () => {
                   </IconButton>
                 </Link>
               </Flex>
-            </Box>
-          </div>
+            </Flex>
+          </Flex>
         )}
 
         <div className="Line-mypage" />
-      </div>
+      </Flex>
       {userInfo ? (
         <div className="user-info">
           {/* <div className='profile-image-div'> */}
