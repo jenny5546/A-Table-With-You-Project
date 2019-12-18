@@ -72,8 +72,11 @@ const Home = () => {
         setUserInfo(userData);
         setIsLogin(true);
         if(userData){
-          // localStorage.setItem('userInfo', userInfo.nickname);
-          // console.log(userInfo.nickname); 
+          console.log(userData);
+          localStorage.setItem('userProfile', userData.profileImagePath);
+          localStorage.setItem('userName', userData.nickname);
+          // localStorage.setItem('userData',JSON.stringify(userData));
+          // JSON.parse(localStorage.getItem('userData'));
         }
         
         
@@ -83,23 +86,23 @@ const Home = () => {
         console.error(err.message);
       });
   };
-  const saveLogin=()=>{
-    if (userInfo.profileImagePath){
-      localStorage.setItem('userProfile', userInfo.profileImagePath);
-      localStorage.setItem('userName', userInfo.nickname);
-    }
-  }
+  // const saveLogin=()=>{
+  //   if (userInfo.profileImagePath){
+  //     localStorage.setItem('userProfile', userInfo.profileImagePath);
+  //     localStorage.setItem('userName', userInfo.nickname);
+  //   }
+  // }
   const onLogout=()=>{
       localStorage.removeItem('userProfile');
       localStorage.removeItem('userName');
       window.location.reload(true);
   }
 
-  saveLogin();
+  // saveLogin();
   const searchResults = (e) => {
     e.preventDefault();
     if(!placeToSearch){alert('아무것도 입력하지 않으셨습니다.')}
-    if(!userInfo.profileImagePath){alert('로그인하고 이용해주세요.')}
+    // if(!userInfo.profileImagePath){alert('로그인하고 이용해주세요.')}
     else{history.push(`/search/${placeToSearch}`);}
   };
 
@@ -226,7 +229,7 @@ const Home = () => {
                     value="→"
                     onClick={onLogin}
                   /> */}
-                  <IconButton aria-label="login" onClick={onLogin} className="button" >
+                  <IconButton aria-label="login" onClick={onLogin} className="login-button button" >
                     <ExitToAppRoundedIcon style={{ color: indigo[200] }}/>
                   </IconButton>
                 </div>
@@ -234,7 +237,7 @@ const Home = () => {
             </DialogContent>
           </div>
           <DialogActions>
-            <Button onClick={handleClose_login} color="primary">
+            <Button onClick={handleClose_login} color="primary" >
               닫기
             </Button>
           </DialogActions>

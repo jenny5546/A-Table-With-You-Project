@@ -45,8 +45,8 @@ const Search = () => {
           method: 'GET',
           headers:{
             'Content-Type': 'application/x-www-form-urlencoded',
-            'X-Naver-Client-Id': process.env.REACT_APP_NAVER_CLIENT_ID,
-            'X-Naver-Client-Secret':process.env.REACT_APP_NAVER_CLIENT_SECRET,
+            'X-Naver-Client-Id': 'v2ovBB6VAQB_os_SAzYR',
+            'X-Naver-Client-Secret':'znQRLoBats',
           }
         }).then((response)=>response.json())
           .then(({items})=>{
