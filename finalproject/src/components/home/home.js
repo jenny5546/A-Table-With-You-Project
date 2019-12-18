@@ -77,7 +77,7 @@ const Home = () => {
   }, []);
 
   const onLogout = () => {
-    localStorage.removeItem('login-uid');
+    localStorage.removeItem('login-user');
     setIsLogin(false);
   };
 
