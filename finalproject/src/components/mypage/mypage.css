@@ -1,26 +1,17 @@
 /* @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap'); */
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+
 .logo-image-mypage {
-  margin-top: 15px;
-  margin-left: 13px;
   width: 380px;
-  /* top: 3%; */
 }
-.align-right-mypage {
-  text-align: right;
-  margin-top: 10px;
-  position: absolute;
-  top: 5%;
-  right: 0;
-  margin-right: 2%;
-}
+
 .Line-mypage {
-  /* height: 1px; */
   border-top: 2px solid #ccc;
-  margin-top: 15px;
+  margin-top: 5px;
   width: 100%;
   height: 2px;
 }
+
 .user-info {
   position: relative;
   width: 70%;
@@ -35,6 +26,7 @@
   padding-bottom: 50px;
   margin-bottom: 30px;
 }
+
 .profile-image-mypage {
   width: 200px;
   height: 200px;
@@ -45,35 +37,41 @@
   margin-top: 5%;
   margin-bottom: auto;
 }
+
 .profile-info-div {
   position: absolute;
   top: 100px;
   left: 330px;
 }
+
 p3 {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 30px;
   color: #616161dc;
   font-weight: bold;
 }
+
 p4 {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 20px;
   color: #616161b2;
   margin-left: 5px;
 }
+
 p5 {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 20px;
   color: #616161b2;
   margin-left: 5px;
 }
+
 .gender-image {
   position: relative;
   width: 4%;
   height: auto;
   left: 1%;
 }
+
 .table-list-title {
   margin-left: 6%;
   margin-top: 60px;
@@ -81,9 +79,11 @@ p5 {
   font-weight: bold;
   color: #4a597c;
 }
+
 table {
   margin-top: 20px;
 }
+
 th {
   margin-top: 10px;
   color: rgb(108, 120, 189);
