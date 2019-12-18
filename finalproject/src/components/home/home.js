@@ -7,24 +7,25 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 import { Box, Flex, Image, Text } from 'rebass';
+import login from '../../static/images/loginimg.png';
 import logo from '../../static/images/logo.png';
+import mainpic3 from '../../static/images/mainpic3.jpg';
+import mainpic4 from '../../static/images/mainpic4.jpg';
+import mainpic5 from '../../static/images/mainpic5.jpg';
+import mainpic6 from '../../static/images/mainpic6.jpg';
+import mainpic7 from '../../static/images/mainpic7.jpg';
+import mainpic8 from '../../static/images/mainpic8.jpg';
+import mainpic9 from '../../static/images/mainpic9.jpg';
+import search from '../../static/images/search.png';
 import { signIn } from '../../utils/auth';
+import styled from 'styled-components';
 import './home.css';
-import login from './loginimg.png';
-import mainpic2 from './mainpic3.jpg';
-import mainpic3 from './mainpic4.jpg';
-import mainpic4 from './mainpic5.jpg';
-import mainpic5 from './mainpic6.jpg';
-import mainpic6 from './mainpic7.jpg';
-import mainpic7 from './mainpic8.jpg';
-import mainpic8 from './mainpic9.jpg';
-import search from './search.png';
 
-const slideImages = [mainpic2, mainpic3, mainpic4, mainpic5, mainpic6, mainpic7, mainpic8];
+const slideImages = [mainpic3, mainpic4, mainpic5, mainpic6, mainpic7, mainpic8, mainpic9];
 const properties = {
   duration: 5000,
   transitionDuration: 500,
@@ -32,6 +33,18 @@ const properties = {
   indicators: true,
   arrows: true,
 };
+
+const SearchForm = styled.form`
+  width: 100%;
+  border-radius: 50px;
+  background: ${(props) => (props.disabled ? '#EBEBE4' : 'white')};
+  border: 2px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  align-items: center;
+  padding: 3px 10px;
+`;
 
 const Home = () => {
   const history = useHistory();
@@ -52,9 +65,7 @@ const Home = () => {
     setSignInInfo((s) => ({ ...s, [name]: value }));
   };
 
-  const onLogin = (e) => {
-    e.preventDefault();
-
+  const onLogin = () => {
     signIn({ email: signInInfo.email, password: signInInfo.password })
       .then((userData) => {
         setOpenLogin(false);
@@ -109,7 +120,6 @@ const Home = () => {
                 <Link to="/mypage" className="mypage-button">
                   마이 페이지
                 </Link>
-                {/* 로그아웃 기능 추가하기 */}
                 <Button className="logout-button" style={{ color: indigo[400] }} onClick={onLogout}>
                   로그아웃
                 </Button>
@@ -134,18 +144,19 @@ const Home = () => {
         <div className="container">
           <div className="Search-container">
             <div className="recommendation">#돈까스#제육볶음#서울대입구</div>
-            <form className="Search-form" onSubmit={searchResults}>
+            <SearchForm onSubmit={searchResults} disabled={!isLogin}>
               <img src={search} className="Search-image" alt="search" />
               <input
                 type="text"
+                disabled={!isLogin}
                 className="Search-bar"
-                placeholder="먹고 싶은 음식이나 지역을 입력해주세요"
+                placeholder={isLogin ? '먹고 싶은 음식이나 지역을 입력해주세요' : '로그인을 먼저 해주세요'}
                 onChange={(e) => {
                   setPlaceToSearch(e.target.value);
                 }}
               />
               {/* <input type="submit"></input> */}
-            </form>
+            </SearchForm>
           </div>
           <div className="slide-container">
             <Slide {...properties}>
@@ -166,7 +177,13 @@ const Home = () => {
           <DialogTitle className="form-dialog-title" />
           <div className="small-container-login">
             <DialogContent>
-              <form className="login-form">
+              <form
+                className="login-form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  onLogin();
+                }}
+              >
                 <div className="login-title">Welcome Back!</div>
                 <div className="image-box-login">
                   <img src={login} className="login-image" alt="background" />
@@ -180,12 +197,7 @@ const Home = () => {
                   <div className="input-login">
                     <TextField type="password" placeholder="password" name="password" onChange={onValueHandle} />
                   </div>
-                  {/* <input
-                    type="submit"
-                    className="login-button"
-                    value="→"
-                    onClick={onLogin}
-                  /> */}
+                  <input type="submit" style={{ display: 'none' }} />
                   <IconButton aria-label="login" onClick={onLogin} className="login-button button">
                     <ExitToAppRoundedIcon style={{ color: indigo[200] }} />
                   </IconButton>

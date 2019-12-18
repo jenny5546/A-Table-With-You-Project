@@ -39,7 +39,7 @@ const ChatRoom = () => {
         if (users.length > 0) {
           const targetUser = users[0];
           const chat = new Chat(loginUserData.uid, targetUser.uid);
-          targetUserProfile=targetUser.profileImagePath;
+
           chat.openChatRoom().then((roomId) => {
             console.log(roomId);
             chat.startLoadMessages((data) => {
