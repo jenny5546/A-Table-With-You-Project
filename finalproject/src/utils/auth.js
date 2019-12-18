@@ -98,6 +98,7 @@ export const signIn = ({ email: loginEmail, password: loginPassword }) => {
           const { email, name, nickname, age, gender, phone } = data;
           const profileImagePath = await getImageDownloadPath(`profiles/${uid}.jpg`);
           return {
+            uid,
             profileImagePath,
             email,
             name,
