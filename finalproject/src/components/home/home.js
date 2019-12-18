@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 import { Box, Flex, Image, Text } from 'rebass';
@@ -26,7 +26,7 @@ import search from './search.png';
 
 const slideImages = [mainpic2, mainpic3, mainpic4, mainpic5, mainpic6, mainpic7, mainpic8];
 const properties = {
-  duration: 500000,
+  duration: 5000,
   transitionDuration: 500,
   infinite: true,
   indicators: true,
@@ -51,6 +51,7 @@ const Home = () => {
     const { value, name } = e.target;
     setSignInInfo((s) => ({ ...s, [name]: value }));
   };
+
   const onLogin = (e) => {
     e.preventDefault();
 
@@ -59,34 +60,27 @@ const Home = () => {
         setOpenLogin(false);
         setUserInfo(userData);
         setIsLogin(true);
-        if (userData) {
-          console.log(userData);
-          localStorage.setItem('userProfile', userData.profileImagePath);
-          localStorage.setItem('userName', userData.nickname);
-          localStorage.setItem('userData',JSON.stringify(userData));
-          console.log(localStorage.getItem('userData'));
-          // window.location.reload(true);
-          // JSON.parse(localStorage.getItem('userData'));
-        }
+        localStorage.setItem('login-user', JSON.stringify(userData));
       })
       .catch((err) => {
         // 에러 표시 방식은 추후 변경
         console.error(err.message);
       });
   };
-  // const saveLogin=()=>{
-  //   if (userInfo.profileImagePath){
-  //     localStorage.setItem('userProfile', userInfo.profileImagePath);
-  //     localStorage.setItem('userName', userInfo.nickname);
-  //   }
-  // }
+
+  useEffect(() => {
+    const userData = localStorage.getItem('login-user');
+    if (userData) {
+      setIsLogin(true);
+      setUserInfo(JSON.parse(userData));
+    }
+  }, []);
+
   const onLogout = () => {
-    localStorage.removeItem('userProfile');
-    localStorage.removeItem('userName');
-    // window.location.reload(true);
+    localStorage.removeItem('login-uid');
+    setIsLogin(false);
   };
 
-  // saveLogin();
   const searchResults = (e) => {
     e.preventDefault();
     if (!placeToSearch) {
@@ -101,19 +95,14 @@ const Home = () => {
   return (
     <div className="App">
       <header className="App-header">
-        {localStorage.getItem('userProfile') ? (
+        {isLogin ? (
           <div className="align-right">
             <Box display="inline-block">
               <Flex alignItems="center">
-                <Image
-                  src={localStorage.getItem('userProfile')}
-                  sx={{ borderRadius: '50%' }}
-                  width="50px"
-                  height="50px"
-                />
+                <Image src={userInfo.profileImagePath} sx={{ borderRadius: '50%' }} width="50px" height="50px" />
                 <Text as="span" mx="15px" fontSize={18} color="#7e91be;">
                   <Text as="span" fontWeight="bold">
-                    {localStorage.getItem('userName')}
+                    {userInfo.nickname}
                   </Text>
                   님, 안녕하세요.
                 </Text>
@@ -121,33 +110,16 @@ const Home = () => {
                   마이 페이지
                 </Link>
                 {/* 로그아웃 기능 추가하기 */}
-                <Button className="logout-button" style={{ color: indigo[400]}} onClick={onLogout}>
+                <Button className="logout-button" style={{ color: indigo[400] }} onClick={onLogout}>
                   로그아웃
                 </Button>
               </Flex>
             </Box>
           </div>
         ) : (
-          // <Flex justifyContent="space-between">
-          //   <img src={logo} className="logo-image" alt="logo" />
-
-          //   {/* <li><Link to="/search/">Home</Link></li> */}
-          //   <Flex alignItems="right" mr={3}>
-          //     <input type="button" onClick={handleClickOpenLogin} className="button" value="로그인" />
-          //     혹은
-          //     <Link to="/signup" className="button">
-          //       회원가입
-          //     </Link>
-          //   </Flex>
-          // </Flex>
           <div className="align-right">
-            <input
-              type="button"
-              onClick={handleClickOpenLogin}
-              className="button"
-              value="로그인"
-            />
-              
+            <input type="button" onClick={handleClickOpenLogin} className="button" value="로그인" />
+
             <Link to="/signup" className="button">
               회원가입
             </Link>
