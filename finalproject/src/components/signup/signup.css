@@ -33,13 +33,14 @@
 }
 
 .Signup-form {
-    padding: 10px;
+    padding: 15px;
     background-color: rgba(241, 240, 239, 0.719);
     width: 30%;
     /* display: flex; */
     flex-direction: column;
     /* justify-content: center;
     align-items: center; */
+    font-family: 'Nanum Gothic', sans-serif;
     
 
 }
@@ -48,11 +49,14 @@
     /* font-weight: bold; */
     font-family: 'Gelasio', serif;
     font-size: 40px;
+    color: rgba(51, 51, 51, 0.829);
+    font-weight: bold;
     
 }
 
 .profile-image {
     border-radius: 50%;
+    border: 2px solid rgb(139, 169, 189);
 }
 
 .profile-input {
@@ -66,11 +70,16 @@
 
 .profile-input+label {
     font-size: 12px;
-    padding: 10px;
+    padding: 11px;
     font-weight: 700;
     color: #333;
-    background-color: white;
+    background-color: #ffffff;
     display: inline-block;
     cursor: pointer;
     font-family: 'Nanum Gothic', sans-serif;
+}
+.close-button{
+    right:0;
+    position: absolute;
+    z-index: 5;
 }
