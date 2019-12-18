@@ -141,6 +141,7 @@
   padding-left: 5px;
   font-size: 12px;
   font-weight: bold;
+  font-family: 'Nanum Gothic', sans-serif;
 }
 
 .pw-label {
@@ -148,12 +149,15 @@
   margin-top: 10px;
   font-size: 12px;
   font-weight: bold;
+  font-family: 'Nanum Gothic', sans-serif;
 }
 
 .input-login {
+  width: 200px;
   padding: 3px;
   font-size: 18px;
   margin-left: 10px;
+  font-family: 'Nanum Gothic', sans-serif;
 }
 
 .big-container-login {
@@ -166,7 +170,7 @@
 .small-container-login {
   position: relative;
   margin: 20px;
-  padding: 10px;
+  padding: 30px;
 }
 
 .login-image {
@@ -184,14 +188,10 @@
 .login-title {
   font-family: 'Gelasio', serif;
   font-size: 30px;
+  font-weight: bold;
 }
-
-.login-form {
-  margin-left: 5px;
+.modal-close-button{
+  position: absolute;
+  top:0;
+  right:0;
 }
-
-/* .input {
-  padding: 3px;
-  margin-left: 10px;
-  margin-bottom: 10px;
-} */

@@ -213,7 +213,7 @@ const Home = () => {
                   onLogin();
                 }}
               >
-                <img src={login} className="login-image" alt="background" />
+                {/* <img src={login} className="login-image" alt="background" /> */}
                 <div className="login-title">Welcome Back!</div>
                 <div className="login-form">
                   <div className="id-label">이메일</div>
@@ -237,12 +237,18 @@ const Home = () => {
             </DialogContent>
           </div>
           <DialogActions>
+            <div className="modal-close-button">
+              <Button onClick={handleCloseLogin} color="primary" >
+                X
+              </Button>
+            </div>
+            
             <IconButton aria-label="login" onClick={onLogin} className="login-button button">
               <ExitToAppRoundedIcon style={{ color: indigo[200] }} />
             </IconButton>
-            <Button onClick={handleCloseLogin} color="primary">
+            {/* <Button onClick={handleCloseLogin} color="primary">
               닫기
-            </Button>
+            </Button> */}
           </DialogActions>
         </div>
       </Dialog>
