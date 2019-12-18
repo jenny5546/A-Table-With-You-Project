@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import logo from '../../static/images/logo.png';
+
 import loading from './loading.gif';
 import './search.css';
 import { Box, Flex, Image, Text } from 'rebass';

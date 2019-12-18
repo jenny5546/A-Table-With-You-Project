@@ -79,7 +79,7 @@ const SignUp = () => {
     <div className="Signup">
       <div className="Signup-body">
         <form className="Signup-form">
-          <div className="Signup-title">회원가입</div>
+          <div className="Signup-title">Sign Up!</div>
           <br />
           <Flex>
             <Flex flexDirection="column">
@@ -90,8 +90,8 @@ const SignUp = () => {
                     src={profileImageUrl}
                     className="profile-image"
                     alt="프로필 사진"
-                    width="60"
-                    height="60"
+                    width="80"
+                    height="80"
                   />
                 ) : (
                   <Box
@@ -178,7 +178,7 @@ const SignUp = () => {
                 </Text>
               </Box>
             )}
-            <Box>
+            <Box alignItems="right">
               <Button backgroundColor="black" color="white" text="가입하기" onClick={onSubmit} />
             </Box>
           </Flex>

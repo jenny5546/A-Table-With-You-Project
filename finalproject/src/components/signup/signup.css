@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Gelasio&display=swap');
+
 .Signup {
     display: flex;
     flex-flow: column;
@@ -32,17 +35,20 @@
 .Signup-form {
     padding: 10px;
     background-color: rgba(241, 240, 239, 0.719);
-    width: 60%;
+    width: 30%;
     /* display: flex; */
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
+    
 
 }
 
 .Signup-title {
-    font-size: 16px;
-    font-weight: bold;
+    /* font-weight: bold; */
+    font-family: 'Gelasio', serif;
+    font-size: 40px;
+    
 }
 
 .profile-image {
@@ -66,4 +72,5 @@
     background-color: white;
     display: inline-block;
     cursor: pointer;
+    font-family: 'Nanum Gothic', sans-serif;
 }
