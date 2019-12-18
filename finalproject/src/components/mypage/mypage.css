@@ -36,7 +36,8 @@
   border-radius: 5px;
   border : white 1px solid;
   box-shadow: 1px 3px 11px 0px rgba(146,146,146,1);
-  padding-bottom: 20px;
+  padding-bottom: 50px;
+  margin-bottom: 30px;
 }
 .profile-image-mypage{
     width: 200px; 
@@ -50,13 +51,13 @@
 }
 .profile-info-div{
     position: absolute;
-    top: 35%;
-    left: 30%; 
+    top: 100px;
+    left: 330px; 
 }
 p3{
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 30px;
-    color: #616161a4;
+    color: #616161dc;
     font-weight: bold;
     
 }
@@ -77,10 +78,25 @@ p5{
     width: 4%;
     height: auto;
     left: 1%;
-    
-    
 }
 .table-list-title{
     margin-left: 6%;
-    margin-top: 50px;
+    margin-top: 60px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #4a597c;
+}
+table{
+    margin-top: 20px;
+}
+th{
+    margin-top: 10px;
+    color: rgb(108, 120, 189);
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px;
+    text-align: left;
+    background: rgba(196, 196, 196, 0.185);
+    border-radius: 5px;
+    border: 1px solid rgba(196, 196, 196, 0.185);
 }
