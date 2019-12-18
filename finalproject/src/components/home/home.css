@@ -165,7 +165,7 @@
 
 .input-login {
   padding: 3px;
-  font-size: 16px;
+  font-size: 18px;
   margin-left: 10px;
 }
 
@@ -215,8 +215,8 @@
   margin-left: 5px;
 }
 
-.input {
+/* .input {
   padding: 3px;
   margin-left: 10px;
   margin-bottom: 10px;
-}
+} */

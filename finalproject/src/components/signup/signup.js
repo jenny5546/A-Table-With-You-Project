@@ -78,25 +78,21 @@ const SignUp = () => {
   return (
     <div className="Signup">
       <div className="Signup-body">
-        <form
-          className="Signup-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSubmit();
-          }}
-        >
-          <Flex justifyContent="center">
-            <Text fontSize={16} fontWeight="bold">
-              회원가입
-            </Text>
-          </Flex>
+        <form className="Signup-form">
+          <div className="Signup-title">Sign Up!</div>
           <br />
           <Flex justifyContent="space-evenly">
             <Flex flexDirection="column">
               <InputLabel>프로필 사진</InputLabel>
               <Flex mt={3} mb={3} alignItems="center">
                 {profileImage ? (
-                  <img src={profileImageUrl} className="profile-image" alt="프로필 사진" width="60" height="60" />
+                  <img
+                    src={profileImageUrl}
+                    className="profile-image"
+                    alt="프로필 사진"
+                    width="80"
+                    height="80"
+                  />
                 ) : (
                   <Box display="inline-block" className="profile-image" backgroundColor="#ccc" width={60} height={60} />
                 )}
@@ -151,7 +147,7 @@ const SignUp = () => {
                 </Text>
               </Box>
             )}
-            <Box>
+            <Box alignItems="right">
               <Button backgroundColor="black" color="white" text="가입하기" onClick={onSubmit} />
               <input type="submit" style={{ display: 'none' }} />
             </Box>
