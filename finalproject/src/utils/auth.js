@@ -1,11 +1,13 @@
 import {
-    setFirestoreDocument,
-    createEmailWithPassword,
-    signInWithEmailAndPassword,
-    getFirebaseDocument,
-    uploadImageToStorage,
-    getImageDownloadPath, getSelectedFirebaseDocument,
+  setFirestoreDocument,
+  createEmailWithPassword,
+  signInWithEmailAndPassword,
+  getFirebaseDocument,
+  uploadImageToStorage,
+  getImageDownloadPath,
+  getSelectedFirebaseDocument,
 } from './firebase';
+import { uuidv1 } from 'uuid/v1';
 
 export class AuthError extends Error {
   constructor(code, message) {
@@ -57,12 +59,14 @@ export const signUp = ({ profileImage, email, password, name, age, nickname, pho
     .then(({ user }) => {
       const { uid } = user;
       return setFirestoreDocument('users', uid, {
+        uid,
         email,
         name,
         age,
         nickname,
         phone,
         gender,
+        chatRooms: {},
       }).then(() => {
         return uploadImageToStorage(`profiles/${uid}.jpg`, profileImage);
       });
@@ -109,33 +113,19 @@ export const signIn = ({ email: loginEmail, password: loginPassword }) => {
     });
 };
 
-export const getSelectedUser=(email)=>{
-    return getSelectedFirebaseDocument('users','email', email);
+export const getSelectedUser = (email) => {
+  return getSelectedFirebaseDocument('users', 'email', email);
 };
 
-
-
-export const setSelectedPlace=(email, mapX)=>{
-    return setFirestoreDocument('places', uniqueKey(),  {
-        email: email,
-        mapX: mapX,
-    })
+export const setSelectedPlace = (email, mapX) => {
+  return setFirestoreDocument('places', uuidv1(), {
+    email,
+    mapX,
+  });
 };
 
-const uniqueKey=()=>{
-    const uuidv1=require('uuid/v1');
-    return uuidv1();
-};
-
-export const getSelectedPlace=(placeSelected)=>{
-    return getSelectedFirebaseDocument('places', 'mapX', placeSelected);
-    /*.then(async(datas)=>{
-          const selectedMatch={};
-        datas.forEach(function(data){
-            selectedMatch.uniqueKey=data;
-        });
-        return selectedMatch;
-    });*/
-};//now, as soon as you arrive home, create methods that add restaurant data into firestore,
-//when the restaurant is clicked, 'places' collection is called, see if there is any other user who liked that 'places', and if there is one, return the user value
-//by pluging in the uid from 'places' to the 'users', rendering it with the map data.
+export const getSelectedPlace = (placeSelected) => {
+  return getSelectedFirebaseDocument('places', 'mapX', placeSelected);
+}; // now, as soon as you arrive home, create methods that add restaurant data into firestore,
+// when the restaurant is clicked, 'places' collection is called, see if there is any other user who liked that 'places', and if there is one, return the user value
+// by pluging in the uid from 'places' to the 'users', rendering it with the map data.
