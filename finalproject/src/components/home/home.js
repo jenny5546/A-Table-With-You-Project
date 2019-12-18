@@ -12,7 +12,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 import { Box, Flex, Image, Text } from 'rebass';
 import logo from '../../static/images/logo.png';
-import { signIn, getSelectedUser } from '../../utils/auth';
+import { signIn } from '../../utils/auth';
 import './home.css';
 import login from './loginimg.png';
 import mainpic2 from './mainpic3.jpg';
@@ -23,7 +23,6 @@ import mainpic6 from './mainpic7.jpg';
 import mainpic7 from './mainpic8.jpg';
 import mainpic8 from './mainpic9.jpg';
 import search from './search.png';
-import { getFirebaseDocument, getImageDownloadPath } from '../../utils/firebase';
 
 const slideImages = [mainpic2, mainpic3, mainpic4, mainpic5, mainpic6, mainpic7, mainpic8];
 const properties = {

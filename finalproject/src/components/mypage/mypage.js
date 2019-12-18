@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { indigo } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
+import ChatIcon from '@material-ui/icons/Chat';
 
 const MyPage=()=>{
 
@@ -60,14 +61,25 @@ const MyPage=()=>{
                 </div>
                 <div className="table-list-title">찜한 식탁</div>
                 <table>
-                
-                  <tr className="list-header">
-                    <th className="header-category">카테고리</th> 
-                    <th className="header-title">상호 명</th> 
-                    <th className="header-phone">전화번호</th>
-                    <th className="header-address">주소</th> 
-                    <th className="header-liked" style={{textAlign:"center"}}>찜</th>
+                  <tr>
+                    <th style={{textAlign:"center"}}>식탁 이름</th> 
+                    <th style={{textAlign:"center"}}>사랑방</th>
                   </tr>
+                  <tr>
+                    <td style={{textAlign:"center"}}>식탁 이름</td> 
+                    <td style={{textAlign:"center"}}>
+                        <IconButton aria-label="go to home" >
+                            <ChatIcon style={{ color: indigo[200] }}/>
+                        </IconButton>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style={{textAlign:"center"}}>식탁 이름</td> 
+                    <td style={{textAlign:"center"}}>
+                        아직 짝을 찾지 못했습니다
+                    </td>
+                  </tr>
+                  
                 </table>
             </div>
             
