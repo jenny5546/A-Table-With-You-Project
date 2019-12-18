@@ -65,9 +65,7 @@ const Home = () => {
     setSignInInfo((s) => ({ ...s, [name]: value }));
   };
 
-  const onLogin = (e) => {
-    e.preventDefault();
-
+  const onLogin = () => {
     signIn({ email: signInInfo.email, password: signInInfo.password })
       .then((userData) => {
         setOpenLogin(false);
