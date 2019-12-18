@@ -73,21 +73,18 @@ export const getImageDownloadPath = (fileName) => {
     .getDownloadURL();
 };
 
-export const getSelectedFirebaseDocument = (collection, fieldName, valueName) => {
+export const getSelectedFirebaseDocuments = (collection, fieldName, valueName) => {
   return firebase
     .firestore()
     .collection(collection)
     .where(fieldName, '==', valueName)
     .get()
     .then((querySnapshot) => {
-      const placeList = [];
-      console.log(querySnapshot);
+      const dataList = [];
       querySnapshot.forEach(function(doc) {
-        console.log(doc.data());
-        placeList.push(doc.data());
+        dataList.push(doc.data());
       });
-      console.log(placeList);
-      return placeList;
+      return dataList;
     })
     .catch((error) => {
       console.log('Error getting documents: ', error);

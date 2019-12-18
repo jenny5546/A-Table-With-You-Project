@@ -5,7 +5,7 @@ import {
   getFirebaseDocument,
   uploadImageToStorage,
   getImageDownloadPath,
-  getSelectedFirebaseDocument,
+  getSelectedFirebaseDocuments,
 } from './firebase';
 import { uuidv1 } from 'uuid/v1';
 
@@ -114,7 +114,7 @@ export const signIn = ({ email: loginEmail, password: loginPassword }) => {
 };
 
 export const getSelectedUser = (email) => {
-  return getSelectedFirebaseDocument('users', 'email', email);
+  return getSelectedFirebaseDocuments('users', 'email', email);
 };
 
 export const setSelectedPlace = (email, mapX) => {
@@ -125,7 +125,7 @@ export const setSelectedPlace = (email, mapX) => {
 };
 
 export const getSelectedPlace = (placeSelected) => {
-  return getSelectedFirebaseDocument('places', 'mapX', placeSelected);
+  return getSelectedFirebaseDocuments('places', 'mapX', placeSelected);
 }; // now, as soon as you arrive home, create methods that add restaurant data into firestore,
 // when the restaurant is clicked, 'places' collection is called, see if there is any other user who liked that 'places', and if there is one, return the user value
 // by pluging in the uid from 'places' to the 'users', rendering it with the map data.
