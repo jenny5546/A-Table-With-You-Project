@@ -12,6 +12,7 @@ import { Slide } from 'react-slideshow-image';
 import { Box, Flex, Image, Text } from 'rebass';
 import login from '../../static/images/loginimg.png';
 import logo from '../../static/images/logo.png';
+import spoon from '../../static/images/spoon.png';
 import mainpic3 from '../../static/images/mainpic3.jpg';
 import mainpic4 from '../../static/images/mainpic4.jpg';
 import mainpic5 from '../../static/images/mainpic5.jpg';
@@ -206,6 +207,7 @@ const Home = () => {
         <div className="big-container-login">
           <div className="small-container-login">
             <DialogContent>
+            <img src={spoon} className="spoon-image" alt="spoon" />
               <form
                 className="login-form"
                 onSubmit={(e) => {
