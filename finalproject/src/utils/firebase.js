@@ -5,7 +5,7 @@ import 'firebase/storage';
 
 export const FirestoreError = {
   NOT_EXIST_DOC: 'firestore/not-exist-data',
-  SYSTEM_ERROR: 'firestroe/system-error',
+  SYSTEM_ERROR: 'firestore/system-error',
 };
 
 export const initFirebase = () => {
