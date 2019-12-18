@@ -5,6 +5,10 @@ import './signup.css';
 import { Box, Flex, Text } from 'rebass';
 import styled from 'styled-components';
 import Button from '../button/button';
+import { Link } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
+import { indigo } from '@material-ui/core/colors';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { signUp } from '../../utils/auth';
 import { Redirect, useHistory } from 'react-router-dom';
 
@@ -73,10 +77,19 @@ const SignUp = () => {
 
   return (
     <div className="Signup">
+      <div className="close-button">
+        <Link to="/">
+          <IconButton aria-label="go to home" >
+              <HighlightOffIcon style={{ color: '#ffffff', fontSize:40 }}/>
+          </IconButton>
+        </Link>
+      </div>
+      
       <div className="Signup-body">
         <form className="Signup-form">
           <div className="Signup-title">Sign Up!</div>
           <br />
+          <br></br>
           <Flex justifyContent="space-evenly">
             <Flex flexDirection="column">
               <InputLabel>프로필 사진</InputLabel>
@@ -84,7 +97,7 @@ const SignUp = () => {
                 {profileImage ? (
                   <img src={profileImageUrl} className="profile-image" alt="프로필 사진" width="80" height="80" />
                 ) : (
-                  <Box display="inline-block" className="profile-image" backgroundColor="#ccc" width={60} height={60} />
+                  <Box display="inline-block" className="profile-image" backgroundColor="rgba(51, 51, 51, 0.205)" width={60} height={60} />
                 )}
 
                 <Box ml={3} display="inline-block">
@@ -92,11 +105,12 @@ const SignUp = () => {
                   <label htmlFor="profile">이미지 선택</label>
                 </Box>
               </Flex>
-
+              <br></br>
               <InputLabel>이메일</InputLabel>
               <div className="input">
                 <TextField type="text" name="email" placeholder="web@snu.com" onChange={onValueHandle} />
               </div>
+              <br></br>
               <InputLabel>비밀번호</InputLabel>
               <div className="input">
                 <TextField type="password" name="password" placeholder="6자 이상의 비밀번호" onChange={onValueHandle} />
@@ -107,15 +121,17 @@ const SignUp = () => {
               <div className="input">
                 <TextField type="text" name="name" placeholder="양진환" onChange={onValueHandle} />
               </div>
+              <br></br>
               <InputLabel>휴대폰 번호</InputLabel>
               <div className="input">
                 <TextField type="text" name="phone" placeholder="010-xxxx-xxxx" onChange={onValueHandle} />
               </div>
-
+              <br></br>
               <InputLabel>닉네임</InputLabel>
               <div className="input">
                 <TextField type="text" name="nickname" placeholder="양모" onChange={onValueHandle} />
               </div>
+              <br></br>
               <InputLabel>성별</InputLabel>
               <div className="gender-input">
                 <div className="gender-select">
@@ -123,10 +139,12 @@ const SignUp = () => {
                   <input type="radio" name="gender" value="여" onChange={onValueHandle} />여
                 </div>
               </div>
+              <br></br>
               <InputLabel>나이</InputLabel>
-              <div className="age-input">
+              <div className="age-input" style={{margin: '3px'}}>
                 <TextField type="number" name="age" placeholder="20" onChange={onValueHandle} />
               </div>
+              
             </Flex>
           </Flex>
           <Flex mt={3} flexDirection="column" alignItems="center" justifyContent="center">
@@ -138,7 +156,7 @@ const SignUp = () => {
               </Box>
             )}
             <Box alignItems="right">
-              <Button backgroundColor="black" color="white" text="가입하기" onClick={onSubmit} />
+              <Button backgroundColor="#7e91bed3" color="white" text="가입하기" onClick={onSubmit} />
               <input type="submit" style={{ display: 'none' }} />
             </Box>
           </Flex>
