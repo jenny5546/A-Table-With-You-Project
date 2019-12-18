@@ -12,6 +12,7 @@ import { Slide } from 'react-slideshow-image';
 import { Box, Flex, Image, Text } from 'rebass';
 import login from '../../static/images/loginimg.png';
 import logo from '../../static/images/logo.png';
+import spoon from '../../static/images/spoon.png';
 import mainpic3 from '../../static/images/mainpic3.jpg';
 import mainpic4 from '../../static/images/mainpic4.jpg';
 import mainpic5 from '../../static/images/mainpic5.jpg';
@@ -43,6 +44,18 @@ const SearchForm = styled.form`
   display: flex;
   align-items: center;
   padding: 3px 10px;
+`;
+
+const Recommendation = styled.div`
+  display: inline-block;
+  font-size: 12px;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 36px;
+  color: #ffffff;
+  font-family: 'Nanum Gothic', sans-serif;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  margin-right: 10px;
 `;
 
 const Home = () => {
@@ -104,6 +117,13 @@ const Home = () => {
     }
   };
 
+  const onRecommend = (value) => {
+    if (isLogin) {
+      setPlaceToSearch(value);
+      history.push(`/search/${value}`);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -144,7 +164,17 @@ const Home = () => {
         <img src={logo} className="logo-image" alt="logo" />
         <div className="container">
           <div className="Search-container">
-            <div className="recommendation">#돈까스#제육볶음#서울대입구</div>
+            <Flex>
+              <Recommendation disabled={!isLogin} onClick={() => onRecommend('돈까스')}>
+                #돈까스
+              </Recommendation>
+              <Recommendation disabled={!isLogin} onClick={() => onRecommend('제육볶음')}>
+                #제육볶음
+              </Recommendation>
+              <Recommendation disabled={!isLogin} onClick={() => onRecommend('서울대입구')}>
+                #서울대입구
+              </Recommendation>
+            </Flex>
             <SearchForm onSubmit={searchResults} disabled={!isLogin}>
               <img src={search} className="Search-image" alt="search" />
               <input
@@ -177,6 +207,7 @@ const Home = () => {
         <div className="big-container-login">
           <div className="small-container-login">
             <DialogContent>
+            <img src={spoon} className="spoon-image" alt="spoon" />
               <form
                 className="login-form"
                 onSubmit={(e) => {
@@ -184,7 +215,7 @@ const Home = () => {
                   onLogin();
                 }}
               >
-                <img src={login} className="login-image" alt="background" />
+                {/* <img src={login} className="login-image" alt="background" /> */}
                 <div className="login-title">Welcome Back!</div>
                 <div className="login-form">
                   <div className="id-label">이메일</div>
@@ -208,12 +239,18 @@ const Home = () => {
             </DialogContent>
           </div>
           <DialogActions>
+            <div className="modal-close-button">
+              <Button onClick={handleCloseLogin} color="primary" >
+                X
+              </Button>
+            </div>
+            
             <IconButton aria-label="login" onClick={onLogin} className="login-button button">
               <ExitToAppRoundedIcon style={{ color: indigo[200] }} />
             </IconButton>
-            <Button onClick={handleCloseLogin} color="primary">
+            {/* <Button onClick={handleCloseLogin} color="primary">
               닫기
-            </Button>
+            </Button> */}
           </DialogActions>
         </div>
       </Dialog>
