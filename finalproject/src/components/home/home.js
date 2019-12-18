@@ -97,10 +97,10 @@ const Home = () => {
   const searchResults = (e) => {
     e.preventDefault();
     if(!placeToSearch){alert('아무것도 입력하지 않으셨습니다.')}
+    if(!userInfo.profileImagePath){alert('로그인하고 이용해주세요.')}
     else{history.push(`/search/${placeToSearch}`);}
   };
 
-  /////*******if 로그인이 안돼 있으면 ********////////
   return (
     <div className="App">
       <header className="App-header">
