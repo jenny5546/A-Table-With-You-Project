@@ -5,9 +5,9 @@ import HomeIcon from '@material-ui/icons/Home';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { Box, Flex, Image, Text } from 'rebass';
+import loadingImage from '../../static/images/loading.gif';
 import logo from '../../static/images/logo.png';
 import { getSelectedPlace, getSelectedUser } from '../../utils/auth';
-import loadingImage from './loading.gif';
 import './search.css';
 
 class Restaurants {
@@ -81,12 +81,14 @@ const Search = () => {
       });
   };
 
+  // 네이버 검색 api start 는 1000을 넘길 수 없음
   useEffect(() => {
-    window.onscroll = (e) => {
-      if (!loading && document.body.scrollHeight - window.scrollY === window.innerHeight) {
+    window.onscroll = () => {
+      const nextStartNumber = startNumber + 30;
+      if (nextStartNumber < 1000 && !loading && document.body.scrollHeight - window.scrollY === window.innerHeight) {
         setLoading(true);
-        setStartNumber(startNumber + 30);
-        addSearchPlaces(place, startNumber + 30).then(() => {
+        setStartNumber(nextStartNumber);
+        addSearchPlaces(place, nextStartNumber).then(() => {
           setLoading(false);
         });
       }
