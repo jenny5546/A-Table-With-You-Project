@@ -84,17 +84,17 @@
   height: 400px;
 }
 
-@media (min-height: 780px) {
+@media (min-height: 80px) {
   .react-slideshow-wrapper .images-wrap {
     height: 500px;
   }
 }
 
-@media (min-height: 920px) {
+/* @media (min-height: 920px) {
   .react-slideshow-wrapper .images-wrap {
     height: 600px;
   }
-}
+} */
 
 .each-slide {
   height: 100%;
