@@ -31,7 +31,10 @@
 
 .logo-image{
   width: 25%;
+  margin-right: auto;
+  margin-left: auto;
   height: auto;
+  margin-bottom: 5px;
 }
 .Line {
   /* height: 1px; */

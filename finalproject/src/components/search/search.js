@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import logo from '../../static/images/logo.png';
 import loading from './loading.gif';
 import './search.css';
+import { Box, Flex, Image, Text } from 'rebass';
 import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
@@ -63,14 +64,34 @@ const Search = () => {
       return(
         <div className="App">
           <div className="App-header">
-            <div className="home-button">
-              <Link to="/">
-                  <IconButton aria-label="go to home" >
-                    <HomeIcon style={{ color: indigo[200] }}/>
-                  </IconButton>
-              </Link>
+            <div className="align-right-search">
+              <Box display="inline-block">
+              <Flex alignItems="center">
+                  <Image
+                  src={localStorage.getItem("userProfile")}
+                  sx={{ borderRadius: '50%' }}
+                  width="50px"
+                  height="50px"
+                  />
+                  <Text as="span" mx="15px" fontSize={18} color="#7e91be;">
+                  <Text as="span" fontWeight="bold" >
+                      {localStorage.getItem("userName")}
+                  </Text>{' '}
+                  님, 안녕하세요.
+                  </Text>
+                  <Link to="/mypage" className="button">
+                  마이 페이지
+                  </Link>
+                  <Link to="/">
+                      <IconButton aria-label="go to home" >
+                          <HomeIcon style={{ color: indigo[200] }}/>
+                      </IconButton>
+                  </Link>
+                  
+              </Flex>
+              </Box>
             </div>
-            <div className="Line" />
+            <div className="Line-search" />
             
             
           </div>

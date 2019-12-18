@@ -75,7 +75,8 @@ const Home = () => {
           console.log(userData);
           localStorage.setItem('userProfile', userData.profileImagePath);
           localStorage.setItem('userName', userData.nickname);
-          // localStorage.setItem('userData',JSON.stringify(userData));
+          localStorage.setItem('userData',JSON.stringify(userData));
+          console.log(localStorage.getItem('userData'));
           // JSON.parse(localStorage.getItem('userData'));
         }
         
@@ -95,6 +96,7 @@ const Home = () => {
   const onLogout=()=>{
       localStorage.removeItem('userProfile');
       localStorage.removeItem('userName');
+      localStorage.removeItem('userData');
       window.location.reload(true);
   }
 
