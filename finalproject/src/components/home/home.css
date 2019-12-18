@@ -166,6 +166,7 @@
   height: 100%;
   overflow: hidden;
   border: 3px solid #58678afd;
+  overflow: hidden;
 }
 
 .small-container-login {

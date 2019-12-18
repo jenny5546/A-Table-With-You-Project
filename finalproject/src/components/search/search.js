@@ -1,6 +1,7 @@
 import { indigo, pink } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import HomeIcon from '@material-ui/icons/Home';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
@@ -55,7 +56,10 @@ const Search = () => {
       console.log(err);
     }
   };
-
+  const onAlreadyMatched=()=>{
+    // e.preventDefault();
+    alert('이미 찜하였습니다');
+  }
   const addSearchPlaces = (query, start = 1, display = 30) => {
     return fetch(
       `https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${query}&display=${display}&start=${start}&sort=random`,
@@ -178,9 +182,16 @@ const Search = () => {
                     <td className="phone"> {restaurant.telephone} </td>
                     <td className="address"> {restaurant.address} </td>
                     <td className="liked">
-                      <IconButton className="like-button" aria-label="like" id={i} onClick={(e) => onMatch(i)}>
+                      {/* 만약 이미 찜 한 애면 */}
+
+                      <IconButton className="like-button" aria-label="like" onClick={(e) => onAlreadyMatched()}>
                         <FavoriteIcon style={{ color: pink[200] }} />
                       </IconButton>
+                      {/* 아직 찜 안 한 애면  */}
+                      <IconButton className="like-button" aria-label="like" id={i} onClick={(e) => onMatch(i)}>
+                        <FavoriteBorderOutlinedIcon style={{ color: pink[200] }} />
+                      </IconButton>
+
                     </td>
                   </tr>
                 );
