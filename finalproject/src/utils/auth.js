@@ -6,6 +6,7 @@ import {
   uploadImageToStorage,
   getImageDownloadPath,
   getSelectedFirebaseDocuments,
+  getFirebaseDocumentsByWhere,
 } from './firebase';
 import uuidv1 from 'uuid/v1';
 
@@ -128,10 +129,15 @@ export const getSelectedUser = (email) => {
 };
 
 export const setSelectedPlace = (email, mapX) => {
-  console.log(email, mapX);
   return setFirestoreDocument('places', uuidv1(), {
     email,
     mapX,
+  });
+};
+
+export const isSelectPlace = (email, mapX) => {
+  return getFirebaseDocumentsByWhere('places', 'email', email, 'mapX', mapX).then((data) => {
+    return data.length > 0;
   });
 };
 

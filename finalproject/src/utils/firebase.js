@@ -82,6 +82,25 @@ export const getImageDownloadPath = (fileName) => {
     .getDownloadURL();
 };
 
+export const getFirebaseDocumentsByWhere = (collection, fieldName, valueName, fieldName2, valueName2) => {
+  return firebase
+    .firestore()
+    .collection(collection)
+    .where(fieldName, '==', valueName)
+    .where(fieldName2, '==', valueName2)
+    .get()
+    .then((querySnapshot) => {
+      const dataList = [];
+      querySnapshot.forEach(function(doc) {
+        dataList.push(doc.data());
+      });
+      return dataList;
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
+};
+
 export const getSelectedFirebaseDocuments = (collection, fieldName, valueName) => {
   return firebase
     .firestore()
