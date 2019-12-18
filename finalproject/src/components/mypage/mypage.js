@@ -57,9 +57,18 @@ const MyPage=()=>{
                     <p4>{JSON.parse(localStorage.getItem('userData')).phone}</p4>
                     <br></br>
                     <p5>{JSON.parse(localStorage.getItem('userData')).age}세</p5>
-                    
                 </div>
+                <div className="table-list-title">찜한 식탁</div>
+                <table>
                 
+                  <tr className="list-header">
+                    <th className="header-category">카테고리</th> 
+                    <th className="header-title">상호 명</th> 
+                    <th className="header-phone">전화번호</th>
+                    <th className="header-address">주소</th> 
+                    <th className="header-liked" style={{textAlign:"center"}}>찜</th>
+                  </tr>
+                </table>
             </div>
             
         </div>
