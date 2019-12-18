@@ -52,13 +52,10 @@ export default class Chat {
 
   sendMessage(message) {
     const messageRefKey = this.messageRef.push().key;
-    return firebase
-      .database()
-      .ref(`Messages/${this.chatRoomId}/${messageRefKey}`)
-      .set({
-        sender: this.sender,
-        message,
-        timestamp: getFirebaseServerTimestamp(),
-      });
+    return getFirebaseDatabaseRef(`Messages/${this.chatRoomId}/${messageRefKey}`).set({
+      sender: this.sender,
+      message,
+      timestamp: getFirebaseServerTimestamp(),
+    });
   }
 }
