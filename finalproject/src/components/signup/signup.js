@@ -37,7 +37,9 @@ const SignUp = () => {
     setSignUpInfo((s) => ({ ...s, [name]: value }));
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+
     if (
       !profileImage ||
       !signUpInfo.email ||
@@ -78,59 +80,36 @@ const SignUp = () => {
   return (
     <div className="Signup">
       <div className="Signup-body">
-        <form className="Signup-form">
-          <div className="Signup-title">회원가입</div>
+        <form className="Signup-form" onSubmit={onSubmit}>
+          <Flex justifyContent="center">
+            <Text fontSize={16} fontWeight="bold">
+              회원가입
+            </Text>
+          </Flex>
           <br />
-          <Flex>
+          <Flex justifyContent="center">
             <Flex flexDirection="column">
               <InputLabel>프로필 사진</InputLabel>
               <Flex mt={3} mb={3} alignItems="center">
                 {profileImage ? (
-                  <img
-                    src={profileImageUrl}
-                    className="profile-image"
-                    alt="프로필 사진"
-                    width="60"
-                    height="60"
-                  />
+                  <img src={profileImageUrl} className="profile-image" alt="프로필 사진" width="60" height="60" />
                 ) : (
-                  <Box
-                    display="inline-block"
-                    className="profile-image"
-                    backgroundColor="#ccc"
-                    width={60}
-                    height={60}
-                  />
+                  <Box display="inline-block" className="profile-image" backgroundColor="#ccc" width={60} height={60} />
                 )}
 
                 <Box ml={3} display="inline-block">
-                  <input
-                    id="profile"
-                    className="profile-input"
-                    type="file"
-                    onChange={profileImageChanged}
-                  />
+                  <input id="profile" className="profile-input" type="file" onChange={profileImageChanged} />
                   <label htmlFor="profile">이미지 선택</label>
                 </Box>
               </Flex>
 
               <InputLabel>이메일</InputLabel>
               <div className="input">
-                <TextField
-                  type="text"
-                  name="email"
-                  placeholder="web@snu.com"
-                  onChange={onValueHandle}
-                />
+                <TextField type="text" name="email" placeholder="web@snu.com" onChange={onValueHandle} />
               </div>
               <InputLabel>비밀번호</InputLabel>
               <div className="input">
-                <TextField
-                  type="password"
-                  name="password"
-                  placeholder="6자 이상의 비밀번호"
-                  onChange={onValueHandle}
-                />
+                <TextField type="password" name="password" placeholder="6자 이상의 비밀번호" onChange={onValueHandle} />
               </div>
             </Flex>
             <Flex flexDirection="column">
@@ -140,22 +119,12 @@ const SignUp = () => {
               </div>
               <InputLabel>휴대폰 번호</InputLabel>
               <div className="input">
-                <TextField
-                  type="text"
-                  name="phone"
-                  placeholder="010-xxxx-xxxx"
-                  onChange={onValueHandle}
-                />
+                <TextField type="text" name="phone" placeholder="010-xxxx-xxxx" onChange={onValueHandle} />
               </div>
 
               <InputLabel>닉네임</InputLabel>
               <div className="input">
-                <TextField
-                  type="text"
-                  name="nickname"
-                  placeholder="양모"
-                  onChange={onValueHandle}
-                />
+                <TextField type="text" name="nickname" placeholder="양모" onChange={onValueHandle} />
               </div>
               <InputLabel>성별</InputLabel>
               <div className="gender-input">
@@ -180,6 +149,7 @@ const SignUp = () => {
             )}
             <Box>
               <Button backgroundColor="black" color="white" text="가입하기" onClick={onSubmit} />
+              <input type="submit" style={{ display: 'none' }} />
             </Box>
           </Flex>
         </form>
