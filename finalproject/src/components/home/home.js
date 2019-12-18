@@ -45,6 +45,18 @@ const SearchForm = styled.form`
   padding: 3px 10px;
 `;
 
+const Recommendation = styled.div`
+  display: inline-block;
+  font-size: 12px;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 36px;
+  color: #ffffff;
+  font-family: 'Nanum Gothic', sans-serif;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  margin-right: 10px;
+`;
+
 const Home = () => {
   const history = useHistory();
   const [placeToSearch, setPlaceToSearch] = useState('');
@@ -104,6 +116,13 @@ const Home = () => {
     }
   };
 
+  const onRecommend = (value) => {
+    if (isLogin) {
+      setPlaceToSearch(value);
+      history.push(`/search/${value}`);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -144,7 +163,17 @@ const Home = () => {
         <img src={logo} className="logo-image" alt="logo" />
         <div className="container">
           <div className="Search-container">
-            <div className="recommendation">#돈까스#제육볶음#서울대입구</div>
+            <Flex>
+              <Recommendation disabled={!isLogin} onClick={() => onRecommend('돈까스')}>
+                #돈까스
+              </Recommendation>
+              <Recommendation disabled={!isLogin} onClick={() => onRecommend('제육볶음')}>
+                #제육볶음
+              </Recommendation>
+              <Recommendation disabled={!isLogin} onClick={() => onRecommend('서울대입구')}>
+                #서울대입구
+              </Recommendation>
+            </Flex>
             <SearchForm onSubmit={searchResults} disabled={!isLogin}>
               <img src={search} className="Search-image" alt="search" />
               <input
