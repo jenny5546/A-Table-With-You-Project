@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Gaegu&display=swap');
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+.App-header {
+  position: relative;
+}
+  
+.home-button {
+  text-align: right;
+}
+
+.loading-gif{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+
+}
+.loading-background{
+    background-color: rgba(252, 238, 244, 0.356);
+    width: 100vw;
+    height: 100vh;
+}
+
+
+
+table {
+  margin-left : auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+td {
+  text-align: left;
+  padding: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #616161;
+}
+th{
+  margin-top: 10px;
+  color: rgba(108, 120, 189, 0.733);
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  text-align: left;
+  background: rgba(196, 196, 196, 0.185);
+  border-radius: 5px;
+  border: 5px solid rgba(196, 196, 196, 0.185);
+}
+
+p1{
+  font-size: 50px;
+  font-weight: 600;
+  color: #616161;
+  font-family: 'Gaegu', cursive;
+}
+p2{
+  font-size: 30px;
+  color: #616161;
+}
+.search-title{
+  margin-bottom: 20px;
+  margin-right: 5%;
+  margin-top: 10px;
+  float: right;
+  
+}
+.like-button{
+  position: absolute;
+  left: 18%;
+}
