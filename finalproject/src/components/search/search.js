@@ -66,7 +66,7 @@ const Search = () => {
           ...items.map(
             (item) =>
               new Restaurants(
-                item.title.replace(/<b>/gi, '').replace(/<\/b>/gi, ''),
+                item.title.replace(/<b>/gi, '').replace(/<\/b>/gi, '').replace(/&amp;/,''),
                 item.link,
                 item.category,
                 item.description,
@@ -179,7 +179,7 @@ const Search = () => {
             </table>
             {loading && (
               <Flex justifyContent="center">
-                <img src={loadingImage} className="loading-gif" alt="loading-gif" />
+                <img src={loadingImage} style={{filter: 'brightness(220%)'}} className="loading-gif" alt="loading-gif" />
               </Flex>
             )}
           </div>
