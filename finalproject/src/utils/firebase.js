@@ -1,26 +1,23 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/storage';
 
 export const FirestoreError = {
-  NOT_EXIST_DOC: 1,
-  SYSTEM_ERROR: 2
+  NOT_EXIST_DOC: 'firestore/not-exist-data',
+  SYSTEM_ERROR: 'firestore/system-error',
 };
 
 export const initFirebase = () => {
   const firebaseConfig = {
     apiKey: 'AIzaSyBSaHFq3eMNuqfceqfAuOgr5cV9VNJ9vlU',
-    
-    authDomain: "eat-foods-with-you.firebaseapp.com",
-    databaseURL: "https://eat-foods-with-you.firebaseio.com",
-    projectId: "eat-foods-with-you",
-    storageBucket: "eat-foods-with-you.appspot.com",
-    messagingSenderId: "935328497051",
-    appId: "1:935328497051:web:f8456877534e3f0ff1f53e",
-    measurementId: 'G-EQFRV5TFJM'
-    
-    
+    authDomain: 'eat-foods-with-you.firebaseapp.com',
+    databaseURL: 'https://eat-foods-with-you.firebaseio.com',
+    projectId: 'eat-foods-with-you',
+    storageBucket: 'eat-foods-with-you.appspot.com',
+    messagingSenderId: '935328497051',
+    appId: '1:935328497051:web:f8456877534e3f0ff1f53e',
+    measurementId: 'G-EQFRV5TFJM',
   };
 
   firebase.initializeApp(firebaseConfig);
@@ -34,13 +31,13 @@ export const signInWithEmailAndPassword = (email, password) => {
   return firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
-export const setFirestoreDocument = (collection, document, value) => {
+export const setFirestoreDocument = (collection, document, value, merge = false) => {
   return firebase
     .firestore()
     .collection(collection)
     .doc(document)
-    .set(value)
-    .catch(err => {
+    .set(value, { merge })
+    .catch((err) => {
       return Promise.reject(err);
     });
 };
@@ -51,13 +48,13 @@ export const getFirebaseDocument = (collection, document) => {
     .collection(collection)
     .doc(document)
     .get()
-    .then(doc => {
+    .then((doc) => {
       if (doc.exists) {
         return doc.data();
       }
-      return Promise.reject({ code: FirestoreError.NOT_EXIST_DOC });
+      return Promise.reject(new Error(FirestoreError.NOT_EXIST_DOC));
     })
-    .catch(err => {
+    .catch((err) => {
       return Promise.reject(err);
     });
 };
@@ -69,9 +66,27 @@ export const uploadImageToStorage = (fileName, image) => {
     .put(image);
 };
 
-export const getImageDownloadPath = fileName => {
+export const getImageDownloadPath = (fileName) => {
   return firebase
     .storage()
     .ref(fileName)
     .getDownloadURL();
+};
+
+export const getSelectedFirebaseDocuments = (collection, fieldName, valueName) => {
+  return firebase
+    .firestore()
+    .collection(collection)
+    .where(fieldName, '==', valueName)
+    .get()
+    .then((querySnapshot) => {
+      const dataList = [];
+      querySnapshot.forEach(function(doc) {
+        dataList.push(doc.data());
+      });
+      return dataList;
+    })
+    .catch((error) => {
+      console.log('Error getting documents: ', error);
+    });
 };

@@ -77,10 +77,6 @@ const SignUp = () => {
 
   return (
     <div className="Signup">
-      <header className="Signup-header">
-        <img src={logo} className="logo-image" alt="logo" />
-      </header>
-
       <div className="Signup-body">
         <form className="Signup-form">
           <div className="Signup-title">회원가입</div>
@@ -88,7 +84,7 @@ const SignUp = () => {
           <Flex>
             <Flex flexDirection="column">
               <InputLabel>프로필 사진</InputLabel>
-              <Flex mt={2} mb={2} alignItems="center">
+              <Flex mt={3} mb={3} alignItems="center">
                 {profileImage ? (
                   <img
                     src={profileImageUrl}

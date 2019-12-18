@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import logo from '../../static/images/logo.png';
 import loading from './loading.gif';
 import './search.css';
+import { Box, Flex, Image, Text } from 'rebass';
 import { Link } from 'react-router-dom';
+import { getSelectedPlace, setSelectedPlace, getSelectedUser } from '../../utils/auth';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -35,11 +37,28 @@ class restaurants {
   }
 
 const Search = () => {
+    const history = useHistory();
     const { place } = useParams();
     const [restaurantList, setRestaurantList]=useState([]); 
     const API_ENDPOINT=`https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/local.json?query=${place}&display=30&start=1&sort=random`;
     
-    
+    const onMatch=(i)=>{
+      getSelectedPlace(restaurantList[i].mapx)
+          .then((data)=>{
+              if(data.length===0){
+                  history.push(`/match`);
+                  return;
+              }
+          getSelectedUser(data[0].email)
+              .then((userList)=>{
+                  localStorage.setItem("matched_user_name", userList[0].name);
+                  localStorage.setItem("matched_user_phone",userList[0].phone);
+                  localStorage.setItem("matched_user_uid",userList[0].uid);
+                  history.push(`/match`);
+          }
+      )
+    });
+    };
     const onSearch=()=>{
         fetch(`${API_ENDPOINT}`,{
           method: 'GET',
@@ -63,19 +82,39 @@ const Search = () => {
       return(
         <div className="App">
           <div className="App-header">
-            <div className="home-button">
-              <Link to="/">
-                  <IconButton aria-label="go to home" >
-                    <HomeIcon style={{ color: indigo[200] }}/>
-                  </IconButton>
-              </Link>
+            <div className="align-right-search">
+              <Box display="inline-block">
+              <Flex alignItems="center">
+                  <Image
+                  src={localStorage.getItem("userProfile")}
+                  sx={{ borderRadius: '50%' }}
+                  width="50px"
+                  height="50px"
+                  />
+                  <Text as="span" mx="15px" fontSize={18} color="#7e91be;">
+                  <Text as="span" fontWeight="bold" >
+                      {localStorage.getItem("userName")}
+                  </Text>{' '}
+                  님, 안녕하세요.
+                  </Text>
+                  <Link to="/mypage" className="button">
+                  마이 페이지
+                  </Link>
+                  <Link to="/">
+                      <IconButton aria-label="go to home" >
+                          <HomeIcon style={{ color: indigo[200] }}/>
+                      </IconButton>
+                  </Link>
+                  
+              </Flex>
+              </Box>
             </div>
-            <div className="Line" />
+            <div className="Line-search" />
             
             
           </div>
           <div className="App-body">
-            <img src={logo} className="logo-image" alt="logo" />
+            <img src={logo} className="logo-image-search" alt="logo" />
             <div className="list" >
               <div className="search-title">
                 <p1>"{place}"</p1>
@@ -93,7 +132,7 @@ const Search = () => {
                   </tr>
                 
                 
-                  {restaurantList.map((restaurant)=>{
+                  {restaurantList.map((restaurant, i)=>{
                     return(
                       <tr>
                         <td className="category"> {restaurant.category} </td>
@@ -101,7 +140,7 @@ const Search = () => {
                         <td className="phone"> {restaurant.telephone} </td>
                         <td className="address"> {restaurant.address} </td>
                         <td className="liked">
-                        <IconButton className="like-button" aria-label="like" >
+                        <IconButton className="like-button" aria-label="like" id={i} onClick={(e)=>onMatch(i)}>
                           <FavoriteIcon style={{ color: pink[200] }}/>
                         </IconButton>
                         </td>
