@@ -1,14 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 
-.logo-image-chatroom{
-  width: 20%;
-  margin-top: 10px;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+.logo-image-chatroom {
+    width: 20%;
+    margin-top: 10px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
-.chat-big-container{
+
+.chat-big-container {
     width: 50%;
     background-color: #b2c7dac0;
     margin-top: 20px;
@@ -17,55 +18,56 @@
     border-radius: 20px;
     border: 35px solid whitesmoke;
     margin-bottom: 50px;
-    
+
 }
-.chatroom-header{
+
+.chatroom-header {
     margin-top: 10px;
     display: block;
 }
-.chat-sent-by-me{
+
+.chat-sent-by-me {
     max-width: 300px;
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 12px;
-    background-color: #fff205c9	;
+    background-color: #fff205c9;
     margin-left: 51%;
     font-family: 'Noto Sans KR', sans-serif;
 }
-.chat-sent-by-him{
-  margin-left: 30px;
-  display: flex;
-  max-width: 300px;
-  padding: 10px;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  border-radius: 12px;
-  background-color: #f1f1f3;
-  font-family: 'Noto Sans KR', sans-serif;
+
+.chat-sent-by-him {
+    margin-left: 30px;
+    display: flex;
+    max-width: 300px;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    background-color: #f1f1f3;
+    font-family: 'Noto Sans KR', sans-serif;
 }
-.chat-message-container{
+
+.chat-message-container {
     padding-top: 20px;
     padding-bottom: 30px;
 }
-.chat-send-form{
+
+.chat-send-form {
     background-color: #f1f1f383;
-    width:100%;
+    width: 100%;
     height: 200px;
 }
-.chat-input{
+
+.chat-input {
     padding: 30px;
     margin-top: 30px;
     font-size: 20px;
     flex-grow: 1;
     background-color: white;
 }
-input[type=text]{
-    border: 0px;
-    width: 82%;
-    font-size: 17px;
-    margin-left: 5%;
-}
-p10{
+
+p10 {
     font-weight: bold;
 }
