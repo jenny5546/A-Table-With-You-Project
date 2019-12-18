@@ -63,6 +63,7 @@ export const signUp = ({ profileImage, email, password, name, age, nickname, pho
         nickname,
         phone,
         gender,
+        chatRooms: {},
       }).then(() => {
         return uploadImageToStorage(`profiles/${uid}.jpg`, profileImage);
       });
