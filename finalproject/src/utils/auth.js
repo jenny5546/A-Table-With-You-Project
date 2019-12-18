@@ -7,7 +7,7 @@ import {
   getImageDownloadPath,
   getSelectedFirebaseDocuments,
 } from './firebase';
-import { uuidv1 } from 'uuid/v1';
+import uuidv1 from 'uuid/v1';
 
 export class AuthError extends Error {
   constructor(code, message) {
@@ -128,6 +128,7 @@ export const getSelectedUser = (email) => {
 };
 
 export const setSelectedPlace = (email, mapX) => {
+  console.log(email, mapX);
   return setFirestoreDocument('places', uuidv1(), {
     email,
     mapX,
