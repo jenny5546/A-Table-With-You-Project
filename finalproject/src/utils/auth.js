@@ -12,6 +12,11 @@ import { uuidv1 } from 'uuid/v1';
 export class AuthError extends Error {
   constructor(code, message) {
     super(message);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, AuthError);
+    }
+
     this.code = code;
   }
 }
@@ -31,6 +36,7 @@ export const SignInErrorCode = {
   USER_NOT_FOUND: 'user-not-found',
   WRONG_PASSWORD: 'wrong-password',
   NOT_EXIST_DATA: 'not-exist-data',
+  ARGUMENT_ERROR: 'argument-error',
   SYSTEM_ERROR: 'system-error',
 };
 
@@ -73,45 +79,48 @@ export const signUp = ({ profileImage, email, password, name, age, nickname, pho
     });
 };
 
-export const signIn = ({ email: loginEmail, password: loginPassword }) => {
-  return signInWithEmailAndPassword(loginEmail, loginPassword)
-    .catch((err) => {
-      if (err.code === 'auth/invalid-email') {
-        return Promise.reject(new AuthError(SignInErrorCode.INVALID_EMAIL, '올바르지 않은 이메일 주소 형식입니다.'));
-      }
-      if (err.code === 'auth/user-disabled') {
-        return Promise.reject(new AuthError(SignInErrorCode.USER_DISABLED, '비활성화된 유저입니다.'));
-      }
-      if (err.code === 'auth/user-not-found') {
-        return Promise.reject(new AuthError(SignInErrorCode.USER_NOT_FOUND, '이메일을 찾을 수 없습니다.'));
-      }
-      if (err.code === 'auth/wrong-password') {
-        return Promise.reject(new AuthError(SignInErrorCode.WRONG_PASSWORD, '비밀번호가 틀렸습니다.'));
-      }
+export const signIn = async ({ email: loginEmail, password: loginPassword }) => {
+  try {
+    const { user } = await signInWithEmailAndPassword(loginEmail, loginPassword);
+    const { uid } = user;
+    return getFirebaseDocument('users', uid)
+      .then(async (data) => {
+        const { email, name, nickname, age, gender, phone } = data;
+        const profileImagePath = await getImageDownloadPath(`profiles/${uid}.jpg`);
+        return {
+          uid,
+          profileImagePath,
+          email,
+          name,
+          nickname,
+          age,
+          gender,
+          phone,
+        };
+      })
+      .catch(() => {
+        return Promise.reject(new AuthError(SignInErrorCode.NOT_EXIST_DATA, '유저 데이터를 불러올 수 없습니다.'));
+      });
+  } catch (err) {
+    console.log('error');
+    if (err.code === 'auth/invalid-email') {
+      return Promise.reject(new AuthError(SignInErrorCode.INVALID_EMAIL, '올바르지 않은 이메일 주소 형식입니다.'));
+    }
+    if (err.code === 'auth/user-disabled') {
+      return Promise.reject(new AuthError(SignInErrorCode.USER_DISABLED, '비활성화된 유저입니다.'));
+    }
+    if (err.code === 'auth/user-not-found') {
+      return Promise.reject(new AuthError(SignInErrorCode.USER_NOT_FOUND, '이메일을 찾을 수 없습니다.'));
+    }
+    if (err.code === 'auth/wrong-password') {
+      return Promise.reject(new AuthError(SignInErrorCode.WRONG_PASSWORD, '비밀번호가 틀렸습니다.'));
+    }
+    if (err.code === 'auth/argument-error') {
+      return Promise.reject(new AuthError(SignInErrorCode.ARGUMENT_ERROR, '이메일 혹은 비밀번호를 입력해주세요.'));
+    }
 
-      return Promise.reject(new AuthError(SignInErrorCode.SYSTEM_ERROR, err.message));
-    })
-    .then(({ user }) => {
-      const { uid } = user;
-      return getFirebaseDocument('users', uid)
-        .then(async (data) => {
-          const { email, name, nickname, age, gender, phone } = data;
-          const profileImagePath = await getImageDownloadPath(`profiles/${uid}.jpg`);
-          return {
-            uid,
-            profileImagePath,
-            email,
-            name,
-            nickname,
-            age,
-            gender,
-            phone,
-          };
-        })
-        .catch(() => {
-          return Promise.reject(new AuthError(SignInErrorCode.NOT_EXIST_DATA, '유저 데이터를 불러올 수 없습니다.'));
-        });
-    });
+    return Promise.reject(new AuthError(SignInErrorCode.SYSTEM_ERROR, err.message));
+  }
 };
 
 export const getSelectedUser = (email) => {
