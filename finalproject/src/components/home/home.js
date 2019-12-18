@@ -1,5 +1,7 @@
 import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
+import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -70,10 +72,13 @@ const Home = () => {
         setUserInfo(userData);
         setIsLogin(true);
         if(userData){
-          localStorage.setItem('nickname', signInInfo.email);
-          console.log(userInfo.nickname);
-          
+          console.log(userData);
+          localStorage.setItem('userProfile', userData.profileImagePath);
+          localStorage.setItem('userName', userData.nickname);
+          // localStorage.setItem('userData',JSON.stringify(userData));
+          // JSON.parse(localStorage.getItem('userData'));
         }
+        
         
       })
       .catch((err) => {
@@ -81,30 +86,42 @@ const Home = () => {
         console.error(err.message);
       });
   };
+  // const saveLogin=()=>{
+  //   if (userInfo.profileImagePath){
+  //     localStorage.setItem('userProfile', userInfo.profileImagePath);
+  //     localStorage.setItem('userName', userInfo.nickname);
+  //   }
+  // }
+  const onLogout=()=>{
+      localStorage.removeItem('userProfile');
+      localStorage.removeItem('userName');
+      window.location.reload(true);
+  }
 
+  // saveLogin();
   const searchResults = (e) => {
     e.preventDefault();
     if(!placeToSearch){alert('아무것도 입력하지 않으셨습니다.')}
+    // if(!userInfo.profileImagePath){alert('로그인하고 이용해주세요.')}
     else{history.push(`/search/${placeToSearch}`);}
   };
 
-  /////*******if 로그인이 안돼 있으면 ********////////
   return (
     <div className="App">
       <header className="App-header">
-        {isLogin ? (
+        {(localStorage.getItem("userProfile")) ? (
           <div className="align-right">
             <Box display="inline-block">
               <Flex alignItems="center">
                 <Image
-                  src={userInfo.profileImagePath}
+                  src={localStorage.getItem("userProfile")}
                   sx={{ borderRadius: '50%' }}
                   width="50px"
                   height="50px"
                 />
                 <Text as="span" mx="15px" fontSize={18} color="#7e91be;">
                   <Text as="span" fontWeight="bold" >
-                    {userInfo.nickname}
+                    {localStorage.getItem("userName")}
                   </Text>{' '}
                   님, 안녕하세요.
                 </Text>
@@ -112,7 +129,7 @@ const Home = () => {
                   마이 페이지
                 </Link>
                 {/* 로그아웃 기능 추가하기 */}
-                <Button className="button" style={{ color: indigo[400] }} >로그아웃</Button>
+                <Button className="button" style={{ color: indigo[400] }} onClick={onLogout} >로그아웃</Button>
               </Flex>
             </Box>
           </div>
@@ -125,6 +142,8 @@ const Home = () => {
               className="button"
               value="로그인"
             />
+            
+
             <Link to="/signup" className="button">
               회원가입
             </Link>
@@ -204,18 +223,21 @@ const Home = () => {
                       onChange={onValueHandle}
                     />
                   </div>
-                  <input
+                  {/* <input
                     type="submit"
                     className="login-button"
                     value="→"
                     onClick={onLogin}
-                  />
+                  /> */}
+                  <IconButton aria-label="login" onClick={onLogin} className="login-button button" >
+                    <ExitToAppRoundedIcon style={{ color: indigo[200] }}/>
+                  </IconButton>
                 </div>
               </form>
             </DialogContent>
           </div>
           <DialogActions>
-            <Button onClick={handleClose_login} color="primary">
+            <Button onClick={handleClose_login} color="primary" >
               닫기
             </Button>
           </DialogActions>
