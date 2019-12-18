@@ -1,5 +1,7 @@
 import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
+import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -137,6 +139,8 @@ const Home = () => {
               className="button"
               value="로그인"
             />
+            
+
             <Link to="/signup" className="button">
               회원가입
             </Link>
@@ -216,12 +220,15 @@ const Home = () => {
                       onChange={onValueHandle}
                     />
                   </div>
-                  <input
+                  {/* <input
                     type="submit"
                     className="login-button"
                     value="→"
                     onClick={onLogin}
-                  />
+                  /> */}
+                  <IconButton aria-label="login" onClick={onLogin} className="button" >
+                    <ExitToAppRoundedIcon style={{ color: indigo[200] }}/>
+                  </IconButton>
                 </div>
               </form>
             </DialogContent>
