@@ -44,32 +44,10 @@
   left: 330px;
 }
 
-p3 {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 30px;
-  color: #616161dc;
-  font-weight: bold;
-}
-
-p4 {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 20px;
-  color: #616161b2;
-  margin-left: 5px;
-}
-
-p5 {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 20px;
-  color: #616161b2;
-  margin-left: 5px;
-}
-
 .gender-image {
   position: relative;
-  width: 4%;
+  width: 20px;
   height: auto;
-  left: 1%;
 }
 
 .table-list-title {
