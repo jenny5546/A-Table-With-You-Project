@@ -1,62 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Gelasio&display=swap');
 
-.Signup {
-    display: flex;
-    flex-flow: column;
-    height: 100vh;
-}
-
-
-.Signup-body {
-    position: relative;
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-}
-
-.Signup-body:after {
-    background-image: url(../../static/images/signupimg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
-    opacity: 0.5;
-    top: 0;
-    left: 0;
-    position: absolute;
-    filter: alpha(opacity=50);
-    z-index: -1;
-    content: "";
-    width: 100%;
-    height: 100%;
-}
-
 .Signup-form {
     padding: 15px;
-    background-color: rgba(241, 240, 239, 0.719);
+    background-color: #f1f0efcc;
+    border: 3px solid rgba(139, 169, 189, 0.288);
     width: 30%;
-    /* display: flex; */
     flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
     font-family: 'Nanum Gothic', sans-serif;
-    
-
-}
-
-.Signup-title {
-    /* font-weight: bold; */
-    font-family: 'Gelasio', serif;
-    font-size: 40px;
-    color: rgba(51, 51, 51, 0.829);
-    font-weight: bold;
-    
-}
-
-.profile-image {
-    border-radius: 50%;
-    border: 2px solid rgb(139, 169, 189);
 }
 
 .profile-input {
@@ -69,17 +20,20 @@
 }
 
 .profile-input+label {
-    font-size: 12px;
+    font-size: 10px;
     padding: 11px;
     font-weight: 700;
-    color: #333;
-    background-color: #ffffff;
+    border-radius: 30px;
+    color: rgba(51, 51, 51, 0.911);
+    background-color: #f5f3f3;
+    border: 0.5px solid rgba(51, 51, 51, 0.479);
     display: inline-block;
     cursor: pointer;
     font-family: 'Nanum Gothic', sans-serif;
 }
-.close-button{
-    right:0;
+
+.close-button {
+    right: 0;
     position: absolute;
     z-index: 5;
 }
