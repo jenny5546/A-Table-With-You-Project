@@ -109,3 +109,18 @@ export const getFirebaseDatabaseRef = (path) => {
 export const getFirebaseServerTimestamp = () => {
   return firebase.database.ServerValue.TIMESTAMP;
 };
+
+export const updateFirebaseDocuments = (collection, fields = [], values = [], value = {}) => {
+  let where = firebase.firestore().collection(collection);
+  for (let i = 0; i < fields.length; i += 1) {
+    where = where.where(fields[i], '==', values[i]);
+  }
+
+  return where.get().then((querySnapshot) => {
+    const updateList = [];
+    querySnapshot.forEach((doc) => {
+      updateList.push(updateFirebaseDocument(collection, doc.id, value));
+    });
+    return Promise.all(updateList);
+  });
+};

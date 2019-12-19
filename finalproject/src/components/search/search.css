@@ -1,27 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Gaegu&display=swap');
 
-.home-button {
-  text-align: right;
-}
-
-.Line-search {
-  border-top: 2px solid #ccc;
-  width: 100%;
-  height: 2px;
-  margin-top: 10px;
-}
-
 .loading-gif {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-}
-
-.loading-background {
-  background-color: rgba(252, 238, 244, 0.356);
-  width: 100vw;
-  height: 100vh;
 }
 
 table {
