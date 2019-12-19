@@ -170,7 +170,7 @@ const Home = () => {
                   fontWeight="bold"
                   fontSize={15}
                   text="로그아웃"
-                  mr={2}
+                  mr={1}
                 />
               </Flex>
             </Box>
