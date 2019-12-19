@@ -9,9 +9,9 @@ import styled from 'styled-components';
 import logo from '../../static/images/logo.png';
 import Chat from '../../utils/chat';
 import { getPlace, getUser } from '../../utils/util';
+import CustomButton from '../button/button';
 import Line from '../line/line';
 import './chatroom.css';
-import CustomButton from '../button/button';
 
 const ChatInput = styled.input`
   border: 0px;
@@ -86,7 +86,12 @@ const ChatRoom = () => {
         <div className="align-right">
           <Box display="inline-block">
             <Flex alignItems="center">
-              <Image src={userInfo && userInfo.profileImagePath} sx={{ borderRadius: '50%' }} width="50px" height="50px" />
+              <Image
+                src={userInfo && userInfo.profileImagePath}
+                sx={{ borderRadius: '50%' }}
+                width="50px"
+                height="50px"
+              />
               <Text as="span" mx="15px" fontSize={18} color="#7e91be;">
                 <Text as="span" fontWeight="bold">
                   {userInfo && userInfo.nickname}
@@ -117,25 +122,26 @@ const ChatRoom = () => {
 
       <div className="chat-big-container">
         <div className="chat-message-container">
-          {userInfo && chatMessages.map((chatMessageData) => {
-            return chatMessageData.sender === userInfo.uid ? (
-              <div className="chat-sent-by-me">
-                &nbsp;
-                <Text as="span" fontWeight="bold">
-                  나 :
-                </Text>
-                {` ${chatMessageData.message}`}
-              </div>
-            ) : (
-              <div className="chat-sent-by-him">
-                <Text as="span" fontWeight="bold">
-                  상대방 :
-                </Text>
-                &nbsp;
-                {` ${chatMessageData.message}`}
-              </div>
-            );
-          })}
+          {userInfo &&
+            chatMessages.map((chatMessageData) => {
+              return chatMessageData.sender === userInfo.uid ? (
+                <div className="chat-sent-by-me">
+                  &nbsp;
+                  <Text as="span" fontWeight="bold">
+                    나 :
+                  </Text>
+                  {` ${chatMessageData.message}`}
+                </div>
+              ) : (
+                <div className="chat-sent-by-him">
+                  <Text as="span" fontWeight="bold">
+                    상대방 :
+                  </Text>
+                  &nbsp;
+                  {` ${chatMessageData.message}`}
+                </div>
+              );
+            })}
         </div>
         <div className="chat-send-form">
           <form onSubmit={onSendMessage}>

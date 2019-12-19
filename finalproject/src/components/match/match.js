@@ -5,12 +5,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { Box, Flex, Image, Text } from 'rebass';
 import backgroundPic from '../../static/images/backgroundPic.jpg';
+import logo from '../../static/images/header-logo.png';
 import heartIcon from '../../static/images/heartIcon.png';
+import loadingImage from '../../static/images/loading.gif';
 import mapPic from '../../static/images/mapPic.jpg';
 import { findUser, findUsersByPlace, finishMatch, getPlace, getUser } from '../../utils/util';
 import './match.css';
-import loadingImage from '../../static/images/loading.gif';
-import logo from '../../static/images/header-logo.png';
 
 const Match = () => {
   const history = useHistory();

@@ -1,8 +1,8 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Flex, Text } from 'rebass';
 import logo from '../../static/images/header-logo.png';
 import Line from '../line/line';
-import { useParams } from 'react-router-dom';
 
 const ErrorPage = () => {
   const { code } = useParams();

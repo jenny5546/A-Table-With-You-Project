@@ -22,8 +22,8 @@ import search from '../../static/images/search.png';
 import spoon from '../../static/images/spoon.png';
 import { signIn } from '../../utils/auth';
 import CustomButton from '../button/button';
-import './home.css';
 import Line from '../line/line';
+import './home.css';
 
 const slideImages = [mainpic3, mainpic4, mainpic5, mainpic6, mainpic7, mainpic8, mainpic9];
 const properties = {

@@ -9,7 +9,7 @@ import { Box, Flex, Image, Text } from 'rebass';
 import styled from 'styled-components';
 import loadingImage from '../../static/images/loading.gif';
 import logo from '../../static/images/logo.png';
-import { findSelectedPlacesByUser, selectPlace, getPlace, findUsersByPlace, getPlaceByInfo } from '../../utils/util';
+import { findSelectedPlacesByUser, getPlaceByInfo, selectPlace } from '../../utils/util';
 import CustomButton from '../button/button';
 import Line from '../line/line';
 import './search.css';
