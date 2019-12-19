@@ -164,7 +164,14 @@ const Home = () => {
                   fontSize={15}
                   color="#7e91be"
                 />
-                <CustomButton color="#7e91be" onClick={onLogout} text="로그아웃" small mr={2} />
+                <CustomButton
+                  color="#7e91be"
+                  onClick={onLogout}
+                  fontWeight="bold"
+                  fontSize={15}
+                  text="로그아웃"
+                  mr={2}
+                />
               </Flex>
             </Box>
           </div>
