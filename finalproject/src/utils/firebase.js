@@ -1,8 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/database';
 import 'firebase/firestore';
 import 'firebase/storage';
-import 'firebase/database';
 
 export const FirestoreError = {
   NOT_EXIST_DOC: 'firestore/not-exist-data',
@@ -11,14 +11,14 @@ export const FirestoreError = {
 
 export const initFirebase = () => {
   const firebaseConfig = {
-    apiKey: 'AIzaSyBSaHFq3eMNuqfceqfAuOgr5cV9VNJ9vlU',
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: 'eat-foods-with-you.firebaseapp.com',
     databaseURL: 'https://eat-foods-with-you.firebaseio.com',
     projectId: 'eat-foods-with-you',
     storageBucket: 'eat-foods-with-you.appspot.com',
     messagingSenderId: '935328497051',
     appId: '1:935328497051:web:f8456877534e3f0ff1f53e',
-    measurementId: 'G-EQFRV5TFJM',
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
   };
 
   firebase.initializeApp(firebaseConfig);
@@ -82,34 +82,17 @@ export const getImageDownloadPath = (fileName) => {
     .getDownloadURL();
 };
 
-export const getFirebaseDocumentsByWhere = (collection, fieldName, valueName, fieldName2, valueName2) => {
-  return firebase
-    .firestore()
-    .collection(collection)
-    .where(fieldName, '==', valueName)
-    .where(fieldName2, '==', valueName2)
-    .get()
-    .then((querySnapshot) => {
-      const dataList = [];
-      querySnapshot.forEach(function(doc) {
-        dataList.push(doc.data());
-      });
-      return dataList;
-    })
-    .catch((error) => {
-      return Promise.reject(error);
-    });
-};
+export const findFirebaseDocuments = (collection, fields = [], values = []) => {
+  let where = firebase.firestore().collection(collection);
+  for (let i = 0; i < fields.length; i += 1) {
+    where = where.where(fields[i], '==', values[i]);
+  }
 
-export const getSelectedFirebaseDocuments = (collection, fieldName, valueName) => {
-  return firebase
-    .firestore()
-    .collection(collection)
-    .where(fieldName, '==', valueName)
+  return where
     .get()
     .then((querySnapshot) => {
       const dataList = [];
-      querySnapshot.forEach(function(doc) {
+      querySnapshot.forEach((doc) => {
         dataList.push(doc.data());
       });
       return dataList;
@@ -125,4 +108,19 @@ export const getFirebaseDatabaseRef = (path) => {
 
 export const getFirebaseServerTimestamp = () => {
   return firebase.database.ServerValue.TIMESTAMP;
+};
+
+export const updateFirebaseDocuments = (collection, fields = [], values = [], value = {}) => {
+  let where = firebase.firestore().collection(collection);
+  for (let i = 0; i < fields.length; i += 1) {
+    where = where.where(fields[i], '==', values[i]);
+  }
+
+  return where.get().then((querySnapshot) => {
+    const updateList = [];
+    querySnapshot.forEach((doc) => {
+      updateList.push(updateFirebaseDocument(collection, doc.id, value));
+    });
+    return Promise.all(updateList);
+  });
 };

@@ -1,24 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import './mypage.css';
+import { indigo } from '@material-ui/core/colors';
+import IconButton from '@material-ui/core/IconButton';
+import ChatIcon from '@material-ui/icons/Chat';
+import HomeIcon from '@material-ui/icons/Home';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { Flex, Image, Text } from 'rebass';
 import logo from '../../static/images/header-logo.png';
 import man from '../../static/images/man.png';
 import woman from '../../static/images/woman.png';
-import { Box, Flex, Image, Text } from 'rebass';
-import { Link } from 'react-router-dom';
-import { indigo } from '@material-ui/core/colors';
-import IconButton from '@material-ui/core/IconButton';
-import HomeIcon from '@material-ui/icons/Home';
-import ChatIcon from '@material-ui/icons/Chat';
+import { findSelectedPlacesByUser } from '../../utils/util';
+import Line from '../line/line';
+import './mypage.css';
 
 const MyPage = () => {
+  const history = useHistory();
   const [userInfo, setUserInfo] = useState(null);
+  const [bucketList, setBucketList] = useState([]);
+
+  const goToChatRoom = (placeUid) => {
+    history.push(`/chat/${placeUid}`);
+  };
+
   useEffect(() => {
     const userData = localStorage.getItem('login-user');
     if (userData) {
       const loginUserData = JSON.parse(userData);
       setUserInfo(loginUserData);
+
+      findSelectedPlacesByUser(loginUserData.email).then((places) => {
+        setBucketList(places);
+      });
+    } else {
+      history.replace('/error/401');
     }
-  }, []);
+  }, [history]);
 
   return (
     <Flex
@@ -37,8 +52,8 @@ const MyPage = () => {
                 <Image src={userInfo.profileImagePath} sx={{ borderRadius: '50%' }} width="50px" height="50px" />
                 <Text as="span" mx="15px" fontSize={18} color="#7e91be;">
                   <Text as="span" fontWeight="bold">
-                    {userInfo.nickname}
-                  </Text>{' '}
+                    {`${userInfo.nickname} `}
+                  </Text>
                   님, 안녕하세요.
                 </Text>
                 <Link to="/">
@@ -51,46 +66,57 @@ const MyPage = () => {
           </Flex>
         )}
 
-        <div className="Line-mypage" />
+        <Line />
       </Flex>
       {userInfo ? (
         <div className="user-info">
           {/* <div className='profile-image-div'> */}
-          <img src={userInfo.profileImagePath} className="profile-image-mypage" />
+          <img src={userInfo.profileImagePath} className="profile-image-mypage" alt="profile" />
           {/* </div> */}
           <div className="profile-info-div">
-            <p3>
-              {userInfo.name}({userInfo.nickname})
-            </p3>
+            <Text as="span" color="#616161dc" fontSize={30} fontWeight="bold" fontFamily="'Noto Sans KR', sans-serif">
+              {`${userInfo.name} (${userInfo.nickname})`}
+            </Text>
             {userInfo.gender === '남' ? (
-              <img src={man} className="gender-image" />
+              <img src={man} className="gender-image" alt="male" />
             ) : (
-              <img src={woman} className="gender-image" />
+              <img src={woman} className="gender-image" alt="female" />
             )}
-            {/* <p4>{JSON.parse(localStorage.getItem('userData')).gender}</p4> */}
-            <br></br>
-            <p4>{userInfo.phone}</p4>
-            <br></br>
-            <p5>{userInfo.age}세</p5>
+            <br />
+            <Text as="span" color="#616161dc" fontSize={20} ml="5px" fontFamily="'Noto Sans KR', sans-serif">
+              {userInfo.phone}
+            </Text>
+            <br />
+            <Text as="span" color="#616161dc" fontSize={20} ml="5px" fontFamily="'Noto Sans KR', sans-serif">
+              {`${userInfo.age}세`}
+            </Text>
           </div>
           <div className="table-list-title">찜한 식탁</div>
           <table>
-            <tr>
-              <th style={{ textAlign: 'center' }}>식탁 이름</th>
-              <th style={{ textAlign: 'center' }}>사랑방</th>
-            </tr>
-            <tr>
-              <td style={{ textAlign: 'center' }}>식탁 이름</td>
-              <td style={{ textAlign: 'center' }}>
-                <IconButton aria-label="go to home">
-                  <ChatIcon style={{ color: indigo[200] }} />
-                </IconButton>
-              </td>
-            </tr>
-            <tr>
-              <td style={{ textAlign: 'center' }}>식탁 이름</td>
-              <td style={{ textAlign: 'center' }}>아직 짝을 찾지 못했습니다</td>
-            </tr>
+            <thead>
+              <tr>
+                <th style={{ textAlign: 'center' }}>식탁 이름</th>
+                <th style={{ textAlign: 'center' }}>사랑방</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bucketList.map((bucket) => {
+                return (
+                  <tr>
+                    <td style={{ textAlign: 'center' }}>{`${bucket.title} (${bucket.address})`}</td>
+                    {bucket.isFinish ? (
+                      <td style={{ textAlign: 'center' }}>
+                        <IconButton aria-label="go to home" onClick={() => goToChatRoom(bucket.uid)}>
+                          <ChatIcon style={{ color: indigo[200] }} />
+                        </IconButton>
+                      </td>
+                    ) : (
+                      <td style={{ textAlign: 'center' }}>아직 짝을 찾지 못했습니다!</td>
+                    )}
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </div>
       ) : (

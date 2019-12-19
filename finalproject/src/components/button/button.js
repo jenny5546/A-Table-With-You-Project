@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Box } from 'rebass';
 import styled from 'styled-components';
@@ -8,11 +9,10 @@ const ButtonContainer = styled(Box)`
   align-items: center;
 
   box-sizing: border-box;
-  border: 1px solid #ddd;
   background-color: ${(props) => (props.disabled ? '#ccc' : props.bgColor)};
 
   font-size: ${(props) => (props.small ? `12px` : `15px`)};
-  font-family: NotoSansCJKkr;
+  font-family: 'Nanum Gothic', sans-serif;
 
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   outline: 0;
@@ -29,7 +29,6 @@ const Button = ({
   text,
   onClick,
   disabled = false,
-  loading = false,
   backgroundColor = 'white',
   hoverBackgroundColor = backgroundColor,
   small = false,
@@ -53,6 +52,22 @@ const Button = ({
       {text}
     </ButtonContainer>
   );
+};
+
+Button.propTypes = {
+  text: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  backgroundColor: PropTypes.string,
+  hoverBackgroundColor: PropTypes.string,
+  small: PropTypes.bool,
+};
+
+Button.defaultProps = {
+  disabled: false,
+  backgroundColor: 'white',
+  hoverBackgroundColor: 'white',
+  small: false,
 };
 
 export default Button;
