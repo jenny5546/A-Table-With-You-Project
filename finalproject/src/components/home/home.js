@@ -1,5 +1,4 @@
-import { TextField } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import { Button, LinearProgress, TextField } from '@material-ui/core';
 import { indigo } from '@material-ui/core/colors';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,12 +6,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 import { Box, Flex, Image, Text } from 'rebass';
-import login from '../../static/images/loginimg.png';
+import styled from 'styled-components';
 import logo from '../../static/images/logo.png';
-import spoon from '../../static/images/spoon.png';
 import mainpic3 from '../../static/images/mainpic3.jpg';
 import mainpic4 from '../../static/images/mainpic4.jpg';
 import mainpic5 from '../../static/images/mainpic5.jpg';
@@ -21,8 +19,9 @@ import mainpic7 from '../../static/images/mainpic7.jpg';
 import mainpic8 from '../../static/images/mainpic8.jpg';
 import mainpic9 from '../../static/images/mainpic9.jpg';
 import search from '../../static/images/search.png';
+import spoon from '../../static/images/spoon.png';
 import { signIn } from '../../utils/auth';
-import styled from 'styled-components';
+import CustomButton from '../button/button';
 import './home.css';
 
 const slideImages = [mainpic3, mainpic4, mainpic5, mainpic6, mainpic7, mainpic8, mainpic9];
@@ -58,20 +57,37 @@ const Recommendation = styled.div`
   margin-right: 10px;
 `;
 
+const InputLabel = styled(Box)`
+  padding-left: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Nanum Gothic', sans-serif;
+`;
+
 const Home = () => {
   const history = useHistory();
   const [placeToSearch, setPlaceToSearch] = useState('');
   const [openLogin, setOpenLogin] = useState(false);
   const [signInInfo, setSignInInfo] = useState({});
+  const [loginLoading, setLoginLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
   const handleClickOpenLogin = () => {
     setOpenLogin(true);
   };
   const handleCloseLogin = () => {
     setOpenLogin(false);
+  };
+
+  const redirectToSignUp = () => {
+    history.push('/signup');
+  };
+
+  const redirectToMyPage = () => {
+    history.push('/mypage');
   };
 
   const onValueHandle = (e) => {
@@ -80,16 +96,19 @@ const Home = () => {
   };
 
   const onLogin = () => {
+    setLoginLoading(true);
     signIn({ email: signInInfo.email, password: signInInfo.password })
       .then((userData) => {
         setOpenLogin(false);
         setUserInfo(userData);
         setIsLogin(true);
         localStorage.setItem('login-user', JSON.stringify(userData));
+        setLoginLoading(false);
       })
       .catch((err) => {
         setError(true);
         setErrorMessage(err.message);
+        setLoginLoading(false);
       });
   };
 
@@ -110,9 +129,7 @@ const Home = () => {
     e.preventDefault();
     if (!placeToSearch) {
       alert('아무것도 입력하지 않으셨습니다.');
-    }
-    // if(!userInfo.profileImagePath){alert('로그인하고 이용해주세요.')}
-    else {
+    } else {
       history.push(`/search/${placeToSearch}`);
     }
   };
@@ -138,22 +155,28 @@ const Home = () => {
                   </Text>
                   님, 안녕하세요.
                 </Text>
-                <Link to="/mypage" className="mypage-button">
-                  마이 페이지
-                </Link>
-                <Button className="logout-button" style={{ color: indigo[400] }} onClick={onLogout}>
-                  로그아웃
-                </Button>
+
+                <CustomButton
+                  text="마이 페이지"
+                  onClick={redirectToMyPage}
+                  fontWeight="bold"
+                  fontSize={15}
+                  color="#7e91be"
+                />
+                <CustomButton color="#7e91be" onClick={onLogout} text="로그아웃" small mr={2} />
               </Flex>
             </Box>
           </div>
         ) : (
           <div className="align-right">
-            <input type="button" onClick={handleClickOpenLogin} className="button" value="로그인" />
-
-            <Link to="/signup" className="button">
-              회원가입
-            </Link>
+            <CustomButton
+              onClick={handleClickOpenLogin}
+              color="#7e91be"
+              text="로그인"
+              fontWeight="bold"
+              fontSize={15}
+            />
+            <CustomButton onClick={redirectToSignUp} color="#7e91be" text="회원가입" fontWeight="bold" fontSize={15} />
           </div>
         )}
 
@@ -207,7 +230,7 @@ const Home = () => {
         <div className="big-container-login">
           <div className="small-container-login">
             <DialogContent>
-            <img src={spoon} className="spoon-image" alt="spoon" />
+              <img src={spoon} className="spoon-image" alt="spoon" />
               <form
                 className="login-form"
                 onSubmit={(e) => {
@@ -218,11 +241,12 @@ const Home = () => {
                 {/* <img src={login} className="login-image" alt="background" /> */}
                 <div className="login-title">Welcome Back!</div>
                 <div className="login-form">
-                  <div className="id-label">이메일</div>
+                  <InputLabel mt="50px">이메일</InputLabel>
                   <div className="input-login">
                     <TextField type="text" placeholder="email" name="email" onChange={onValueHandle} />
                   </div>
-                  <div className="pw-label">비밀번호</div>
+                  <br />
+                  <InputLabel>비밀번호</InputLabel>
                   <div className="input-login">
                     <TextField type="password" placeholder="password" name="password" onChange={onValueHandle} />
                   </div>
@@ -240,11 +264,11 @@ const Home = () => {
           </div>
           <DialogActions>
             <div className="modal-close-button">
-              <Button onClick={handleCloseLogin} color="primary" >
+              <Button onClick={handleCloseLogin} color="primary">
                 X
               </Button>
             </div>
-            
+
             <IconButton aria-label="login" onClick={onLogin} className="login-button button">
               <ExitToAppRoundedIcon style={{ color: indigo[200] }} />
             </IconButton>
@@ -252,6 +276,7 @@ const Home = () => {
               닫기
             </Button> */}
           </DialogActions>
+          {loginLoading && <LinearProgress />}
         </div>
       </Dialog>
     </div>

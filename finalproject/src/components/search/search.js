@@ -6,13 +6,22 @@ import HomeIcon from '@material-ui/icons/Home';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { Box, Flex, Image, Text } from 'rebass';
+import styled from 'styled-components';
 import loadingImage from '../../static/images/loading.gif';
 import logo from '../../static/images/logo.png';
-import { getSelectedPlace, getSelectedUser, setSelectedPlace, isSelectPlace } from '../../utils/auth';
+import { findSelectedPlacesByUser, findUser, findUsersByPlace, selectePlace } from '../../utils/util';
+import CustomButton from '../button/button';
 import './search.css';
 
+const LogoImg = styled.img`
+  width: 300px;
+  height: auto;
+  margin-left: 40px;
+  margin-top: 40px;
+`;
 class Restaurants {
-  constructor(title, link, category, description, telephone, address, roadAddress, mapx, mapy) {
+  constructor(title, link, category, description, telephone, address, roadAddress, mapX, mapY) {
+    this.key = `${title}/${address}`;
     this.title = title;
     this.link = link;
     this.category = category;
@@ -20,44 +29,48 @@ class Restaurants {
     this.telephone = telephone;
     this.address = address;
     this.roadAddress = roadAddress;
-    this.mapx = mapx;
-    this.mapy = mapy;
+    this.mapX = mapX;
+    this.mapY = mapY;
   }
 }
 
 const Search = () => {
   const history = useHistory();
-  const { place } = useParams();
+  const { place: placeName } = useParams();
   const [restaurantList, setRestaurantList] = useState([]);
-  const [seledtedRestaurantList, setSelectedRestaurantList] = useState([]);
+  const [seledtedRestaurants, setSelectedRestaurants] = useState({});
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [startNumber, setStartNumber] = useState(1);
+  const [selectedPlaces, setSelectedPlaces] = useState([]);
 
   const onMatch = async (i) => {
     try {
-      const data = await getSelectedPlace(restaurantList[i].mapx);
+      const restaurant = restaurantList[i];
+      await selectePlace(userInfo.email, restaurant.title, restaurant.address, restaurant.mapX, restaurant.mapY);
+
+      const data = await findUsersByPlace(restaurant.title, restaurant.address, restaurant.mapX, restaurant.mapY);
       if (data.length === 0) {
-        await setSelectedPlace(JSON.parse(localStorage.getItem('login-user')).email, restaurantList[i].mapx);
-        setSelectedRestaurantList((list) => {
-          list[i] = true;
-          return [...list];
-        });
+        setSelectedRestaurants((s) => ({ ...s, [restaurant.key]: true }));
         alert('아직 이 식당을 찜한 다른 유저가 없습니다 ㅠㅠ 조금만 기다려주세요');
         return;
       }
-      localStorage.setItem('matched_restaurant_address', restaurantList[i].address);
-      localStorage.setItem('matched_restaurant_roadAddress', restaurantList[i].roadAddress);
-      const userList = await getSelectedUser(data[0].email);
-      localStorage.setItem('matched_user_name', userList[0].name);
-      localStorage.setItem('matched_user_phone', userList[0].phone);
-      localStorage.setItem('matched_user_uid', userList[0].uid);
+      localStorage.setItem('matched_restaurant_address', restaurant.address);
+      localStorage.setItem('matched_restaurant_roadAddress', restaurant.roadAddress);
 
-      await setSelectedPlace(JSON.parse(localStorage.getItem('login-user')).email, restaurantList[i].mapx);
+      const targetUser = await findUser(data[0].email);
+      localStorage.setItem('matched_user_name', targetUser.name);
+      localStorage.setItem('matched_user_phone', targetUser.phone);
+      localStorage.setItem('matched_user_uid', targetUser.uid);
+
       history.push(`/match`);
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const redirectToMyPage = () => {
+    history.push('/mypage');
   };
 
   const onAlreadyMatched = () => {
@@ -99,7 +112,6 @@ const Search = () => {
               )
           ),
         ]);
-        setSelectedRestaurantList((list) => [...list, ...items.map((item) => false)]);
       });
   };
 
@@ -110,7 +122,7 @@ const Search = () => {
       if (nextStartNumber < 1000 && !loading && document.body.scrollHeight - window.scrollY === window.innerHeight) {
         setLoading(true);
         setStartNumber(nextStartNumber);
-        addSearchPlaces(place, nextStartNumber).then(() => {
+        addSearchPlaces(placeName, nextStartNumber).then(() => {
           setLoading(false);
         });
       }
@@ -119,7 +131,7 @@ const Search = () => {
     return () => {
       window.onscroll = undefined;
     };
-  }, [place, startNumber, loading]);
+  }, [placeName, startNumber, loading]);
 
   useEffect(() => {
     if (loading) {
@@ -132,24 +144,28 @@ const Search = () => {
     if (userData) {
       const loginUserData = JSON.parse(userData);
       setUserInfo(loginUserData);
+      findSelectedPlacesByUser(loginUserData.email).then((places) => {
+        setSelectedPlaces(places.map((place) => `${place.title}/${place.address}`));
+      });
     }
   }, []);
 
   useEffect(() => {
-    addSearchPlaces(place);
-  }, [place]);
+    addSearchPlaces(placeName);
+  }, [placeName]);
 
   useEffect(() => {
     if (userInfo) {
-      restaurantList.forEach(async (item, i) => {
-        const result = await isSelectPlace(userInfo.email, item.mapx);
-        setSelectedRestaurantList((list) => {
-          list[i] = result;
-          return [...list];
+      const selectedRestaurants = restaurantList.filter((restaurant) => {
+        return selectedPlaces.includes(restaurant.key);
+      });
+      selectedRestaurants.forEach(async (restaurant) => {
+        setSelectedRestaurants((s) => {
+          return { ...s, [restaurant.key]: true };
         });
       });
     }
-  }, [userInfo, restaurantList]);
+  }, [userInfo, restaurantList, selectedPlaces]);
 
   if (restaurantList.length > 0) {
     return (
@@ -165,9 +181,13 @@ const Search = () => {
                   </Text>
                   님, 안녕하세요.
                 </Text>
-                <Link to="/mypage" className="button">
-                  마이 페이지
-                </Link>
+                <CustomButton
+                  text="마이 페이지"
+                  onClick={redirectToMyPage}
+                  fontWeight="bold"
+                  fontSize={15}
+                  color="#7e91be"
+                />
                 <Link to="/">
                   <IconButton aria-label="go to home">
                     <HomeIcon style={{ color: indigo[200] }} />
@@ -179,45 +199,53 @@ const Search = () => {
           <div className="Line-search" />
         </Box>
         <Box>
-          <img src={logo} className="logo-image-search" alt="logo" />
+          <LogoImg src={logo} alt="logo" />
           <div className="list">
             <div className="search-title">
-              <p1>"{place}"</p1>
-              <p2>의 검색결과:</p2>
+              <Text as="span" fontSize={50} fontWeight={600} color="#616161" fontFamily="'Gaegu', cursive">
+                {`"${placeName}"`}
+              </Text>
+              <Text as="span" fontSize={30} color="#616161">
+                의 검색결과 :
+              </Text>
             </div>
 
             <table>
-              <tr className="list-header">
-                <th className="header-category">카테고리</th>
-                <th className="header-title">상호 명</th>
-                <th className="header-phone">전화번호</th>
-                <th className="header-address">주소</th>
-                <th className="header-liked" style={{ textAlign: 'center' }}>
-                  찜
-                </th>
-              </tr>
+              <thead>
+                <tr className="list-header">
+                  <th className="header-category">카테고리</th>
+                  <th className="header-title">상호 명</th>
+                  <th className="header-phone">전화번호</th>
+                  <th className="header-address">주소</th>
+                  <th className="header-liked" style={{ textAlign: 'center' }}>
+                    찜
+                  </th>
+                </tr>
+              </thead>
 
-              {restaurantList.map((restaurant, i) => {
-                return (
-                  <tr>
-                    <td className="category"> {restaurant.category} </td>
-                    <td className="title"> {restaurant.title} </td>
-                    <td className="phone"> {restaurant.telephone} </td>
-                    <td className="address"> {restaurant.address} </td>
-                    <td className="liked">
-                      {seledtedRestaurantList[i] ? (
-                        <IconButton className="like-button" aria-label="like" onClick={(e) => onAlreadyMatched()}>
-                          <FavoriteIcon style={{ color: pink[200] }} />
-                        </IconButton>
-                      ) : (
-                        <IconButton className="like-button" aria-label="like" id={i} onClick={(e) => onMatch(i)}>
-                          <FavoriteBorderOutlinedIcon style={{ color: pink[200] }} />
-                        </IconButton>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
+              <tbody>
+                {restaurantList.map((restaurant, i) => {
+                  return (
+                    <tr key={restaurant.key}>
+                      <td className="category">{restaurant.category}</td>
+                      <td className="title">{restaurant.title}</td>
+                      <td className="phone">{restaurant.telephone}</td>
+                      <td className="address">{restaurant.address}</td>
+                      <td className="liked">
+                        {seledtedRestaurants[restaurant.key] ? (
+                          <IconButton className="like-button" aria-label="like" onClick={onAlreadyMatched}>
+                            <FavoriteIcon style={{ color: pink[200] }} />
+                          </IconButton>
+                        ) : (
+                          <IconButton className="like-button" aria-label="like" id={i} onClick={() => onMatch(i)}>
+                            <FavoriteBorderOutlinedIcon style={{ color: pink[200] }} />
+                          </IconButton>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             </table>
             {loading && (
               <Flex justifyContent="center">
@@ -233,12 +261,12 @@ const Search = () => {
         </Box>
       </Flex>
     );
-  } else
-    return (
-      <div className="loading-background">
-        <img src={loadingImage} className="loading-gif" alt="loading-gif" />
-      </div>
-    );
+  }
+  return (
+    <div className="loading-background">
+      <img src={loadingImage} className="loading-gif" alt="loading-gif" />
+    </div>
+  );
 };
 
 export default Search;

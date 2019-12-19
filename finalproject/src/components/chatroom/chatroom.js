@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { getSelectedUser } from '../../utils/auth';
-import Chat from '../../utils/chat';
-import logo from '../../static/images/logo.png';
-import { Box, Flex, Image, Text } from 'rebass';
-import { Link } from 'react-router-dom';
+import { indigo } from '@material-ui/core/colors';
+import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 import SendIcon from '@material-ui/icons/Send';
-import IconButton from '@material-ui/core/IconButton';
-import { indigo } from '@material-ui/core/colors';
-import './chatroom.css';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Box, Flex, Image, Text } from 'rebass';
 import styled from 'styled-components';
+import logo from '../../static/images/logo.png';
+import { findUser } from '../../utils/util';
+import Chat from '../../utils/chat';
+import './chatroom.css';
 
 const ChatInput = styled.input`
   border: 0px;
@@ -25,7 +24,7 @@ function useQuery() {
 }
 
 const ChatRoom = () => {
-  let query = useQuery();
+  const query = useQuery();
   const [chatInput, setChatInput] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
   const [chat, setChat] = useState(null);
@@ -39,24 +38,22 @@ const ChatRoom = () => {
 
     chat.sendMessage(chatInput);
   };
-  // var targetUser=0;
-  var targetUserProfile = '';
   useEffect(() => {
     const userData = localStorage.getItem('login-user');
     if (userData) {
       const loginUserData = JSON.parse(userData);
-      getSelectedUser(query.get('target')).then((users) => {
-        if (users.length > 0) {
-          const targetUser = users[0];
-          const chat = new Chat(loginUserData.uid, targetUser.uid);
+      findUser(query.get('target')).then((user) => {
+        if (user) {
+          const targetUser = user;
+          const chatClass = new Chat(loginUserData.uid, targetUser.uid);
 
-          chat.openChatRoom().then((roomId) => {
+          chatClass.openChatRoom().then((roomId) => {
             console.log(roomId);
-            chat.startLoadMessages((data) => {
+            chatClass.startLoadMessages((data) => {
               console.log(data);
               setChatMessages((messages) => [...messages, data]);
             });
-            setChat(chat);
+            setChat(chatClass);
           });
         }
       });

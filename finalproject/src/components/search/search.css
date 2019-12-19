@@ -4,24 +4,11 @@
   text-align: right;
 }
 
-.align-right-search {
-  text-align: right;
-  margin-top: 10px;
-
-}
-
 .Line-search {
-  /* height: 1px; */
   border-top: 2px solid #ccc;
   width: 100%;
   height: 2px;
-}
-
-.logo-image-search {
-  width: 25%;
-  height: auto;
-  margin-left: 4%;
-  margin-top: 3%;
+  margin-top: 10px;
 }
 
 .loading-gif {
@@ -29,7 +16,6 @@
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-
 }
 
 .loading-background {
@@ -62,18 +48,6 @@ th {
   background: rgba(196, 196, 196, 0.185);
   border-radius: 5px;
   border: 1px solid rgba(196, 196, 196, 0.185);
-}
-
-p1 {
-  font-size: 50px;
-  font-weight: 600;
-  color: #616161;
-  font-family: 'Gaegu', cursive;
-}
-
-p2 {
-  font-size: 30px;
-  color: #616161;
 }
 
 .search-title {

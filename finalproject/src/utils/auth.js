@@ -1,14 +1,11 @@
 import {
-  setFirestoreDocument,
   createEmailWithPassword,
-  signInWithEmailAndPassword,
   getFirebaseDocument,
-  uploadImageToStorage,
   getImageDownloadPath,
-  getSelectedFirebaseDocuments,
-  getFirebaseDocumentsByWhere,
+  setFirestoreDocument,
+  signInWithEmailAndPassword,
+  uploadImageToStorage,
 } from './firebase';
-import uuidv1 from 'uuid/v1';
 
 export class AuthError extends Error {
   constructor(code, message) {
@@ -123,26 +120,3 @@ export const signIn = async ({ email: loginEmail, password: loginPassword }) => 
     return Promise.reject(new AuthError(SignInErrorCode.SYSTEM_ERROR, err.message));
   }
 };
-
-export const getSelectedUser = (email) => {
-  return getSelectedFirebaseDocuments('users', 'email', email);
-};
-
-export const setSelectedPlace = (email, mapX) => {
-  return setFirestoreDocument('places', uuidv1(), {
-    email,
-    mapX,
-  });
-};
-
-export const isSelectPlace = (email, mapX) => {
-  return getFirebaseDocumentsByWhere('places', 'email', email, 'mapX', mapX).then((data) => {
-    return data.length > 0;
-  });
-};
-
-export const getSelectedPlace = (placeSelected) => {
-  return getSelectedFirebaseDocuments('places', 'mapX', placeSelected);
-}; // now, as soon as you arrive home, create methods that add restaurant data into firestore,
-// when the restaurant is clicked, 'places' collection is called, see if there is any other user who liked that 'places', and if there is one, return the user value
-// by pluging in the uid from 'places' to the 'users', rendering it with the map data.
