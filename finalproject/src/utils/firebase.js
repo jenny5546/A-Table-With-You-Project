@@ -11,14 +11,14 @@ export const FirestoreError = {
 
 export const initFirebase = () => {
   const firebaseConfig = {
-    apiKey: 'AIzaSyBSaHFq3eMNuqfceqfAuOgr5cV9VNJ9vlU',
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: 'eat-foods-with-you.firebaseapp.com',
     databaseURL: 'https://eat-foods-with-you.firebaseio.com',
     projectId: 'eat-foods-with-you',
     storageBucket: 'eat-foods-with-you.appspot.com',
     messagingSenderId: '935328497051',
     appId: '1:935328497051:web:f8456877534e3f0ff1f53e',
-    measurementId: 'G-EQFRV5TFJM',
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
   };
 
   firebase.initializeApp(firebaseConfig);
