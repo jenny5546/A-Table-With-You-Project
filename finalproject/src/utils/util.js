@@ -83,7 +83,7 @@ export const findUsersByPlace = (title, address, mapX, mapY) => {
 };
 
 export const finishMatch = (email, targetUserUid, title, address, mapX, mapY) => {
-  return updateFirebaseDocuments('places', ['title', 'address', 'mapX', 'mapY'], [title, address, mapX, mapY], {
+  return updateFirebaseDocuments('places', ['email', 'title', 'address', 'mapX', 'mapY'], [email, title, address, mapX, mapY], {
     isFinish: true,
     targetUserUid,
   });
