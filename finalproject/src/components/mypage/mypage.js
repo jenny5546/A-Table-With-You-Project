@@ -3,22 +3,37 @@ import IconButton from '@material-ui/core/IconButton';
 import ChatIcon from '@material-ui/icons/Chat';
 import HomeIcon from '@material-ui/icons/Home';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Flex, Image, Text } from 'rebass';
 import logo from '../../static/images/header-logo.png';
 import man from '../../static/images/man.png';
 import woman from '../../static/images/woman.png';
+import { findSelectedPlacesByUser } from '../../utils/util';
+import Line from '../line/line';
 import './mypage.css';
 
 const MyPage = () => {
+  const history = useHistory();
   const [userInfo, setUserInfo] = useState(null);
+  const [bucketList, setBucketList] = useState([]);
+
+  const goToChatRoom = (placeUid) => {
+    history.push(`/chat/${placeUid}`);
+  };
+
   useEffect(() => {
     const userData = localStorage.getItem('login-user');
     if (userData) {
       const loginUserData = JSON.parse(userData);
       setUserInfo(loginUserData);
+
+      findSelectedPlacesByUser(loginUserData.email).then((places) => {
+        setBucketList(places);
+      });
+    } else {
+      history.replace('/error/401');
     }
-  }, []);
+  }, [history]);
 
   return (
     <Flex
@@ -37,8 +52,8 @@ const MyPage = () => {
                 <Image src={userInfo.profileImagePath} sx={{ borderRadius: '50%' }} width="50px" height="50px" />
                 <Text as="span" mx="15px" fontSize={18} color="#7e91be;">
                   <Text as="span" fontWeight="bold">
-                    {userInfo.nickname}
-                  </Text>{' '}
+                    {`${userInfo.nickname} `}
+                  </Text>
                   님, 안녕하세요.
                 </Text>
                 <Link to="/">
@@ -51,7 +66,7 @@ const MyPage = () => {
           </Flex>
         )}
 
-        <div className="Line-mypage" />
+        <Line />
       </Flex>
       {userInfo ? (
         <div className="user-info">
@@ -78,22 +93,30 @@ const MyPage = () => {
           </div>
           <div className="table-list-title">찜한 식탁</div>
           <table>
-            <tr>
-              <th style={{ textAlign: 'center' }}>식탁 이름</th>
-              <th style={{ textAlign: 'center' }}>사랑방</th>
-            </tr>
-            <tr>
-              <td style={{ textAlign: 'center' }}>식탁 이름</td>
-              <td style={{ textAlign: 'center' }}>
-                <IconButton aria-label="go to home">
-                  <ChatIcon style={{ color: indigo[200] }} />
-                </IconButton>
-              </td>
-            </tr>
-            <tr>
-              <td style={{ textAlign: 'center' }}>식탁 이름</td>
-              <td style={{ textAlign: 'center' }}>아직 짝을 찾지 못했습니다</td>
-            </tr>
+            <thead>
+              <tr>
+                <th style={{ textAlign: 'center' }}>식탁 이름</th>
+                <th style={{ textAlign: 'center' }}>사랑방</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bucketList.map((bucket) => {
+                return (
+                  <tr>
+                    <td style={{ textAlign: 'center' }}>{`${bucket.title} (${bucket.address})`}</td>
+                    {bucket.isFinish ? (
+                      <td style={{ textAlign: 'center' }}>
+                        <IconButton aria-label="go to home" onClick={() => goToChatRoom(bucket.uid)}>
+                          <ChatIcon style={{ color: indigo[200] }} />
+                        </IconButton>
+                      </td>
+                    ) : (
+                      <td style={{ textAlign: 'center' }}>아직 짝을 찾지 못했습니다!</td>
+                    )}
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </div>
       ) : (

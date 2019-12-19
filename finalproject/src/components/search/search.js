@@ -9,8 +9,9 @@ import { Box, Flex, Image, Text } from 'rebass';
 import styled from 'styled-components';
 import loadingImage from '../../static/images/loading.gif';
 import logo from '../../static/images/logo.png';
-import { findSelectedPlacesByUser, findUser, findUsersByPlace, selectePlace } from '../../utils/util';
+import { findSelectedPlacesByUser, selectPlace, getPlace, findUsersByPlace, getPlaceByInfo } from '../../utils/util';
 import CustomButton from '../button/button';
+import Line from '../line/line';
 import './search.css';
 
 const LogoImg = styled.img`
@@ -38,44 +39,66 @@ const Search = () => {
   const history = useHistory();
   const { place: placeName } = useParams();
   const [restaurantList, setRestaurantList] = useState([]);
-  const [seledtedRestaurants, setSelectedRestaurants] = useState({});
+  const [selectedRestaurants, setSelectedRestaurants] = useState({});
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [startNumber, setStartNumber] = useState(1);
   const [selectedPlaces, setSelectedPlaces] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(true);
 
-  const onMatch = async (i) => {
+  const onFirstMatch = async (i) => {
     try {
       const restaurant = restaurantList[i];
-      await selectePlace(userInfo.email, restaurant.title, restaurant.address, restaurant.mapX, restaurant.mapY);
+      const placeUid = await selectPlace(
+        userInfo.email,
+        userInfo.uid,
+        restaurant.title,
+        restaurant.address,
+        restaurant.mapX,
+        restaurant.mapY
+      );
 
-      const data = await findUsersByPlace(restaurant.title, restaurant.address, restaurant.mapX, restaurant.mapY);
-      if (data.length === 0) {
-        setSelectedRestaurants((s) => ({ ...s, [restaurant.key]: true }));
-        alert('아직 이 식당을 찜한 다른 유저가 없습니다 ㅠㅠ 조금만 기다려주세요');
-        return;
-      }
-      localStorage.setItem('matched_restaurant_address', restaurant.address);
-      localStorage.setItem('matched_restaurant_roadAddress', restaurant.roadAddress);
+      setSelectedRestaurants((s) => ({ ...s, [restaurant.key]: true }));
+      // const data = await findUsersByPlace(restaurant.title, restaurant.address, restaurant.mapX, restaurant.mapY);
+      // if (data.length === 0) {
+      //   alert('아직 이 식당을 찜한 다른 유저가 없습니다 ㅠㅠ 조금만 기다려주세요');
+      //   return;
+      // }
+      // localStorage.setItem('matched_restaurant_address', restaurant.address);
+      // localStorage.setItem('matched_restaurant_roadAddress', restaurant.roadAddress);
 
-      const targetUser = await findUser(data[0].email);
-      localStorage.setItem('matched_user_name', targetUser.name);
-      localStorage.setItem('matched_user_phone', targetUser.phone);
-      localStorage.setItem('matched_user_uid', targetUser.uid);
+      // const filter = data.filter((user) => user.uid !== userInfo.uid);
+      // const targetUser = await findUser(filter[Math.floor(Math.random() * filter.length)].email);
+      // localStorage.setItem('matched_user_name', targetUser.name);
+      // localStorage.setItem('matched_user_phone', targetUser.phone);
+      // localStorage.setItem('matched_user_uid', targetUser.uid);
 
-      history.push(`/match`);
+      history.push(`/match/${placeUid}`);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const redirectToMyPage = () => {
-    history.push('/mypage');
+  const onSecondMatch = async (i) => {
+    try {
+      const restaurant = restaurantList[i];
+      const place = await getPlaceByInfo(
+        userInfo.email,
+        restaurant.title,
+        restaurant.address,
+        restaurant.mapX,
+        restaurant.mapY
+      );
+      if (place) {
+        history.push(`/match/${place.uid}`);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const onAlreadyMatched = () => {
-    // e.preventDefault();
-    alert('이미 찜하였습니다');
+  const redirectToMyPage = () => {
+    history.push('/mypage');
   };
 
   const addSearchPlaces = (query, start = 1, display = 30) => {
@@ -147,19 +170,23 @@ const Search = () => {
       findSelectedPlacesByUser(loginUserData.email).then((places) => {
         setSelectedPlaces(places.map((place) => `${place.title}/${place.address}`));
       });
+    } else {
+      history.replace('/error/401');
     }
-  }, []);
+  }, [history]);
 
   useEffect(() => {
-    addSearchPlaces(placeName);
+    addSearchPlaces(placeName).then(() => {
+      setSearchLoading(false);
+    });
   }, [placeName]);
 
   useEffect(() => {
     if (userInfo) {
-      const selectedRestaurants = restaurantList.filter((restaurant) => {
+      const selectedRestaurantList = restaurantList.filter((restaurant) => {
         return selectedPlaces.includes(restaurant.key);
       });
-      selectedRestaurants.forEach(async (restaurant) => {
+      selectedRestaurantList.forEach(async (restaurant) => {
         setSelectedRestaurants((s) => {
           return { ...s, [restaurant.key]: true };
         });
@@ -167,17 +194,22 @@ const Search = () => {
     }
   }, [userInfo, restaurantList, selectedPlaces]);
 
-  if (restaurantList.length > 0) {
+  if (!searchLoading) {
     return (
       <Flex flexDirection="column" height="100%">
         <Box sx={{ position: 'relative' }}>
-          <Box sx={{ textAlign: 'right' }} mt={1}>
+          <Box sx={{ textAlign: 'right' }} mt="10px">
             <Box display="inline-block">
               <Flex alignItems="center">
-                <Image src={userInfo.profileImagePath} sx={{ borderRadius: '50%' }} width="50px" height="50px" />
+                <Image
+                  src={userInfo && userInfo.profileImagePath}
+                  sx={{ borderRadius: '50%' }}
+                  width="50px"
+                  height="50px"
+                />
                 <Text as="span" mx="15px" fontSize={18} color="#7e91be;">
                   <Text as="span" fontWeight="bold">
-                    {userInfo.nickname}
+                    {userInfo && userInfo.nickname}
                   </Text>
                   님, 안녕하세요.
                 </Text>
@@ -196,7 +228,7 @@ const Search = () => {
               </Flex>
             </Box>
           </Box>
-          <div className="Line-search" />
+          <Line />
         </Box>
         <Box>
           <LogoImg src={logo} alt="logo" />
@@ -232,12 +264,12 @@ const Search = () => {
                       <td className="phone">{restaurant.telephone}</td>
                       <td className="address">{restaurant.address}</td>
                       <td className="liked">
-                        {seledtedRestaurants[restaurant.key] ? (
-                          <IconButton className="like-button" aria-label="like" onClick={onAlreadyMatched}>
+                        {selectedRestaurants[restaurant.key] ? (
+                          <IconButton className="like-button" aria-label="like" onClick={() => onSecondMatch(i)}>
                             <FavoriteIcon style={{ color: pink[200] }} />
                           </IconButton>
                         ) : (
-                          <IconButton className="like-button" aria-label="like" id={i} onClick={() => onMatch(i)}>
+                          <IconButton className="like-button" aria-label="like" id={i} onClick={() => onFirstMatch(i)}>
                             <FavoriteBorderOutlinedIcon style={{ color: pink[200] }} />
                           </IconButton>
                         )}
@@ -263,9 +295,9 @@ const Search = () => {
     );
   }
   return (
-    <div className="loading-background">
+    <Box width="100vw" height="100vh" backgroundColor="#fceef45b">
       <img src={loadingImage} className="loading-gif" alt="loading-gif" />
-    </div>
+    </Box>
   );
 };
 

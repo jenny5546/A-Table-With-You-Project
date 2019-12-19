@@ -1,44 +1,42 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 @import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
-.match-body {
-  position: relative;
-}
+
 .Background-image {
-  margin-top: 10px;
   width: 100%;
+  height: 100%;
   opacity: 50%;
   color: pink;
-  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
+
 .yangPic {
-  position: absolute;
+  display: inline-block;
   width: 343px;
   height: 307px;
-  left: 234px;
-  top: 305px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 187.5px;
   z-index: 2;
 }
+
 .mapPic {
-  position: absolute;
+  display: inline-block;
   width: 343px;
   height: 307px;
-  left: 774px;
-  top: 305px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 187.5px;
   z-index: 2;
 }
+
 .heartIcon {
-  position: absolute;
   width: 45px;
   height: 50px;
-  left: 530px;
-  top: 320px;
   z-index: 1;
-  transform: rotate(25deg);
+  transform: rotate(25deg) translateX(-100%);
 }
+
 .align-right-matchpage {
   text-align: right;
   margin-top: 50px;
@@ -47,17 +45,14 @@
   right: 0;
   margin-right: 2%;
 }
+
 .title-box {
-  margin-top: 10px;
-  position: absolute;
-  top: 0px;
   z-index: 1;
   background-color: rgba(226, 215, 215, 0.5);
-  width: 1370px;
   height: 133px;
   color: rgba(255, 85, 85, 0.7);
   font-family: 'Pacifico', cursive;
-  font-: bold;
+  font-weight: bold;
   font-size: 60px;
   line-height: 80px;
   line-height: 100%;
@@ -67,139 +62,10 @@
 
 .title-box2 {
   position: absolute;
-  top: 150px;
-  left: 142px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
   background-color: rgba(255, 211, 211, 0.3);
-  width: 1086px;
-  height: 635px;
-}
-
-.text-box1 {
-  position: absolute;
-  top: 180px;
-  left: 210px;
-  z-index: 1;
-  color: rgba(132, 64, 55, 0.99);
-  font-family: 'Noto Sans KR';
-  font-style: bold;
-  font-size: 40px;
-  line-height: 70px;
-  line-height: 100%;
-  text-align: center;
-  width: 387px;
-  height: 134px;
-  fill: Solid;
-}
-
-.text-box2 {
-  position: absolute;
-  top: 230px;
-  left: 210px;
-  z-index: 1;
-  color: rgba(132, 64, 55, 0.99);
-  font-family: 'Noto Sans KR';
-  font-style: bold;
-  font-size: 40px;
-  line-height: 70px;
-  line-height: 100%;
-  text-align: center;
-  width: 387px;
-  height: 134px;
-  fill: Solid;
-}
-.text-box3 {
-  position: absolute;
-  top: 180px;
-  left: 750px;
-  z-index: 1;
-  color: rgba(132, 64, 55, 0.99);
-  font-family: 'Noto Sans KR';
-  font-style: bold;
-  font-size: 40px;
-  line-height: 70px;
-  line-height: 100%;
-  text-align: center;
-  width: 387px;
-  height: 134px;
-  fill: Solid;
-}
-.text-box4 {
-  position: absolute;
-  top: 230px;
-  left: 750px;
-  z-index: 1;
-  color: rgba(132, 64, 55, 0.99);
-  font-family: 'Noto Sans KR';
-  font-style: bold;
-  font-size: 40px;
-  line-height: 70px;
-  line-height: 100%;
-  text-align: center;
-  width: 387px;
-  height: 134px;
-  fill: Solid;
-}
-.text-box5 {
-  position: absolute;
-  top: 650px;
-  left: 210px;
-  z-index: 1;
-  color: #41150f;
-  font-family: 'Noto Sans KR';
-  font-style: bold;
-  font-size: 40px;
-  line-height: 70px;
-  line-height: 100%;
-  text-align: center;
-  width: 387px;
-  height: 134px;
-  fill: Solid;
-}
-.text-box6 {
-  position: absolute;
-  top: 700px;
-  left: 210px;
-  z-index: 1;
-  color: #41150f;
-  font-family: 'Noto Sans KR';
-  font-style: bold;
-  font-size: 40px;
-  line-height: 70px;
-  line-height: 100%;
-  text-align: center;
-  width: 387px;
-  height: 134px;
-  fill: Solid;
-}
-.text-box7 {
-  position: absolute;
-  top: 650px;
-  left: 750px;
-  z-index: 1;
-  color: #41150f;
-  font-family: 'Noto Sans KR';
-  font-style: bold;
-  font-size: 40px;
-  line-height: 70px;
-  line-height: 100%;
-  text-align: center;
-  width: 387px;
-  height: 134px;
-  fill: Solid;
-}
-.text-box8 {
-  position: absolute;
-  top: 700px;
-  left: 750px;
-  z-index: 1;
-  color: #41150f;
-  font-family: 'Noto Sans KR';
-  font-style: bold;
-  font-size: 40px;
-  line-height: 70px;
-  line-height: 100%;
-  text-align: center;
-  width: 387px;
-  height: 134px;
-  fill: Solid;
+  z-index: -1;
 }

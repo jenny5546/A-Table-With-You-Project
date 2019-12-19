@@ -23,6 +23,7 @@ import spoon from '../../static/images/spoon.png';
 import { signIn } from '../../utils/auth';
 import CustomButton from '../button/button';
 import './home.css';
+import Line from '../line/line';
 
 const slideImages = [mainpic3, mainpic4, mainpic5, mainpic6, mainpic7, mainpic8, mainpic9];
 const properties = {
@@ -180,7 +181,7 @@ const Home = () => {
           </div>
         )}
 
-        <div className="Line" />
+        <Line />
       </header>
 
       <div className="App-body">
