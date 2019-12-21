@@ -1,6 +1,10 @@
 # 너랑..뭐 먹지? 프로젝트 
 ## 벤처웹프로그래밍1 기말 프로젝트 
 
+
+배포 사이트 링크: https://eat-foods-with-you.firebaseapp.com/
+
+
 ![logo](./src/static/images/logo.png)
 ### Development
 
